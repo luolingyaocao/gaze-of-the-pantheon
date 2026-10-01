@@ -26,7 +26,8 @@ public class GazeJeiPlugin implements IModPlugin {
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(
-                new FusangRitualCategory(registration.getJeiHelpers().getGuiHelper())
+                new FusangRitualCategory(registration.getJeiHelpers().getGuiHelper()),
+                new HermesSandalsCategory(registration.getJeiHelpers().getGuiHelper())
         );
     }
 
@@ -36,13 +37,23 @@ public class GazeJeiPlugin implements IModPlugin {
                 FusangRitualCategory.RECIPE_TYPE,
                 List.of(new FusangRitualCategory.Recipe())
         );
+        registration.addRecipes(
+                HermesSandalsCategory.RECIPE_TYPE,
+                List.of(new HermesSandalsCategory.Recipe())
+        );
     }
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
+        // 金乌翎羽 → 扶桑祭祀
         registration.addRecipeCatalyst(
                 new ItemStack(ModItems.GOLDEN_CROW_FEATHER.get()),
                 FusangRitualCategory.RECIPE_TYPE
+        );
+        // 赫尔墨斯的枷锁 → 草鞋掉落
+        registration.addRecipeCatalyst(
+                new ItemStack(ModItems.HERMES.get()),
+                HermesSandalsCategory.RECIPE_TYPE
         );
     }
 }

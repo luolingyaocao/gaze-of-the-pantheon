@@ -92,6 +92,10 @@
   "jei.gazeofthepantheon.block.gold": "Gold Block (Player Stands Here)",
   "jei.gazeofthepantheon.block.dirt_sapling": "Dirt (Sapling on Top)",
   "jei.gazeofthepantheon.block.quartz": "Smooth Quartz",
+  "jei.gazeofthepantheon.hermes_sandals": "Obtaining Hermes's Sandals",
+  "jei.gazeofthepantheon.hermes_sandals.condition": "While wearing Hermes's Shackles, mine the following:",
+  "jei.gazeofthepantheon.hermes_sandals.condition.tooltip": "Only triggers with the cursed version (Shackles); blessed (Dash) drops nothing. Survival mode only.",
+  "jei.gazeofthepantheon.hermes_sandals.chance": "Drop rate: 0.1% (about 2 per netherite pickaxe)",
 
   "message.gazeofthepantheon.thanatos_kindness.triggered": "§6Death turned you away.",
   "message.gazeofthepantheon.thanatos_wrath.death": "§4In your final moments, take one last look at this world.",

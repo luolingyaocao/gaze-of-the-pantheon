@@ -92,6 +92,10 @@
   "jei.gazeofthepantheon.block.gold": "金块（玩家站于此）",
   "jei.gazeofthepantheon.block.dirt_sapling": "泥土（上方种树苗）",
   "jei.gazeofthepantheon.block.quartz": "平滑石英",
+  "jei.gazeofthepantheon.hermes_sandals": "赫尔墨斯草鞋的获取",
+  "jei.gazeofthepantheon.hermes_sandals.condition": "佩戴赫尔墨斯的枷锁时，挖掘以下方块：",
+  "jei.gazeofthepantheon.hermes_sandals.condition.tooltip": "只有诅咒版（枷锁）触发；祝福版（疾驰）不掉落。仅在生存模式生效。",
+  "jei.gazeofthepantheon.hermes_sandals.chance": "掉落概率：0.1%（一把下界合金镐约出 2 个）",
 
   "message.gazeofthepantheon.thanatos_kindness.triggered": "§6死亡拒绝了你",
   "message.gazeofthepantheon.thanatos_wrath.death": "§4弥留之际，再看看这个世界吧",
