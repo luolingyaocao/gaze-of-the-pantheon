@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:end_crystal"
+    },
+    {
+      "item": "minecraft:shield"
+    },
+    {
+      "item": "minecraft:netherite_sword"
+    }
+  ],
+  "result": {
+    "item": "gazeofthepantheon:war_gods_recognition"
+  }
+}

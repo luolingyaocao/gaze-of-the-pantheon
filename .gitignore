@@ -1,0 +1,27 @@
+# Gradle
+.gradle/
+build/
+out/
+
+# IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Eclipse
+.settings/
+.classpath
+.project
+
+# Minecraft 运行目录
+run/
+run-data/
+
+# 系统
+.DS_Store
+Thumbs.db
+
+# 日志与崩溃报告
+logs/
+crash-reports/

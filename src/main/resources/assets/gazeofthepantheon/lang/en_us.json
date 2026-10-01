@@ -1,0 +1,111 @@
+{
+  "itemGroup.gazeofthepantheon": "Gaze of the Pantheon",
+
+  "item.gazeofthepantheon.thanatos_wrath": "Thanatos's Wrath",
+  "item.gazeofthepantheon.thanatos_kindness": "Thanatos's Kindness",
+  "item.gazeofthepantheon.hygieia_wrath": "Hygieia's Withering",
+  "item.gazeofthepantheon.hygieia_kindness": "Hygieia's Abundance",
+  "item.gazeofthepantheon.ares_wrath": "Ares's Strife",
+  "item.gazeofthepantheon.ares_kindness": "Ares's Aegis",
+  "item.gazeofthepantheon.hermes_wrath": "Hermes's Shackles",
+  "item.gazeofthepantheon.hermes_kindness": "Hermes's Dash",
+  "item.gazeofthepantheon.xihe_wrath": "Xihe's Worldflame",
+  "item.gazeofthepantheon.xihe_kindness": "Xihe's Grace",
+  "item.gazeofthepantheon.soul_contract": "Soul Contract",
+  "item.gazeofthepantheon.deaths_recognition": "Death's Recognition",
+  "item.gazeofthepantheon.medicine_gods_recognition": "Medicine God's Recognition",
+  "item.gazeofthepantheon.war_gods_recognition": "War God's Recognition",
+  "item.gazeofthepantheon.messengers_recognition": "Messenger's Recognition",
+  "item.gazeofthepantheon.hermes_sandals": "Hermes's Sandals",
+  "item.gazeofthepantheon.fusang_dew": "Dew of Fusang",
+  "item.gazeofthepantheon.golden_crow_feather": "Golden Crow's Plume",
+  "item.gazeofthepantheon.marked_dirt": "Death Has Its Eyes on You",
+
+  "tooltip.gazeofthepantheon.marked_dirt.desc": "§7Place the dirt into a crafting table and offer your soul to Death, so He shall trouble you no more.",
+
+  "tooltip.gazeofthepantheon.thanatos_wrath.desc": "§4Gaze · Death Is the End",
+  "tooltip.gazeofthepantheon.thanatos_wrath.effect": "§cThe dead don't come back. You know that.",
+  "tooltip.gazeofthepantheon.thanatos_wrath.locked": "§7Cannot be removed",
+
+  "tooltip.gazeofthepantheon.thanatos_kindness.desc": "§6Gaze · Beyond Life and Death",
+  "tooltip.gazeofthepantheon.thanatos_kindness.effect": "§eThanatos will no longer meddle in your cycle of life and death—so long as you don't wish to die.",
+
+  "tooltip.gazeofthepantheon.hygieia_wrath.desc": "§4Gaze · Vitality Severed",
+  "tooltip.gazeofthepantheon.hygieia_wrath.effect": "§cWounds no longer heal on their own. Only firelight and dreams grant you brief respite.",
+  "tooltip.gazeofthepantheon.hygieia_wrath.locked": "§7Cannot be removed",
+
+  "tooltip.gazeofthepantheon.hygieia_kindness.desc": "§6Gaze · Vitality Abundant",
+  "tooltip.gazeofthepantheon.hygieia_kindness.effect": "§eHygieia watches over you. Life force surges without end.",
+
+  "tooltip.gazeofthepantheon.ares_wrath.desc": "§4Gaze · War Unbound",
+  "tooltip.gazeofthepantheon.ares_wrath.effect": "§cAres's fury burns within you. Everywhere, hostility.",
+  "tooltip.gazeofthepantheon.ares_wrath.locked": "§7Cannot be removed",
+
+  "tooltip.gazeofthepantheon.ares_kindness.desc": "§6Gaze · Aegis of Ares",
+  "tooltip.gazeofthepantheon.ares_kindness.effect": "§eAres grants you victory. The eyes of your enemies slip from you.",
+
+  "tooltip.gazeofthepantheon.hermes_wrath.desc": "§4Gaze · Heavy Shackles",
+  "tooltip.gazeofthepantheon.hermes_wrath.effect": "§cEvery step weighs like lead.",
+  "tooltip.gazeofthepantheon.hermes_wrath.locked": "§7Cannot be removed",
+
+  "tooltip.gazeofthepantheon.hermes_kindness.desc": "§6Gaze · Swift as the Wind",
+
+  "tooltip.gazeofthepantheon.xihe_wrath.desc": "§4Gaze: Scorching Sun Doth Burn the Flesh",
+  "tooltip.gazeofthepantheon.xihe_wrath.effect": "§cFlame Clings unto Thy Flesh, Its Blaze Doth Seethe",
+  "tooltip.gazeofthepantheon.xihe_wrath.locked": "§7May Not Be Removed",
+
+  "tooltip.gazeofthepantheon.xihe_kindness.desc": "§6Gaze: Dawn's Light Doth Shield Thee",
+  "tooltip.gazeofthepantheon.xihe_kindness.effect": "§eBorn in Fire, Thou Dost Find Rest in Flame",
+
+  "tooltip.gazeofthepantheon.soul_contract.desc": "§7Offer your soul with both hands, and Death may absolve your sins.",
+  "tooltip.gazeofthepantheon.soul_contract.use": "§5Right-click: Destroy \"Thanatos's Wrath\" in the Gaze slot",
+
+  "tooltip.gazeofthepantheon.deaths_recognition.desc": "§7Congratulations. Death has truly set its gaze upon you.",
+  "tooltip.gazeofthepantheon.deaths_recognition.use": "§6Right-click: Convert \"Thanatos's Wrath\" in the Gaze slot into \"Thanatos's Kindness\"",
+
+  "tooltip.gazeofthepantheon.medicine_gods_recognition.desc": "§7A gaze from the Medicine God.",
+  "tooltip.gazeofthepantheon.medicine_gods_recognition.use": "§6Right-click: Convert \"Hygieia's Withering\" in the Gaze slot into \"Hygieia's Abundance\"",
+
+  "tooltip.gazeofthepantheon.war_gods_recognition.desc": "§7A gaze from the War God.",
+  "tooltip.gazeofthepantheon.war_gods_recognition.use": "§6Right-click: Convert \"Ares's Strife\" in the Gaze slot into \"Ares's Aegis\"",
+
+  "tooltip.gazeofthepantheon.messengers_recognition.desc": "§7A gaze from the Messenger God.",
+  "tooltip.gazeofthepantheon.messengers_recognition.use": "§6Right-click: Convert \"Hermes's Shackles\" in the Gaze slot into \"Hermes's Dash\"",
+
+  "tooltip.gazeofthepantheon.hermes_sandals.desc": "§7Footprints left by the Messenger.",
+
+  "tooltip.gazeofthepantheon.fusang_dew.desc": "§7At Sunrising, Dew Gathereth upon Fusang",
+  "tooltip.gazeofthepantheon.fusang_dew.use": "§6Right-click to use: Transform \"Xihe's Worldflame\" in the Gaze Slot into \"Xihe's Grace\"",
+
+  "tooltip.gazeofthepantheon.golden_crow_feather.desc": "§7A Plume Left by the Golden Crow, That Doth Answer the Sun",
+  "tooltip.gazeofthepantheon.golden_crow_feather.use": "§6When the Sun Riseth from Fusang, Hold This and Offer It, and Thou Shalt Call Xihe's Gaze",
+
+  "curios.identifier.gaze": "Gaze",
+  "curios.modifiers.gaze": "§bCelestial Blessing:",
+
+  "key.categories.gazeofthepantheon": "Gaze of the Pantheon",
+  "key.gazeofthepantheon.toggle_hermes_gear": "Toggle Hermes Charge",
+
+  "message.gazeofthepantheon.thanatos_kindness.triggered": "§6Death turned you away.",
+  "message.gazeofthepantheon.thanatos_wrath.death": "§4In your final moments, take one last look at this world.",
+  "message.gazeofthepantheon.soul_contract.used": "§5\"The gods covet your soul.\"",
+  "message.gazeofthepantheon.soul_contract.failed": "§7\"Farewell. It has no meaning.\"",
+  "message.gazeofthepantheon.deaths_recognition.used": "§6\"Your death shall be forgiven.\"",
+  "message.gazeofthepantheon.deaths_recognition.failed": "§7\"There is no need to repeat this.\"",
+  "message.gazeofthepantheon.medicine_gods_recognition.used": "§6\"Your suffering shall be eased.\"",
+  "message.gazeofthepantheon.medicine_gods_recognition.failed": "§7\"You have no need of healing.\"",
+  "message.gazeofthepantheon.war_gods_recognition.used": "§6\"Take up your arms. Fight for glory.\"",
+  "message.gazeofthepantheon.war_gods_recognition.failed": "§7\"There is no strife in your hands.\"",
+  "message.gazeofthepantheon.messengers_recognition.used": "§6\"The winds clear your path.\"",
+  "message.gazeofthepantheon.messengers_recognition.failed": "§7\"You are not yet bound by the shackles.\"",
+  "message.gazeofthepantheon.fusang_dew.used": "§6The Light of Dawn Hath Come; the Fire of Karma Is Washed Clean",
+  "message.gazeofthepantheon.fusang_dew.failed": "§7No Fire Dwells in Thee; Wherefore Dost Thou Seek the Dawn?",
+  "message.gazeofthepantheon.hygieia_wrath.wake_up": "§aYou wake up full of energy.",
+  "message.gazeofthepantheon.hermes.gear_changed": "§bCharge: %s%%",
+
+  "message.gazeofthepantheon.command.decree.to_blessed": "§6Converted %s to its blessed form.",
+  "message.gazeofthepantheon.command.decree.to_wrath": "§4Converted %s to its cursed form.",
+  "message.gazeofthepantheon.command.decree.not_found": "§7No such curio in the Gaze slot.",
+  "message.gazeofthepantheon.command.delete.success": "§6Removed %s from the Gaze slot.",
+  "message.gazeofthepantheon.command.delete.not_found": "§7No such curio in the Gaze slot."
+}

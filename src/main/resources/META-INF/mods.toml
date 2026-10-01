@@ -1,0 +1,35 @@
+modLoader = "javafml"
+loaderVersion = "[47,)"
+license = "MIT"
+
+[[mods]]
+modId = "gazeofthepantheon"
+version = "1.0.4"
+displayName = "众神垂目"
+authors = "络灵瑶草"
+description = '''神有怒，亦有恩。
+怒则焚身、乱战、迟滞、断愈；
+恩则护体、息兵、迅捷、愈伤。
+一念之间，目光即降。
+万神垂目，所见皆汝。'''
+
+[[dependencies.gazeofthepantheon]]
+modId = "forge"
+mandatory = true
+versionRange = "[47.4.13,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.gazeofthepantheon]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.20.1,1.21)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.gazeofthepantheon]]
+modId = "curios"
+mandatory = true
+versionRange = "[5.14.1,)"
+ordering = "AFTER"
+side = "BOTH"

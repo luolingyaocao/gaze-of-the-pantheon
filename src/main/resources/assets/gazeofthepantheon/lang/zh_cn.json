@@ -1,0 +1,111 @@
+{
+  "itemGroup.gazeofthepantheon": "众神垂目",
+
+  "item.gazeofthepantheon.thanatos_wrath": "塔纳托斯的愠怒",
+  "item.gazeofthepantheon.thanatos_kindness": "塔纳托斯的善意",
+  "item.gazeofthepantheon.hygieia_wrath": "许癸厄亚的衰竭",
+  "item.gazeofthepantheon.hygieia_kindness": "许癸厄亚的丰饶",
+  "item.gazeofthepantheon.ares_wrath": "阿瑞斯的纷争",
+  "item.gazeofthepantheon.ares_kindness": "阿瑞斯的战佑",
+  "item.gazeofthepantheon.hermes_wrath": "赫尔墨斯的枷锁",
+  "item.gazeofthepantheon.hermes_kindness": "赫尔墨斯的疾驰",
+  "item.gazeofthepantheon.xihe_wrath": "羲和之焚世",
+  "item.gazeofthepantheon.xihe_kindness": "羲和之恩泽",
+  "item.gazeofthepantheon.soul_contract": "灵魂契约",
+  "item.gazeofthepantheon.deaths_recognition": "死神的认可",
+  "item.gazeofthepantheon.medicine_gods_recognition": "医神的认可",
+  "item.gazeofthepantheon.war_gods_recognition": "战神的认可",
+  "item.gazeofthepantheon.messengers_recognition": "神使的认可",
+  "item.gazeofthepantheon.hermes_sandals": "赫尔墨斯的草鞋",
+  "item.gazeofthepantheon.fusang_dew": "扶桑朝露",
+  "item.gazeofthepantheon.golden_crow_feather": "金乌翎羽",
+  "item.gazeofthepantheon.marked_dirt": "死神盯上了你",
+
+  "tooltip.gazeofthepantheon.marked_dirt.desc": "§7将泥土放入合成台，将灵魂献予死神，祂就不会再为难你了",
+
+  "tooltip.gazeofthepantheon.thanatos_wrath.desc": "§4注视·死亡乃终",
+  "tooltip.gazeofthepantheon.thanatos_wrath.effect": "§c人死不能复生，你明白的",
+  "tooltip.gazeofthepantheon.thanatos_wrath.locked": "§7不可取下",
+
+  "tooltip.gazeofthepantheon.thanatos_kindness.desc": "§6注视·超越生死",
+  "tooltip.gazeofthepantheon.thanatos_kindness.effect": "§e塔纳托斯不会再管你的生死轮回，只要你不想死",
+
+  "tooltip.gazeofthepantheon.hygieia_wrath.desc": "§4注视·生机断绝",
+  "tooltip.gazeofthepantheon.hygieia_wrath.effect": "§c伤口不再自行愈合，唯有火光与梦境能给你片刻安宁",
+  "tooltip.gazeofthepantheon.hygieia_wrath.locked": "§7不可取下",
+
+  "tooltip.gazeofthepantheon.hygieia_kindness.desc": "§6注视·生机盎然",
+  "tooltip.gazeofthepantheon.hygieia_kindness.effect": "§e许癸厄亚庇佑着你，生命力源源不断地涌现",
+
+  "tooltip.gazeofthepantheon.ares_wrath.desc": "§4注视·战火燎原",
+  "tooltip.gazeofthepantheon.ares_wrath.effect": "§c阿瑞斯的怒火在你体内燃烧，敌意无处不在",
+  "tooltip.gazeofthepantheon.ares_wrath.locked": "§7不可取下",
+
+  "tooltip.gazeofthepantheon.ares_kindness.desc": "§6注视·战神庇佑",
+  "tooltip.gazeofthepantheon.ares_kindness.effect": "§e阿瑞斯将胜利赐予你，敌人的目光从你身上滑落",
+
+  "tooltip.gazeofthepantheon.hermes_wrath.desc": "§4注视·身负重枷",
+  "tooltip.gazeofthepantheon.hermes_wrath.effect": "§c每一步都沉重如铅",
+  "tooltip.gazeofthepantheon.hermes_wrath.locked": "§7不可取下",
+
+  "tooltip.gazeofthepantheon.hermes_kindness.desc": "§6注视·神行千里",
+
+  "tooltip.gazeofthepantheon.xihe_wrath.desc": "§4注视·焦阳焚身",
+  "tooltip.gazeofthepantheon.xihe_wrath.effect": "§c炎附其躯，其焰灼灼",
+  "tooltip.gazeofthepantheon.xihe_wrath.locked": "§7不可取下",
+
+  "tooltip.gazeofthepantheon.xihe_kindness.desc": "§6注视·曦光所庇",
+  "tooltip.gazeofthepantheon.xihe_kindness.effect": "§e入火而生，受炎为息",
+
+  "tooltip.gazeofthepantheon.soul_contract.desc": "§7双手奉上你的灵魂，死神可以赦免你的罪孽",
+  "tooltip.gazeofthepantheon.soul_contract.use": "§5右键使用：销毁注视栏中’塔纳托斯的愠怒‘",
+
+  "tooltip.gazeofthepantheon.deaths_recognition.desc": "§7恭喜，死神真正向你投来了注视",
+  "tooltip.gazeofthepantheon.deaths_recognition.use": "§6右键使用：将注视栏中的’塔纳托斯愠怒‘转化为’塔纳托斯的善意‘",
+
+  "tooltip.gazeofthepantheon.medicine_gods_recognition.desc": "§7医神投来的注视",
+  "tooltip.gazeofthepantheon.medicine_gods_recognition.use": "§6右键使用：将注视栏中的’许癸厄亚衰竭‘转化为’许癸厄亚的丰饶‘",
+
+  "tooltip.gazeofthepantheon.war_gods_recognition.desc": "§7战神投来的注视",
+  "tooltip.gazeofthepantheon.war_gods_recognition.use": "§6右键使用：将注视栏中的’阿瑞斯纷争‘转化为’阿瑞斯的战佑‘",
+
+  "tooltip.gazeofthepantheon.messengers_recognition.desc": "§7神使投来的注视",
+  "tooltip.gazeofthepantheon.messengers_recognition.use": "§6右键使用：将注视栏中的’赫尔墨斯枷锁‘转化为’赫尔墨斯的疾驰‘",
+
+  "tooltip.gazeofthepantheon.hermes_sandals.desc": "§7神使留下的足迹",
+
+  "tooltip.gazeofthepantheon.fusang_dew.desc": "§7日出之时，扶桑凝露",
+  "tooltip.gazeofthepantheon.fusang_dew.use": "§6右键使用：将注视栏中的’羲和之焚世‘转化为’羲和之恩泽‘",
+
+  "tooltip.gazeofthepantheon.golden_crow_feather.desc": "§7金乌遗羽，感日而应",
+  "tooltip.gazeofthepantheon.golden_crow_feather.use": "§6日出于扶桑，持此祭之，可召羲和之顾",
+
+  "curios.identifier.gaze": "注视",
+  "curios.modifiers.gaze": "§b星降恩典：",
+
+  "key.categories.gazeofthepantheon": "众神垂目",
+  "key.gazeofthepantheon.toggle_hermes_gear": "切换赫尔墨斯奔袭",
+
+  "message.gazeofthepantheon.thanatos_kindness.triggered": "§6死亡拒绝了你",
+  "message.gazeofthepantheon.thanatos_wrath.death": "§4弥留之际，再看看这个世界吧",
+  "message.gazeofthepantheon.soul_contract.used": "§5\"你的灵魂令众神垂涎\"",
+  "message.gazeofthepantheon.soul_contract.failed": "§7\"别了，那没有意义\"",
+  "message.gazeofthepantheon.deaths_recognition.used": "§6\"你的死亡将被赦免\"",
+  "message.gazeofthepantheon.deaths_recognition.failed": "§7\"同样的事情，没有再进行一次的必要\"",
+  "message.gazeofthepantheon.medicine_gods_recognition.used": "§6\"你的苦痛将被抚平\"",
+  "message.gazeofthepantheon.medicine_gods_recognition.failed": "§7\"你并不需要医治\"",
+  "message.gazeofthepantheon.war_gods_recognition.used": "§6\"拿起武器，为荣耀而战\"",
+  "message.gazeofthepantheon.war_gods_recognition.failed": "§7\"你手中并无纷争\"",
+  "message.gazeofthepantheon.messengers_recognition.used": "§6\"风为你让路\"",
+  "message.gazeofthepantheon.messengers_recognition.failed": "§7\"你尚未被枷锁束缚\"",
+  "message.gazeofthepantheon.fusang_dew.used": "§6曦光既至，业火尽洗",
+  "message.gazeofthepantheon.fusang_dew.failed": "§7尔身无火，何须曦光",
+  "message.gazeofthepantheon.hygieia_wrath.wake_up": "§a一觉醒来，你精力充沛",
+  "message.gazeofthepantheon.hermes.gear_changed": "§b奔袭：%s%%",
+
+  "message.gazeofthepantheon.command.decree.to_blessed": "§6已转化 %s 为祝福版",
+  "message.gazeofthepantheon.command.decree.to_wrath": "§4已转化 %s 为诅咒版",
+  "message.gazeofthepantheon.command.decree.not_found": "§7注视栏中找不到该饰品",
+  "message.gazeofthepantheon.command.delete.success": "§6已删除注视栏中的 %s",
+  "message.gazeofthepantheon.command.delete.not_found": "§7注视栏中找不到该饰品"
+}
