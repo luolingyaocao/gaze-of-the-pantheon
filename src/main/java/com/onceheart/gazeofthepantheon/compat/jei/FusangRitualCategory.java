@@ -30,9 +30,11 @@ public class FusangRitualCategory implements IRecipeCategory<FusangRitualCategor
     private static final int HEIGHT = GRID_SIZE + PADDING + SLOT_AREA;
 
     private final IDrawable icon;
+    private final IDrawable background;
 
     public FusangRitualCategory(IGuiHelper guiHelper) {
         this.icon = guiHelper.createDrawableItemStack(new ItemStack(Items.GOLD_BLOCK));
+        this.background = guiHelper.createBlankDrawable(WIDTH, HEIGHT);
     }
 
     @Override
@@ -43,6 +45,11 @@ public class FusangRitualCategory implements IRecipeCategory<FusangRitualCategor
     @Override
     public Component getTitle() {
         return Component.translatable("jei.gazeofthepantheon.fusang_ritual");
+    }
+
+    @Override
+    public IDrawable getBackground() {
+        return background;
     }
 
     @Override
