@@ -86,6 +86,13 @@
   "key.categories.gazeofthepantheon": "Gaze of the Pantheon",
   "key.gazeofthepantheon.toggle_hermes_gear": "Toggle Hermes Charge",
 
+  "jei.gazeofthepantheon.fusang_ritual": "Fusang Ritual",
+  "jei.gazeofthepantheon.block.iron_pillar": "Iron Pillar (Glowstone on Top, 4 Blocks Tall)",
+  "jei.gazeofthepantheon.block.diamond": "Diamond Block",
+  "jei.gazeofthepantheon.block.gold": "Gold Block (Player Stands Here)",
+  "jei.gazeofthepantheon.block.dirt_sapling": "Dirt (Sapling on Top)",
+  "jei.gazeofthepantheon.block.quartz": "Smooth Quartz",
+
   "message.gazeofthepantheon.thanatos_kindness.triggered": "§6Death turned you away.",
   "message.gazeofthepantheon.thanatos_wrath.death": "§4In your final moments, take one last look at this world.",
   "message.gazeofthepantheon.soul_contract.used": "§5\"The gods covet your soul.\"",

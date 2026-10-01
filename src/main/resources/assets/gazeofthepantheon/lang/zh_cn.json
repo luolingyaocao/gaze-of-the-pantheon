@@ -86,6 +86,13 @@
   "key.categories.gazeofthepantheon": "众神垂目",
   "key.gazeofthepantheon.toggle_hermes_gear": "切换赫尔墨斯奔袭",
 
+  "jei.gazeofthepantheon.fusang_ritual": "扶桑祭祀",
+  "jei.gazeofthepantheon.block.iron_pillar": "铁块柱（顶端荧石，高四格）",
+  "jei.gazeofthepantheon.block.diamond": "钻石块",
+  "jei.gazeofthepantheon.block.gold": "金块（玩家站于此）",
+  "jei.gazeofthepantheon.block.dirt_sapling": "泥土（上方种树苗）",
+  "jei.gazeofthepantheon.block.quartz": "平滑石英",
+
   "message.gazeofthepantheon.thanatos_kindness.triggered": "§6死亡拒绝了你",
   "message.gazeofthepantheon.thanatos_wrath.death": "§4弥留之际，再看看这个世界吧",
   "message.gazeofthepantheon.soul_contract.used": "§5\"你的灵魂令众神垂涎\"",
