@@ -4,8 +4,11 @@ import com.onceheart.gazeofthepantheon.util.CuriosUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -20,6 +23,9 @@ import java.util.List;
 public class XiheItem extends Item implements ICurioItem {
 
     public static final String NBT_BLESSED = "Blessed";
+
+    /** 装备诅咒版时给予的抗火持续时间（5 分钟 = 6000 tick） */
+    private static final int WRATH_FIRE_RESIST_DURATION = 6000;
 
     public XiheItem(Properties properties) {
         super(properties);
@@ -57,6 +63,22 @@ public class XiheItem extends Item implements ICurioItem {
             return player.isCreative();
         }
         return true;
+    }
+
+    /** 装备瞬间：如果装备的是诅咒版，给一次 5 分钟抗火并提示 */
+    @Override
+    public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
+        if (!(slotContext.entity() instanceof ServerPlayer player)) return;
+        if (isBlessed(stack)) return;
+
+        player.addEffect(new MobEffectInstance(
+                MobEffects.FIRE_RESISTANCE,
+                WRATH_FIRE_RESIST_DURATION,
+                0,
+                false, false));
+
+        player.sendSystemMessage(Component.translatable(
+                "message.gazeofthepantheon.xihe_wrath.grace_period"));
     }
 
     @Override
