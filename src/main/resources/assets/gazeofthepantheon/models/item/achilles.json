@@ -1,13 +1,6 @@
 {
-  "parent": "minecraft:item/shield",
+  "parent": "minecraft:item/generated",
   "textures": {
-    "particle": "minecraft:entity/shield_base_nopattern"
-  },
-  "display": {
-    "gui": {
-      "rotation": [0, 0, 0],
-      "translation": [0, 0, 0],
-      "scale": [1, 1, 1]
-    }
+    "layer0": "minecraft:item/obsidian"
   }
 }
