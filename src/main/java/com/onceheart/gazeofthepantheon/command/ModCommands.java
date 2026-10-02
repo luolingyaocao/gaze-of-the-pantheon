@@ -2,6 +2,7 @@ package com.onceheart.gazeofthepantheon.command;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
+import com.mojang.brigadier.suggestion.SuggestionProvider;
 import com.onceheart.gazeofthepantheon.GazeOfThePantheon;
 import com.onceheart.gazeofthepantheon.event.ThanatosEventHandler;
 import com.onceheart.gazeofthepantheon.item.AresItem;
@@ -13,6 +14,7 @@ import com.onceheart.gazeofthepantheon.registry.ModItems;
 import com.onceheart.gazeofthepantheon.util.CuriosUtil;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.commands.SharedSuggestionProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -26,8 +28,22 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.List;
+
 @Mod.EventBusSubscriber(modid = GazeOfThePantheon.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ModCommands {
+
+    /** 注视饰品的全名 ID 列表，供 Tab 补全使用 */
+    private static final List<String> GAZE_ITEM_IDS = List.of(
+            GazeOfThePantheon.MOD_ID + ":thanatos",
+            GazeOfThePantheon.MOD_ID + ":hygieia",
+            GazeOfThePantheon.MOD_ID + ":ares",
+            GazeOfThePantheon.MOD_ID + ":hermes",
+            GazeOfThePantheon.MOD_ID + ":xihe"
+    );
+
+    private static final SuggestionProvider<CommandSourceStack> GAZE_SUGGESTIONS =
+            (ctx, builder) -> SharedSuggestionProvider.suggest(GAZE_ITEM_IDS, builder);
 
     @SubscribeEvent
     public static void onRegisterCommands(RegisterCommandsEvent event) {
@@ -39,12 +55,14 @@ public class ModCommands {
         dispatcher.register(Commands.literal("decree")
                 .requires(source -> source.hasPermission(2))
                 .then(Commands.argument("itemid", StringArgumentType.greedyString())
+                        .suggests(GAZE_SUGGESTIONS)
                         .executes(ctx -> handleDecree(ctx.getSource(),
                                 StringArgumentType.getString(ctx, "itemid").trim()))));
 
         dispatcher.register(Commands.literal("delete")
                 .requires(source -> source.hasPermission(2))
                 .then(Commands.argument("itemid", StringArgumentType.greedyString())
+                        .suggests(GAZE_SUGGESTIONS)
                         .executes(ctx -> handleDelete(ctx.getSource(),
                                 StringArgumentType.getString(ctx, "itemid").trim()))));
 
@@ -170,7 +188,6 @@ public class ModCommands {
         return 1;
     }
 
-    /** 根据注视栏位中的物品返回对应的显示行 */
     private static Component gazeLine(ItemStack stack) {
         if (stack.getItem() instanceof ThanatosItem) {
             return Component.translatable(ThanatosItem.isBlessed(stack)
@@ -200,9 +217,14 @@ public class ModCommands {
         return null;
     }
 
-    // ============ 已有方法保持不变 ============
+    // ============ decree / delete 通用 ============
 
     private static Item parseGazeItem(CommandSourceStack source, String id) {
+        // 简写支持：不含冒号时自动加本模组命名空间
+        if (!id.contains(":")) {
+            id = GazeOfThePantheon.MOD_ID + ":" + id;
+        }
+
         ResourceLocation rl = ResourceLocation.tryParse(id);
         if (rl == null) {
             source.sendFailure(Component.literal("§c无效的物品 ID：" + id));
