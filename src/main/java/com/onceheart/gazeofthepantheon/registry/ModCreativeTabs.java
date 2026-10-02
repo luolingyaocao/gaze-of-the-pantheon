@@ -23,6 +23,7 @@ public class ModCreativeTabs {
                         output.accept(ModItems.ARES.get());
                         output.accept(ModItems.HERMES.get());
                         output.accept(ModItems.XIHE.get());
+                        output.accept(ModItems.ACHILLES.get());
                         output.accept(ModItems.SOUL_CONTRACT.get());
                         output.accept(ModItems.DEATHS_RECOGNITION.get());
                         output.accept(ModItems.MEDICINE_GODS_RECOGNITION.get());
@@ -31,6 +32,7 @@ public class ModCreativeTabs {
                         output.accept(ModItems.HERMES_SANDALS.get());
                         output.accept(ModItems.FUSANG_DEW.get());
                         output.accept(ModItems.GOLDEN_CROW_FEATHER.get());
+                        output.accept(ModItems.STYX_INFUSION.get());
                     })
                     .build());
 

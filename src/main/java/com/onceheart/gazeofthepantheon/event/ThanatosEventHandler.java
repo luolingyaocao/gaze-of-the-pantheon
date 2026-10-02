@@ -1,6 +1,7 @@
 package com.onceheart.gazeofthepantheon.event;
 
 import com.onceheart.gazeofthepantheon.GazeOfThePantheon;
+import com.onceheart.gazeofthepantheon.item.AchillesItem;
 import com.onceheart.gazeofthepantheon.item.AresItem;
 import com.onceheart.gazeofthepantheon.item.HermesItem;
 import com.onceheart.gazeofthepantheon.item.HygieiaItem;
@@ -43,6 +44,7 @@ public class ThanatosEventHandler {
     private static final Map<UUID, ItemStack> SAVED_ARES = new HashMap<>();
     private static final Map<UUID, ItemStack> SAVED_HERMES = new HashMap<>();
     private static final Map<UUID, ItemStack> SAVED_XIHE = new HashMap<>();
+    private static final Map<UUID, ItemStack> SAVED_ACHILLES = new HashMap<>();
     private static final Map<UUID, Boolean> WRATH_DEATH = new HashMap<>();
 
     @SubscribeEvent
@@ -67,6 +69,7 @@ public class ThanatosEventHandler {
             CuriosUtil.tryEquipToGaze(player, new ItemStack(ModItems.ARES.get()));
             CuriosUtil.tryEquipToGaze(player, new ItemStack(ModItems.HERMES.get()));
             CuriosUtil.tryEquipToGaze(player, new ItemStack(ModItems.XIHE.get()));
+            CuriosUtil.tryEquipToGaze(player, new ItemStack(ModItems.ACHILLES.get()));
 
             ItemStack markedDirt = createMarkedDirt();
             if (!player.getInventory().add(markedDirt)) {
@@ -153,6 +156,9 @@ public class ThanatosEventHandler {
             } else if (stack.getItem() instanceof XiheItem) {
                 SAVED_XIHE.put(player.getUUID(), stack.copy());
                 it.remove();
+            } else if (stack.getItem() instanceof AchillesItem) {
+                SAVED_ACHILLES.put(player.getUUID(), stack.copy());
+                it.remove();
             }
         }
     }
@@ -184,6 +190,11 @@ public class ThanatosEventHandler {
         ItemStack savedXihe = SAVED_XIHE.remove(player.getUUID());
         if (savedXihe != null && !savedXihe.isEmpty()) {
             CuriosUtil.tryEquipToGaze(player, savedXihe);
+        }
+
+        ItemStack savedAchilles = SAVED_ACHILLES.remove(player.getUUID());
+        if (savedAchilles != null && !savedAchilles.isEmpty()) {
+            CuriosUtil.tryEquipToGaze(player, savedAchilles);
         }
 
         boolean wrathDeath = WRATH_DEATH.remove(player.getUUID()) != null;

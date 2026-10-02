@@ -11,6 +11,8 @@
   "item.gazeofthepantheon.hermes_kindness": "赫尔墨斯的疾驰",
   "item.gazeofthepantheon.xihe_wrath": "羲和之焚世",
   "item.gazeofthepantheon.xihe_kindness": "羲和之恩泽",
+  "item.gazeofthepantheon.achilles_wrath": "阿喀琉斯之踵",
+  "item.gazeofthepantheon.achilles_kindness": "阿喀琉斯的坚毅",
   "item.gazeofthepantheon.soul_contract": "灵魂契约",
   "item.gazeofthepantheon.deaths_recognition": "死神的认可",
   "item.gazeofthepantheon.medicine_gods_recognition": "医神的认可",
@@ -19,6 +21,7 @@
   "item.gazeofthepantheon.hermes_sandals": "赫尔墨斯的草鞋",
   "item.gazeofthepantheon.fusang_dew": "扶桑朝露",
   "item.gazeofthepantheon.golden_crow_feather": "金乌翎羽",
+  "item.gazeofthepantheon.styx_infusion": "冥河之浸",
   "item.gazeofthepantheon.marked_dirt": "死神盯上了你",
 
   "tooltip.gazeofthepantheon.marked_dirt.desc": "§7将泥土放入合成台，将灵魂献予死神，祂就不会再为难你了",
@@ -57,6 +60,13 @@
   "tooltip.gazeofthepantheon.xihe_kindness.desc": "§6注视·曦光所庇",
   "tooltip.gazeofthepantheon.xihe_kindness.effect": "§e入火而生，受炎为息",
 
+  "tooltip.gazeofthepantheon.achilles_wrath.desc": "§4注视·唯余死穴",
+  "tooltip.gazeofthepantheon.achilles_wrath.effect": "§c万甲皆虚，唯余肉身为凭",
+  "tooltip.gazeofthepantheon.achilles_wrath.locked": "§7不可取下",
+
+  "tooltip.gazeofthepantheon.achilles_kindness.desc": "§6注视·冥河之佑",
+  "tooltip.gazeofthepantheon.achilles_kindness.effect": "§e冥河之水，再度涌流",
+
   "tooltip.gazeofthepantheon.soul_contract.desc": "§7双手奉上你的灵魂，死神可以赦免你的罪孽",
   "tooltip.gazeofthepantheon.soul_contract.use": "§5右键使用：销毁注视栏中’塔纳托斯的愠怒‘",
 
@@ -79,6 +89,9 @@
 
   "tooltip.gazeofthepantheon.golden_crow_feather.desc": "§7金乌遗羽，感日而应",
   "tooltip.gazeofthepantheon.golden_crow_feather.use": "§6日出于扶桑，持此祭之，可召羲和之顾",
+
+  "tooltip.gazeofthepantheon.styx_infusion.desc": "§7冥河之水，令汝刀枪不入",
+  "tooltip.gazeofthepantheon.styx_infusion.use": "§6右键使用：将注视栏中的’阿喀琉斯之踵‘转化为’阿喀琉斯的坚毅‘",
 
   "curios.identifier.gaze": "注视",
   "curios.modifiers.gaze": "§b星降恩典：",
@@ -111,6 +124,8 @@
   "message.gazeofthepantheon.messengers_recognition.failed": "§7\"你尚未被枷锁束缚\"",
   "message.gazeofthepantheon.fusang_dew.used": "§6曦光既至，业火尽洗",
   "message.gazeofthepantheon.fusang_dew.failed": "§7尔身无火，何须曦光",
+  "message.gazeofthepantheon.styx_infusion.used": "§6冥河之水浸透你的身躯",
+  "message.gazeofthepantheon.styx_infusion.failed": "§7你并未背负那致命的死穴",
   "message.gazeofthepantheon.hygieia_wrath.wake_up": "§a一觉醒来，你精力充沛",
   "message.gazeofthepantheon.hermes.gear_changed": "§b奔袭：%s%%",
 
@@ -132,5 +147,7 @@
   "message.gazeofthepantheon.gaze.hermes_wrath": "§4赫尔墨斯·枷锁",
   "message.gazeofthepantheon.gaze.hermes_kindness": "§6赫尔墨斯·疾驰",
   "message.gazeofthepantheon.gaze.xihe_wrath": "§4羲和·焚世",
-  "message.gazeofthepantheon.gaze.xihe_kindness": "§6羲和·恩泽"
+  "message.gazeofthepantheon.gaze.xihe_kindness": "§6羲和·恩泽",
+  "message.gazeofthepantheon.gaze.achilles_wrath": "§4阿喀琉斯之踵",
+  "message.gazeofthepantheon.gaze.achilles_kindness": "§6阿喀琉斯·坚毅"
 }

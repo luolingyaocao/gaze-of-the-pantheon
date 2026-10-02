@@ -1,6 +1,7 @@
 package com.onceheart.gazeofthepantheon.registry;
 
 import com.onceheart.gazeofthepantheon.GazeOfThePantheon;
+import com.onceheart.gazeofthepantheon.item.AchillesItem;
 import com.onceheart.gazeofthepantheon.item.AresItem;
 import com.onceheart.gazeofthepantheon.item.DeathsRecognitionItem;
 import com.onceheart.gazeofthepantheon.item.FusangDewItem;
@@ -11,6 +12,7 @@ import com.onceheart.gazeofthepantheon.item.HygieiaItem;
 import com.onceheart.gazeofthepantheon.item.MedicineGodsRecognitionItem;
 import com.onceheart.gazeofthepantheon.item.MessengersRecognitionItem;
 import com.onceheart.gazeofthepantheon.item.SoulContractItem;
+import com.onceheart.gazeofthepantheon.item.StyxInfusionItem;
 import com.onceheart.gazeofthepantheon.item.ThanatosItem;
 import com.onceheart.gazeofthepantheon.item.WarGodsRecognitionItem;
 import com.onceheart.gazeofthepantheon.item.XiheItem;
@@ -40,6 +42,9 @@ public class ModItems {
     public static final RegistryObject<Item> XIHE = ITEMS.register("xihe",
             () -> new XiheItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
 
+    public static final RegistryObject<Item> ACHILLES = ITEMS.register("achilles",
+            () -> new AchillesItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
+
     public static final RegistryObject<Item> SOUL_CONTRACT = ITEMS.register("soul_contract",
             () -> new SoulContractItem(new Item.Properties().stacksTo(16).rarity(Rarity.RARE)));
 
@@ -63,6 +68,9 @@ public class ModItems {
 
     public static final RegistryObject<Item> GOLDEN_CROW_FEATHER = ITEMS.register("golden_crow_feather",
             () -> new GoldenCrowFeatherItem(new Item.Properties().stacksTo(16).rarity(Rarity.RARE)));
+
+    public static final RegistryObject<Item> STYX_INFUSION = ITEMS.register("styx_infusion",
+            () -> new StyxInfusionItem(new Item.Properties().stacksTo(16).rarity(Rarity.EPIC)));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

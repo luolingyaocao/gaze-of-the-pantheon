@@ -11,6 +11,8 @@
   "item.gazeofthepantheon.hermes_kindness": "Hermes's Dash",
   "item.gazeofthepantheon.xihe_wrath": "Xihe's Worldflame",
   "item.gazeofthepantheon.xihe_kindness": "Xihe's Grace",
+  "item.gazeofthepantheon.achilles_wrath": "Achilles's Heel",
+  "item.gazeofthepantheon.achilles_kindness": "Achilles's Resolve",
   "item.gazeofthepantheon.soul_contract": "Soul Contract",
   "item.gazeofthepantheon.deaths_recognition": "Death's Recognition",
   "item.gazeofthepantheon.medicine_gods_recognition": "Medicine God's Recognition",
@@ -19,6 +21,7 @@
   "item.gazeofthepantheon.hermes_sandals": "Hermes's Sandals",
   "item.gazeofthepantheon.fusang_dew": "Dew of Fusang",
   "item.gazeofthepantheon.golden_crow_feather": "Golden Crow's Plume",
+  "item.gazeofthepantheon.styx_infusion": "Styx Infusion",
   "item.gazeofthepantheon.marked_dirt": "Death Has Its Eyes on You",
 
   "tooltip.gazeofthepantheon.marked_dirt.desc": "§7Place the dirt into a crafting table and offer your soul to Death, so He shall trouble you no more.",
@@ -57,6 +60,13 @@
   "tooltip.gazeofthepantheon.xihe_kindness.desc": "§6Gaze: Dawn's Light Doth Shield Thee",
   "tooltip.gazeofthepantheon.xihe_kindness.effect": "§eBorn in Fire, Thou Dost Find Rest in Flame",
 
+  "tooltip.gazeofthepantheon.achilles_wrath.desc": "§4Gaze · Only the Weak Spot Remains",
+  "tooltip.gazeofthepantheon.achilles_wrath.effect": "§cAll armor is vain; only flesh remains.",
+  "tooltip.gazeofthepantheon.achilles_wrath.locked": "§7Cannot be removed",
+
+  "tooltip.gazeofthepantheon.achilles_kindness.desc": "§6Gaze · Blessing of the Styx",
+  "tooltip.gazeofthepantheon.achilles_kindness.effect": "§eThe waters of the Styx flow once more.",
+
   "tooltip.gazeofthepantheon.soul_contract.desc": "§7Offer your soul with both hands, and Death may absolve your sins.",
   "tooltip.gazeofthepantheon.soul_contract.use": "§5Right-click: Destroy \"Thanatos's Wrath\" in the Gaze slot",
 
@@ -79,6 +89,9 @@
 
   "tooltip.gazeofthepantheon.golden_crow_feather.desc": "§7A Plume Left by the Golden Crow, That Doth Answer the Sun",
   "tooltip.gazeofthepantheon.golden_crow_feather.use": "§6When the Sun Riseth from Fusang, Hold This and Offer It, and Thou Shalt Call Xihe's Gaze",
+
+  "tooltip.gazeofthepantheon.styx_infusion.desc": "§7The water of the Styx, that makes you invulnerable.",
+  "tooltip.gazeofthepantheon.styx_infusion.use": "§6Right-click: Convert \"Achilles's Heel\" in the Gaze slot into \"Achilles's Resolve\"",
 
   "curios.identifier.gaze": "Gaze",
   "curios.modifiers.gaze": "§bCelestial Blessing:",
@@ -111,6 +124,8 @@
   "message.gazeofthepantheon.messengers_recognition.failed": "§7\"You are not yet bound by the shackles.\"",
   "message.gazeofthepantheon.fusang_dew.used": "§6The Light of Dawn Hath Come; the Fire of Karma Is Washed Clean",
   "message.gazeofthepantheon.fusang_dew.failed": "§7No Fire Dwells in Thee; Wherefore Dost Thou Seek the Dawn?",
+  "message.gazeofthepantheon.styx_infusion.used": "§6The waters of the Styx seep through your body.",
+  "message.gazeofthepantheon.styx_infusion.failed": "§7You do not bear that fatal weak spot.",
   "message.gazeofthepantheon.hygieia_wrath.wake_up": "§aYou wake up full of energy.",
   "message.gazeofthepantheon.hermes.gear_changed": "§bCharge: %s%%",
 
@@ -132,5 +147,7 @@
   "message.gazeofthepantheon.gaze.hermes_wrath": "§4Hermes · Shackles",
   "message.gazeofthepantheon.gaze.hermes_kindness": "§6Hermes · Dash",
   "message.gazeofthepantheon.gaze.xihe_wrath": "§4Xihe · Worldflame",
-  "message.gazeofthepantheon.gaze.xihe_kindness": "§6Xihe · Grace"
+  "message.gazeofthepantheon.gaze.xihe_kindness": "§6Xihe · Grace",
+  "message.gazeofthepantheon.gaze.achilles_wrath": "§4Achilles's Heel",
+  "message.gazeofthepantheon.gaze.achilles_kindness": "§6Achilles · Resolve"
 }

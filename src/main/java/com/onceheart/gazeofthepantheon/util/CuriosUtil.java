@@ -1,5 +1,6 @@
 package com.onceheart.gazeofthepantheon.util;
 
+import com.onceheart.gazeofthepantheon.item.AchillesItem;
 import com.onceheart.gazeofthepantheon.item.AresItem;
 import com.onceheart.gazeofthepantheon.item.HermesItem;
 import com.onceheart.gazeofthepantheon.item.HygieiaItem;
@@ -23,7 +24,6 @@ public class CuriosUtil {
         return invOpt.get().getStacksHandler(GAZE);
     }
 
-    /** 检查某个注视栏位中是否已有指定类型的注视饰品 */
     public static boolean hasDeityEquipped(Player player, Class<? extends Item> deityClass) {
         var handlerOpt = getGazeHandler(player);
         if (handlerOpt.isEmpty()) return false;
@@ -121,6 +121,20 @@ public class CuriosUtil {
         return convertToBlessed(player, com.onceheart.gazeofthepantheon.registry.ModItems.XIHE.get());
     }
 
+    // ============ 阿喀琉斯 ============
+
+    public static ItemStack findAchillesWrath(Player player) {
+        return findWrath(player, com.onceheart.gazeofthepantheon.registry.ModItems.ACHILLES.get());
+    }
+
+    public static ItemStack findAchillesKindness(Player player) {
+        return findKindness(player, com.onceheart.gazeofthepantheon.registry.ModItems.ACHILLES.get());
+    }
+
+    public static boolean convertAchillesWrathToKindness(Player player) {
+        return convertToBlessed(player, com.onceheart.gazeofthepantheon.registry.ModItems.ACHILLES.get());
+    }
+
     // ============ 通用查找 ============
 
     public static ItemStack findWrath(Player player, Item item) {
@@ -135,6 +149,7 @@ public class CuriosUtil {
             if (s.getItem() instanceof AresItem && AresItem.isBlessed(s)) continue;
             if (s.getItem() instanceof HermesItem && HermesItem.isBlessed(s)) continue;
             if (s.getItem() instanceof XiheItem && XiheItem.isBlessed(s)) continue;
+            if (s.getItem() instanceof AchillesItem && AchillesItem.isBlessed(s)) continue;
             return s;
         }
         return ItemStack.EMPTY;
@@ -152,6 +167,7 @@ public class CuriosUtil {
             if (s.getItem() instanceof AresItem && AresItem.isBlessed(s)) return s;
             if (s.getItem() instanceof HermesItem && HermesItem.isBlessed(s)) return s;
             if (s.getItem() instanceof XiheItem && XiheItem.isBlessed(s)) return s;
+            if (s.getItem() instanceof AchillesItem && AchillesItem.isBlessed(s)) return s;
         }
         return ItemStack.EMPTY;
     }
@@ -185,6 +201,10 @@ public class CuriosUtil {
                 if (XiheItem.isBlessed(s)) return false;
                 XiheItem.setBlessed(s, true);
                 return true;
+            } else if (s.getItem() instanceof AchillesItem) {
+                if (AchillesItem.isBlessed(s)) return false;
+                AchillesItem.setBlessed(s, true);
+                return true;
             }
         }
         return false;
@@ -216,6 +236,10 @@ public class CuriosUtil {
             } else if (s.getItem() instanceof XiheItem) {
                 if (!XiheItem.isBlessed(s)) return false;
                 XiheItem.setBlessed(s, false);
+                return true;
+            } else if (s.getItem() instanceof AchillesItem) {
+                if (!AchillesItem.isBlessed(s)) return false;
+                AchillesItem.setBlessed(s, false);
                 return true;
             }
         }

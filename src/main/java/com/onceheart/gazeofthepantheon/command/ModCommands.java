@@ -5,6 +5,7 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.suggestion.SuggestionProvider;
 import com.onceheart.gazeofthepantheon.GazeOfThePantheon;
 import com.onceheart.gazeofthepantheon.event.ThanatosEventHandler;
+import com.onceheart.gazeofthepantheon.item.AchillesItem;
 import com.onceheart.gazeofthepantheon.item.AresItem;
 import com.onceheart.gazeofthepantheon.item.HermesItem;
 import com.onceheart.gazeofthepantheon.item.HygieiaItem;
@@ -33,13 +34,13 @@ import java.util.List;
 @Mod.EventBusSubscriber(modid = GazeOfThePantheon.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ModCommands {
 
-    /** 注视饰品的全名 ID 列表，供 Tab 补全使用 */
     private static final List<String> GAZE_ITEM_IDS = List.of(
             GazeOfThePantheon.MOD_ID + ":thanatos",
             GazeOfThePantheon.MOD_ID + ":hygieia",
             GazeOfThePantheon.MOD_ID + ":ares",
             GazeOfThePantheon.MOD_ID + ":hermes",
-            GazeOfThePantheon.MOD_ID + ":xihe"
+            GazeOfThePantheon.MOD_ID + ":xihe",
+            GazeOfThePantheon.MOD_ID + ":achilles"
     );
 
     private static final SuggestionProvider<CommandSourceStack> GAZE_SUGGESTIONS =
@@ -78,8 +79,6 @@ public class ModCommands {
         dispatcher.register(Commands.literal("whogazesatme")
                 .executes(ctx -> handleWhoGazesAtMe(ctx.getSource())));
     }
-
-    // ============ /invoco xihe fusang_oblation ============
 
     private static int handleInvocoFusang(CommandSourceStack source) {
         ServerPlayer player;
@@ -151,8 +150,6 @@ public class ModCommands {
         return 1;
     }
 
-    // ============ /whogazesatme ============
-
     private static int handleWhoGazesAtMe(CommandSourceStack source) {
         ServerPlayer player;
         try {
@@ -214,13 +211,15 @@ public class ModCommands {
                     ? "message.gazeofthepantheon.gaze.xihe_kindness"
                     : "message.gazeofthepantheon.gaze.xihe_wrath");
         }
+        if (stack.getItem() instanceof AchillesItem) {
+            return Component.translatable(AchillesItem.isBlessed(stack)
+                    ? "message.gazeofthepantheon.gaze.achilles_kindness"
+                    : "message.gazeofthepantheon.gaze.achilles_wrath");
+        }
         return null;
     }
 
-    // ============ decree / delete 通用 ============
-
     private static Item parseGazeItem(CommandSourceStack source, String id) {
-        // 简写支持：不含冒号时自动加本模组命名空间
         if (!id.contains(":")) {
             id = GazeOfThePantheon.MOD_ID + ":" + id;
         }
@@ -241,7 +240,8 @@ public class ModCommands {
                 && item != ModItems.HYGIEIA.get()
                 && item != ModItems.ARES.get()
                 && item != ModItems.HERMES.get()
-                && item != ModItems.XIHE.get()) {
+                && item != ModItems.XIHE.get()
+                && item != ModItems.ACHILLES.get()) {
             source.sendFailure(Component.literal("§c该物品不是注视饰品：" + id));
             return null;
         }

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SSS",
+    "WXW",
+    "SSS"
+  ],
+  "key": {
+    "S": {
+      "tag": "minecraft:soul_fire_base_blocks"
+    },
+    "W": {
+      "item": "minecraft:water_bucket"
+    },
+    "X": {
+      "item": "minecraft:shield"
+    }
+  },
+  "result": {
+    "item": "gazeofthepantheon:styx_infusion"
+  }
+}
