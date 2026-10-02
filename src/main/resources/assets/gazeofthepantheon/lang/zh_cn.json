@@ -118,5 +118,19 @@
   "message.gazeofthepantheon.command.decree.to_wrath": "§4已转化 %s 为诅咒版",
   "message.gazeofthepantheon.command.decree.not_found": "§7注视栏中找不到该饰品",
   "message.gazeofthepantheon.command.delete.success": "§6已删除注视栏中的 %s",
-  "message.gazeofthepantheon.command.delete.not_found": "§7注视栏中找不到该饰品"
+  "message.gazeofthepantheon.command.delete.not_found": "§7注视栏中找不到该饰品",
+
+  "message.gazeofthepantheon.command.invoco.fusang": "§6筑台，谒日",
+
+  "message.gazeofthepantheon.whogazesatme.empty": "§7无神垂目",
+  "message.gazeofthepantheon.gaze.thanatos_wrath": "§4塔纳托斯·愠怒",
+  "message.gazeofthepantheon.gaze.thanatos_kindness": "§6塔纳托斯·善意",
+  "message.gazeofthepantheon.gaze.hygieia_wrath": "§4许癸厄亚·衰竭",
+  "message.gazeofthepantheon.gaze.hygieia_kindness": "§6许癸厄亚·丰饶",
+  "message.gazeofthepantheon.gaze.ares_wrath": "§4阿瑞斯·纷争",
+  "message.gazeofthepantheon.gaze.ares_kindness": "§6阿瑞斯·战佑",
+  "message.gazeofthepantheon.gaze.hermes_wrath": "§4赫尔墨斯·枷锁",
+  "message.gazeofthepantheon.gaze.hermes_kindness": "§6赫尔墨斯·疾驰",
+  "message.gazeofthepantheon.gaze.xihe_wrath": "§4羲和·焚世",
+  "message.gazeofthepantheon.gaze.xihe_kindness": "§6羲和·恩泽"
 }

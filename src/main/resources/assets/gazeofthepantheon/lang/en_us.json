@@ -118,5 +118,19 @@
   "message.gazeofthepantheon.command.decree.to_wrath": "§4Converted %s to its cursed form.",
   "message.gazeofthepantheon.command.decree.not_found": "§7No such curio in the Gaze slot.",
   "message.gazeofthepantheon.command.delete.success": "§6Removed %s from the Gaze slot.",
-  "message.gazeofthepantheon.command.delete.not_found": "§7No such curio in the Gaze slot."
+  "message.gazeofthepantheon.command.delete.not_found": "§7No such curio in the Gaze slot.",
+
+  "message.gazeofthepantheon.command.invoco.fusang": "§6Raise the altar, hail the sun.",
+
+  "message.gazeofthepantheon.whogazesatme.empty": "§7No god gazes upon you",
+  "message.gazeofthepantheon.gaze.thanatos_wrath": "§4Thanatos · Wrath",
+  "message.gazeofthepantheon.gaze.thanatos_kindness": "§6Thanatos · Kindness",
+  "message.gazeofthepantheon.gaze.hygieia_wrath": "§4Hygieia · Withering",
+  "message.gazeofthepantheon.gaze.hygieia_kindness": "§6Hygieia · Abundance",
+  "message.gazeofthepantheon.gaze.ares_wrath": "§4Ares · Strife",
+  "message.gazeofthepantheon.gaze.ares_kindness": "§6Ares · Aegis",
+  "message.gazeofthepantheon.gaze.hermes_wrath": "§4Hermes · Shackles",
+  "message.gazeofthepantheon.gaze.hermes_kindness": "§6Hermes · Dash",
+  "message.gazeofthepantheon.gaze.xihe_wrath": "§4Xihe · Worldflame",
+  "message.gazeofthepantheon.gaze.xihe_kindness": "§6Xihe · Grace"
 }

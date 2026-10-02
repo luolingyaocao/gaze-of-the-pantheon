@@ -4,15 +4,23 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.onceheart.gazeofthepantheon.GazeOfThePantheon;
 import com.onceheart.gazeofthepantheon.event.ThanatosEventHandler;
+import com.onceheart.gazeofthepantheon.item.AresItem;
+import com.onceheart.gazeofthepantheon.item.HermesItem;
+import com.onceheart.gazeofthepantheon.item.HygieiaItem;
+import com.onceheart.gazeofthepantheon.item.ThanatosItem;
+import com.onceheart.gazeofthepantheon.item.XiheItem;
 import com.onceheart.gazeofthepantheon.registry.ModItems;
 import com.onceheart.gazeofthepantheon.util.CuriosUtil;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -42,7 +50,157 @@ public class ModCommands {
 
         dispatcher.register(Commands.literal("ilikethemarkdirt")
                 .executes(ctx -> handleLikeMarkDirt(ctx.getSource())));
+
+        dispatcher.register(Commands.literal("invoco")
+                .requires(source -> source.hasPermission(2))
+                .then(Commands.literal("xihe")
+                        .then(Commands.literal("fusang_oblation")
+                                .executes(ctx -> handleInvocoFusang(ctx.getSource())))));
+
+        dispatcher.register(Commands.literal("whogazesatme")
+                .executes(ctx -> handleWhoGazesAtMe(ctx.getSource())));
     }
+
+    // ============ /invoco xihe fusang_oblation ============
+
+    private static int handleInvocoFusang(CommandSourceStack source) {
+        ServerPlayer player;
+        try {
+            player = source.getPlayerOrException();
+        } catch (Exception e) {
+            source.sendFailure(Component.literal("§c该指令只能由玩家执行"));
+            return 0;
+        }
+
+        ServerLevel level = player.serverLevel();
+        BlockPos playerPos = player.blockPosition();
+
+        BlockPos goldPos = playerPos.offset(2, 2, 0);
+        BlockPos origin = goldPos.offset(0, -1, 0);
+
+        for (int x = -2; x <= 2; x++) {
+            for (int z = -2; z <= 2; z++) {
+                level.setBlockAndUpdate(origin.offset(x, 0, z),
+                        Blocks.SMOOTH_QUARTZ.defaultBlockState());
+            }
+        }
+
+        int[][] diamondPositions = {
+                {2, 2}, {2, 0}, {2, -2},
+                {0, 2}, {0, -2},
+                {-2, -2}, {-2, 0}, {-2, 2}
+        };
+        for (int[] p : diamondPositions) {
+            level.setBlockAndUpdate(origin.offset(p[0], 1, p[1]),
+                    Blocks.DIAMOND_BLOCK.defaultBlockState());
+        }
+
+        level.setBlockAndUpdate(goldPos, Blocks.GOLD_BLOCK.defaultBlockState());
+        for (int x = -1; x <= 1; x++) {
+            for (int z = -1; z <= 1; z++) {
+                if (x == 0 && z == 0) continue;
+                level.setBlockAndUpdate(goldPos.offset(x, 0, z),
+                        Blocks.DIRT.defaultBlockState());
+            }
+        }
+
+        for (int x = -1; x <= 1; x++) {
+            for (int z = -1; z <= 1; z++) {
+                if (x == 0 && z == 0) continue;
+                level.setBlockAndUpdate(goldPos.offset(x, 1, z),
+                        Blocks.ACACIA_SAPLING.defaultBlockState());
+            }
+        }
+
+        for (int x : new int[]{-3, 3}) {
+            for (int z : new int[]{-3, 3}) {
+                for (int y = 1; y <= 3; y++) {
+                    level.setBlockAndUpdate(origin.offset(x, y, z),
+                            Blocks.IRON_BLOCK.defaultBlockState());
+                }
+            }
+        }
+
+        for (int x : new int[]{-3, 3}) {
+            for (int z : new int[]{-3, 3}) {
+                level.setBlockAndUpdate(origin.offset(x, 4, z),
+                        Blocks.GLOWSTONE.defaultBlockState());
+            }
+        }
+
+        player.sendSystemMessage(Component.translatable(
+                "message.gazeofthepantheon.command.invoco.fusang"));
+        return 1;
+    }
+
+    // ============ /whogazesatme ============
+
+    private static int handleWhoGazesAtMe(CommandSourceStack source) {
+        ServerPlayer player;
+        try {
+            player = source.getPlayerOrException();
+        } catch (Exception e) {
+            source.sendFailure(Component.literal("§c该指令只能由玩家执行"));
+            return 0;
+        }
+
+        var handlerOpt = CuriosUtil.getGazeHandler(player);
+        if (handlerOpt.isEmpty()) {
+            player.sendSystemMessage(Component.translatable(
+                    "message.gazeofthepantheon.whogazesatme.empty"));
+            return 1;
+        }
+
+        var stacks = handlerOpt.get().getStacks();
+        boolean found = false;
+        for (int i = 0; i < stacks.getSlots(); i++) {
+            ItemStack s = stacks.getStackInSlot(i);
+            if (s.isEmpty()) continue;
+            Component line = gazeLine(s);
+            if (line != null) {
+                player.sendSystemMessage(line);
+                found = true;
+            }
+        }
+
+        if (!found) {
+            player.sendSystemMessage(Component.translatable(
+                    "message.gazeofthepantheon.whogazesatme.empty"));
+        }
+        return 1;
+    }
+
+    /** 根据注视栏位中的物品返回对应的显示行 */
+    private static Component gazeLine(ItemStack stack) {
+        if (stack.getItem() instanceof ThanatosItem) {
+            return Component.translatable(ThanatosItem.isBlessed(stack)
+                    ? "message.gazeofthepantheon.gaze.thanatos_kindness"
+                    : "message.gazeofthepantheon.gaze.thanatos_wrath");
+        }
+        if (stack.getItem() instanceof HygieiaItem) {
+            return Component.translatable(HygieiaItem.isBlessed(stack)
+                    ? "message.gazeofthepantheon.gaze.hygieia_kindness"
+                    : "message.gazeofthepantheon.gaze.hygieia_wrath");
+        }
+        if (stack.getItem() instanceof AresItem) {
+            return Component.translatable(AresItem.isBlessed(stack)
+                    ? "message.gazeofthepantheon.gaze.ares_kindness"
+                    : "message.gazeofthepantheon.gaze.ares_wrath");
+        }
+        if (stack.getItem() instanceof HermesItem) {
+            return Component.translatable(HermesItem.isBlessed(stack)
+                    ? "message.gazeofthepantheon.gaze.hermes_kindness"
+                    : "message.gazeofthepantheon.gaze.hermes_wrath");
+        }
+        if (stack.getItem() instanceof XiheItem) {
+            return Component.translatable(XiheItem.isBlessed(stack)
+                    ? "message.gazeofthepantheon.gaze.xihe_kindness"
+                    : "message.gazeofthepantheon.gaze.xihe_wrath");
+        }
+        return null;
+    }
+
+    // ============ 已有方法保持不变 ============
 
     private static Item parseGazeItem(CommandSourceStack source, String id) {
         ResourceLocation rl = ResourceLocation.tryParse(id);
