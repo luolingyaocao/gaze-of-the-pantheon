@@ -75,7 +75,7 @@ public class ModCommands {
         ServerLevel level = player.serverLevel();
         BlockPos playerPos = player.blockPosition();
 
-        BlockPos goldPos = playerPos.offset(2, 2, 0);
+        BlockPos goldPos = playerPos.offset(4, 1, 0);
         BlockPos origin = goldPos.offset(0, -1, 0);
 
         for (int x = -2; x <= 2; x++) {
