@@ -22,5 +22,13 @@ public class ModNetwork {
                 ToggleHermesPacket::encode,
                 ToggleHermesPacket::decode,
                 ToggleHermesPacket::handle);
+        CHANNEL.registerMessage(id++, OpenEdictPacket.class,
+                OpenEdictPacket::encode,
+                OpenEdictPacket::decode,
+                OpenEdictPacket::handle);
+        CHANNEL.registerMessage(id++, ToggleEdictEffectPacket.class,
+                ToggleEdictEffectPacket::encode,
+                ToggleEdictEffectPacket::decode,
+                ToggleEdictEffectPacket::handle);
     }
 }

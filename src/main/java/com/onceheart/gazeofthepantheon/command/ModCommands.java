@@ -80,6 +80,8 @@ public class ModCommands {
                 .executes(ctx -> handleWhoGazesAtMe(ctx.getSource())));
     }
 
+    // ============ /invoco xihe fusang_oblation ============
+
     private static int handleInvocoFusang(CommandSourceStack source) {
         ServerPlayer player;
         try {
@@ -150,6 +152,8 @@ public class ModCommands {
         return 1;
     }
 
+    // ============ /whogazesatme ============
+
     private static int handleWhoGazesAtMe(CommandSourceStack source) {
         ServerPlayer player;
         try {
@@ -218,6 +222,8 @@ public class ModCommands {
         }
         return null;
     }
+
+    // ============ decree / delete 通用 ============
 
     private static Item parseGazeItem(CommandSourceStack source, String id) {
         if (!id.contains(":")) {

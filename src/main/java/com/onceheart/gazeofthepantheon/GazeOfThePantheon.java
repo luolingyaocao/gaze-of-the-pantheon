@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import com.onceheart.gazeofthepantheon.network.ModNetwork;
 import com.onceheart.gazeofthepantheon.registry.ModCreativeTabs;
 import com.onceheart.gazeofthepantheon.registry.ModItems;
+import com.onceheart.gazeofthepantheon.registry.ModMenus;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -16,8 +17,11 @@ public class GazeOfThePantheon {
 
     public GazeOfThePantheon(FMLJavaModLoadingContext context) {
         IEventBus modEventBus = context.getModEventBus();
+
         ModItems.register(modEventBus);
         ModCreativeTabs.register(modEventBus);
+        ModMenus.register(modEventBus);
+
         ModNetwork.register();
     }
 }

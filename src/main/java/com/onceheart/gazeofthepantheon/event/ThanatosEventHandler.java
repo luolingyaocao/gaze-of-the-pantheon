@@ -45,7 +45,10 @@ public class ThanatosEventHandler {
     private static final Map<UUID, ItemStack> SAVED_HERMES = new HashMap<>();
     private static final Map<UUID, ItemStack> SAVED_XIHE = new HashMap<>();
     private static final Map<UUID, ItemStack> SAVED_ACHILLES = new HashMap<>();
+    private static final Map<UUID, ItemStack> SAVED_EDICT = new HashMap<>();
     private static final Map<UUID, Boolean> WRATH_DEATH = new HashMap<>();
+
+    // ============ 登录：首次给予全部诅咒注视 ============
 
     @SubscribeEvent
     public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
@@ -53,6 +56,7 @@ public class ThanatosEventHandler {
 
         CompoundTag data = player.getPersistentData();
 
+        // 检查未完成的极限死亡标记
         if (data.getBoolean(NBT_HARDCORE_DEATH)) {
             data.putBoolean(NBT_HARDCORE_DEATH, false);
             player.setGameMode(GameType.SPECTATOR);
@@ -61,6 +65,7 @@ public class ThanatosEventHandler {
             return;
         }
 
+        // 首次给予
         if (!data.getBoolean(NBT_GIVEN)) {
             data.putBoolean(NBT_GIVEN, true);
 
@@ -93,6 +98,8 @@ public class ThanatosEventHandler {
         return dirt;
     }
 
+    // ============ 死亡：善意复活 ============
+
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onDeathKindness(LivingDeathEvent event) {
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
@@ -116,6 +123,8 @@ public class ThanatosEventHandler {
                 "message.gazeofthepantheon.thanatos_kindness.triggered"));
     }
 
+    // ============ 死亡：愠怒处理 ============
+
     @SubscribeEvent(priority = EventPriority.LOW)
     public static void onDeathWrath(LivingDeathEvent event) {
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
@@ -131,6 +140,8 @@ public class ThanatosEventHandler {
         GazeOfThePantheon.LOGGER.debug("Thanatos Wrath: marked hardcore death for {}",
                 player.getName().getString());
     }
+
+    // ============ 掉落：注视饰品 + 必行敕令在栏位中不掉落 ============
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onLivingDrops(LivingDropsEvent event) {
@@ -159,9 +170,14 @@ public class ThanatosEventHandler {
             } else if (stack.getItem() instanceof AchillesItem) {
                 SAVED_ACHILLES.put(player.getUUID(), stack.copy());
                 it.remove();
+            } else if (stack.getItem() == ModItems.EDICT.get()) {
+                SAVED_EDICT.put(player.getUUID(), stack.copy());
+                it.remove();
             }
         }
     }
+
+    // ============ 重生：恢复饰品 ============
 
     @SubscribeEvent
     public static void onRespawn(PlayerEvent.PlayerRespawnEvent event) {
@@ -197,6 +213,12 @@ public class ThanatosEventHandler {
             CuriosUtil.tryEquipToGaze(player, savedAchilles);
         }
 
+        ItemStack savedEdict = SAVED_EDICT.remove(player.getUUID());
+        if (savedEdict != null && !savedEdict.isEmpty()) {
+            CuriosUtil.tryEquipToDecision(player, savedEdict);
+        }
+
+        // 极限死亡：切换旁观者
         boolean wrathDeath = WRATH_DEATH.remove(player.getUUID()) != null;
         CompoundTag data = player.getPersistentData();
         if (wrathDeath || data.getBoolean(NBT_HARDCORE_DEATH)) {

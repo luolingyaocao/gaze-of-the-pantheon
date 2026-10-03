@@ -4,6 +4,8 @@ import com.onceheart.gazeofthepantheon.GazeOfThePantheon;
 import com.onceheart.gazeofthepantheon.item.AchillesItem;
 import com.onceheart.gazeofthepantheon.item.AresItem;
 import com.onceheart.gazeofthepantheon.item.DeathsRecognitionItem;
+import com.onceheart.gazeofthepantheon.item.DeedItem;
+import com.onceheart.gazeofthepantheon.item.EdictItem;
 import com.onceheart.gazeofthepantheon.item.FusangDewItem;
 import com.onceheart.gazeofthepantheon.item.GoldenCrowFeatherItem;
 import com.onceheart.gazeofthepantheon.item.HermesItem;
@@ -27,23 +29,35 @@ public class ModItems {
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, GazeOfThePantheon.MOD_ID);
 
+    // ============ 注视饰品（不可摧毁） ============
+
     public static final RegistryObject<Item> THANATOS = ITEMS.register("thanatos",
-            () -> new ThanatosItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
+            () -> new ThanatosItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).fireResistant()));
 
     public static final RegistryObject<Item> HYGIEIA = ITEMS.register("hygieia",
-            () -> new HygieiaItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
+            () -> new HygieiaItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).fireResistant()));
 
     public static final RegistryObject<Item> ARES = ITEMS.register("ares",
-            () -> new AresItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
+            () -> new AresItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).fireResistant()));
 
     public static final RegistryObject<Item> HERMES = ITEMS.register("hermes",
-            () -> new HermesItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
+            () -> new HermesItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).fireResistant()));
 
     public static final RegistryObject<Item> XIHE = ITEMS.register("xihe",
-            () -> new XiheItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
+            () -> new XiheItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).fireResistant()));
 
     public static final RegistryObject<Item> ACHILLES = ITEMS.register("achilles",
-            () -> new AchillesItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
+            () -> new AchillesItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).fireResistant()));
+
+    // ============ 必行敕令与成事在人 ============
+
+    public static final RegistryObject<Item> EDICT = ITEMS.register("edict",
+            () -> new EdictItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).fireResistant()));
+
+    public static final RegistryObject<Item> DEED = ITEMS.register("deed",
+            () -> new DeedItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).fireResistant()));
+
+    // ============ 认可与转化物品 ============
 
     public static final RegistryObject<Item> SOUL_CONTRACT = ITEMS.register("soul_contract",
             () -> new SoulContractItem(new Item.Properties().stacksTo(16).rarity(Rarity.RARE)));
@@ -60,17 +74,19 @@ public class ModItems {
     public static final RegistryObject<Item> MESSENGERS_RECOGNITION = ITEMS.register("messengers_recognition",
             () -> new MessengersRecognitionItem(new Item.Properties().stacksTo(16).rarity(Rarity.EPIC)));
 
-    public static final RegistryObject<Item> HERMES_SANDALS = ITEMS.register("hermes_sandals",
-            () -> new HermesSandalsItem(new Item.Properties().stacksTo(16).rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> STYX_INFUSION = ITEMS.register("styx_infusion",
+            () -> new StyxInfusionItem(new Item.Properties().stacksTo(16).rarity(Rarity.EPIC)));
 
     public static final RegistryObject<Item> FUSANG_DEW = ITEMS.register("fusang_dew",
             () -> new FusangDewItem(new Item.Properties().stacksTo(16).rarity(Rarity.EPIC)));
 
+    // ============ 材料 ============
+
+    public static final RegistryObject<Item> HERMES_SANDALS = ITEMS.register("hermes_sandals",
+            () -> new HermesSandalsItem(new Item.Properties().stacksTo(16).rarity(Rarity.RARE)));
+
     public static final RegistryObject<Item> GOLDEN_CROW_FEATHER = ITEMS.register("golden_crow_feather",
             () -> new GoldenCrowFeatherItem(new Item.Properties().stacksTo(16).rarity(Rarity.RARE)));
-
-    public static final RegistryObject<Item> STYX_INFUSION = ITEMS.register("styx_infusion",
-            () -> new StyxInfusionItem(new Item.Properties().stacksTo(16).rarity(Rarity.EPIC)));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

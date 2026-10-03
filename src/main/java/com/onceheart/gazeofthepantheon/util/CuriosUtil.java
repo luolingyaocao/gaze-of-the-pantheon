@@ -17,12 +17,53 @@ import java.util.Optional;
 public class CuriosUtil {
 
     public static final String GAZE = "gaze";
+    public static final String DECISION = "decision";
+
+    // ============ 通用处理器 ============
 
     public static Optional<ICurioStacksHandler> getGazeHandler(Player player) {
         var invOpt = CuriosApi.getCuriosInventory(player).resolve();
         if (invOpt.isEmpty()) return Optional.empty();
         return invOpt.get().getStacksHandler(GAZE);
     }
+
+    public static Optional<ICurioStacksHandler> getDecisionHandler(Player player) {
+        var invOpt = CuriosApi.getCuriosInventory(player).resolve();
+        if (invOpt.isEmpty()) return Optional.empty();
+        return invOpt.get().getStacksHandler(DECISION);
+    }
+
+    // ============ 决策栏位 ============
+
+    /** 检查决策栏位是否已装备必行敕令 */
+    public static boolean hasDecisionEquipped(Player player) {
+        var handlerOpt = getDecisionHandler(player);
+        if (handlerOpt.isEmpty()) return false;
+        var stacks = handlerOpt.get().getStacks();
+        for (int i = 0; i < stacks.getSlots(); i++) {
+            ItemStack s = stacks.getStackInSlot(i);
+            if (s.getItem() == com.onceheart.gazeofthepantheon.registry.ModItems.EDICT.get()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /** 尝试把物品放入决策栏位 */
+    public static boolean tryEquipToDecision(Player player, ItemStack stack) {
+        var handlerOpt = getDecisionHandler(player);
+        if (handlerOpt.isEmpty()) return false;
+        var stacks = handlerOpt.get().getStacks();
+        for (int i = 0; i < stacks.getSlots(); i++) {
+            if (stacks.getStackInSlot(i).isEmpty()) {
+                stacks.setStackInSlot(i, stack);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // ============ 神系通用检查 ============
 
     public static boolean hasDeityEquipped(Player player, Class<? extends Item> deityClass) {
         var handlerOpt = getGazeHandler(player);

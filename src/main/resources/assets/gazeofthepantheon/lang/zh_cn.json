@@ -10,10 +10,11 @@
   "item.gazeofthepantheon.hermes_wrath": "赫尔墨斯的枷锁",
   "item.gazeofthepantheon.hermes_kindness": "赫尔墨斯的疾驰",
   "item.gazeofthepantheon.xihe_wrath": "羲和之焚世",
-  "message.gazeofthepantheon.xihe_wrath.grace_period": "§6焚世之火暂敛，速寻生路",
   "item.gazeofthepantheon.xihe_kindness": "羲和之恩泽",
   "item.gazeofthepantheon.achilles_wrath": "阿喀琉斯之踵",
   "item.gazeofthepantheon.achilles_kindness": "阿喀琉斯的坚毅",
+  "item.gazeofthepantheon.edict": "必行敕令",
+  "item.gazeofthepantheon.deed": "成事在人",
   "item.gazeofthepantheon.soul_contract": "灵魂契约",
   "item.gazeofthepantheon.deaths_recognition": "死神的认可",
   "item.gazeofthepantheon.medicine_gods_recognition": "医神的认可",
@@ -68,6 +69,13 @@
   "tooltip.gazeofthepantheon.achilles_kindness.desc": "§6注视·冥河之佑",
   "tooltip.gazeofthepantheon.achilles_kindness.effect": "§e冥河之水，再度涌流",
 
+  "tooltip.gazeofthepantheon.edict.desc": "§6敕令：万法随行",
+  "tooltip.gazeofthepantheon.edict.stats": "§e+20 护甲 · +20 韧性 · +200% 攻击 · +10 攻速 · +10 击退抗",
+  "tooltip.gazeofthepantheon.edict.hint": "§7按V思索决策",
+
+  "tooltip.gazeofthepantheon.deed.desc": "§6须知谋定而后动",
+  "tooltip.gazeofthepantheon.deed.use": "§e右键使用：使其成为决策",
+
   "tooltip.gazeofthepantheon.soul_contract.desc": "§7双手奉上你的灵魂，死神可以赦免你的罪孽",
   "tooltip.gazeofthepantheon.soul_contract.use": "§5右键使用：销毁注视栏中’塔纳托斯的愠怒‘",
 
@@ -95,10 +103,25 @@
   "tooltip.gazeofthepantheon.styx_infusion.use": "§6右键使用：将注视栏中的’阿喀琉斯之踵‘转化为’阿喀琉斯的坚毅‘",
 
   "curios.identifier.gaze": "注视",
+  "curios.identifier.decision": "决策",
   "curios.modifiers.gaze": "§b星降恩典：",
+
+  "gui.gazeofthepantheon.edict.title": "当三思而行",
 
   "key.categories.gazeofthepantheon": "众神垂目",
   "key.gazeofthepantheon.toggle_hermes_gear": "切换赫尔墨斯奔袭",
+  "key.gazeofthepantheon.open_edict": "做出你的决策",
+
+  "edict.effect.immortal.on": "§a不朽·出鞘",
+  "edict.effect.immortal.off": "§7不朽·敛芒",
+  "edict.effect.ruin.on": "§a破败·出鞘",
+  "edict.effect.ruin.off": "§7破败·敛芒",
+  "edict.effect.authority.on": "§a天威·出鞘",
+  "edict.effect.authority.off": "§7天威·敛芒",
+  "edict.effect.perish.on": "§a殁亡·出鞘",
+  "edict.effect.perish.off": "§7殁亡·敛芒",
+  "edict.effect.sanction.on": "§a制裁·出鞘",
+  "edict.effect.sanction.off": "§7制裁·敛芒",
 
   "jei.gazeofthepantheon.fusang_ritual": "扶桑祭祀",
   "jei.gazeofthepantheon.block.iron_pillar": "铁块柱（顶端荧石，高四格）",
@@ -127,8 +150,16 @@
   "message.gazeofthepantheon.fusang_dew.failed": "§7尔身无火，何须曦光",
   "message.gazeofthepantheon.styx_infusion.used": "§6冥河之水浸透你的身躯",
   "message.gazeofthepantheon.styx_infusion.failed": "§7你并未背负那致命的死穴",
+  "message.gazeofthepantheon.xihe_wrath.grace_period": "§6焚世之火暂敛，速寻生路",
   "message.gazeofthepantheon.hygieia_wrath.wake_up": "§a一觉醒来，你精力充沛",
   "message.gazeofthepantheon.hermes.gear_changed": "§b奔袭：%s%%",
+
+  "message.gazeofthepantheon.edict.dropped": "§6可行无上敕令",
+  "message.gazeofthepantheon.edict.immortal": "§6敕令：死劫不复",
+  "message.gazeofthepantheon.deed.summoned": "§6谋定而后动",
+  "message.gazeofthepantheon.deed.no_edict": "§7需敕令在手，方可谋定四海",
+  "message.gazeofthepantheon.deed.already": "§7何故复得此物？望速速归还",
+  "message.gazeofthepantheon.deed.placed": "§6成事在人，谋事……亦然！",
 
   "message.gazeofthepantheon.command.decree.to_blessed": "§6已转化 %s 为祝福版",
   "message.gazeofthepantheon.command.decree.to_wrath": "§4已转化 %s 为诅咒版",

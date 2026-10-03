@@ -10,10 +10,11 @@
   "item.gazeofthepantheon.hermes_wrath": "Hermes's Shackles",
   "item.gazeofthepantheon.hermes_kindness": "Hermes's Dash",
   "item.gazeofthepantheon.xihe_wrath": "Xihe's Worldflame",
-  "message.gazeofthepantheon.xihe_wrath.grace_period": "§6The Worldflame is stayed; haste thee, and seek a path",
   "item.gazeofthepantheon.xihe_kindness": "Xihe's Grace",
   "item.gazeofthepantheon.achilles_wrath": "Achilles's Heel",
   "item.gazeofthepantheon.achilles_kindness": "Achilles's Resolve",
+  "item.gazeofthepantheon.edict": "Inevitable Edict",
+  "item.gazeofthepantheon.deed": "Deed of Man",
   "item.gazeofthepantheon.soul_contract": "Soul Contract",
   "item.gazeofthepantheon.deaths_recognition": "Death's Recognition",
   "item.gazeofthepantheon.medicine_gods_recognition": "Medicine God's Recognition",
@@ -68,6 +69,13 @@
   "tooltip.gazeofthepantheon.achilles_kindness.desc": "§6Gaze · Blessing of the Styx",
   "tooltip.gazeofthepantheon.achilles_kindness.effect": "§eThe waters of the Styx flow once more.",
 
+  "tooltip.gazeofthepantheon.edict.desc": "§6Edict: All Laws Follow",
+  "tooltip.gazeofthepantheon.edict.stats": "§e+20 Armor · +20 Toughness · +200% Attack · +10 Attack Speed · +10 Knockback Resistance",
+  "tooltip.gazeofthepantheon.edict.hint": "§7Press V to contemplate your decision",
+
+  "tooltip.gazeofthepantheon.deed.desc": "§6Know that planning precedes action",
+  "tooltip.gazeofthepantheon.deed.use": "§eRight-click: Make it part of the decision",
+
   "tooltip.gazeofthepantheon.soul_contract.desc": "§7Offer your soul with both hands, and Death may absolve your sins.",
   "tooltip.gazeofthepantheon.soul_contract.use": "§5Right-click: Destroy \"Thanatos's Wrath\" in the Gaze slot",
 
@@ -95,10 +103,25 @@
   "tooltip.gazeofthepantheon.styx_infusion.use": "§6Right-click: Convert \"Achilles's Heel\" in the Gaze slot into \"Achilles's Resolve\"",
 
   "curios.identifier.gaze": "Gaze",
+  "curios.identifier.decision": "Decision",
   "curios.modifiers.gaze": "§bCelestial Blessing:",
+
+  "gui.gazeofthepantheon.edict.title": "Think Thrice Before Acting",
 
   "key.categories.gazeofthepantheon": "Gaze of the Pantheon",
   "key.gazeofthepantheon.toggle_hermes_gear": "Toggle Hermes Charge",
+  "key.gazeofthepantheon.open_edict": "Make Your Decision",
+
+  "edict.effect.immortal.on": "§aImmortality · Unleashed",
+  "edict.effect.immortal.off": "§7Immortality · Sealed",
+  "edict.effect.ruin.on": "§aRuin · Unleashed",
+  "edict.effect.ruin.off": "§7Ruin · Sealed",
+  "edict.effect.authority.on": "§aAuthority · Unleashed",
+  "edict.effect.authority.off": "§7Authority · Sealed",
+  "edict.effect.perish.on": "§aPerish · Unleashed",
+  "edict.effect.perish.off": "§7Perish · Sealed",
+  "edict.effect.sanction.on": "§aSanction · Unleashed",
+  "edict.effect.sanction.off": "§7Sanction · Sealed",
 
   "jei.gazeofthepantheon.fusang_ritual": "Fusang Ritual",
   "jei.gazeofthepantheon.block.iron_pillar": "Iron Pillar (Glowstone on Top, 4 Blocks Tall)",
@@ -127,8 +150,16 @@
   "message.gazeofthepantheon.fusang_dew.failed": "§7No Fire Dwells in Thee; Wherefore Dost Thou Seek the Dawn?",
   "message.gazeofthepantheon.styx_infusion.used": "§6The waters of the Styx seep through your body.",
   "message.gazeofthepantheon.styx_infusion.failed": "§7You do not bear that fatal weak spot.",
+  "message.gazeofthepantheon.xihe_wrath.grace_period": "§6The Worldflame is stayed; haste thee, and seek a path",
   "message.gazeofthepantheon.hygieia_wrath.wake_up": "§aYou wake up full of energy.",
   "message.gazeofthepantheon.hermes.gear_changed": "§bCharge: %s%%",
+
+  "message.gazeofthepantheon.edict.dropped": "§6The Supreme Edict is at hand",
+  "message.gazeofthepantheon.edict.immortal": "§6Edict: Death Shall Not Come",
+  "message.gazeofthepantheon.deed.summoned": "§6The plan is set; now comes the deed.",
+  "message.gazeofthepantheon.deed.no_edict": "§7The Edict must be in hand before plans can span the world.",
+  "message.gazeofthepantheon.deed.already": "§7Why do you hold this once more? Return it at once.",
+  "message.gazeofthepantheon.deed.placed": "§6The Deed is Man's — and so is the plan...!",
 
   "message.gazeofthepantheon.command.decree.to_blessed": "§6Converted %s to its blessed form.",
   "message.gazeofthepantheon.command.decree.to_wrath": "§4Converted %s to its cursed form.",

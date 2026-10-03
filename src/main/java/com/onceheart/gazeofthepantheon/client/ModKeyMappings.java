@@ -22,8 +22,16 @@ public class ModKeyMappings {
             CATEGORY
     );
 
+    public static final KeyMapping OPEN_EDICT = new KeyMapping(
+            "key.gazeofthepantheon.open_edict",
+            InputConstants.Type.KEYSYM,
+            GLFW.GLFW_KEY_V,
+            CATEGORY
+    );
+
     @SubscribeEvent
     public static void registerKeys(RegisterKeyMappingsEvent event) {
         event.register(TOGGLE_HERMES_GEAR);
+        event.register(OPEN_EDICT);
     }
 }

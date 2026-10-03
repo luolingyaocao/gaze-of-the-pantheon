@@ -18,21 +18,27 @@ public class ModCreativeTabs {
                     .title(Component.translatable("itemGroup.gazeofthepantheon"))
                     .icon(() -> new ItemStack(ModItems.THANATOS.get()))
                     .displayItems((parameters, output) -> {
+                        // 注视饰品
                         output.accept(ModItems.THANATOS.get());
                         output.accept(ModItems.HYGIEIA.get());
                         output.accept(ModItems.ARES.get());
                         output.accept(ModItems.HERMES.get());
                         output.accept(ModItems.XIHE.get());
                         output.accept(ModItems.ACHILLES.get());
+                        // 必行敕令与成事在人
+                        output.accept(ModItems.EDICT.get());
+                        output.accept(ModItems.DEED.get());
+                        // 认可与转化物品
                         output.accept(ModItems.SOUL_CONTRACT.get());
                         output.accept(ModItems.DEATHS_RECOGNITION.get());
                         output.accept(ModItems.MEDICINE_GODS_RECOGNITION.get());
                         output.accept(ModItems.WAR_GODS_RECOGNITION.get());
                         output.accept(ModItems.MESSENGERS_RECOGNITION.get());
-                        output.accept(ModItems.HERMES_SANDALS.get());
-                        output.accept(ModItems.FUSANG_DEW.get());
-                        output.accept(ModItems.GOLDEN_CROW_FEATHER.get());
                         output.accept(ModItems.STYX_INFUSION.get());
+                        output.accept(ModItems.FUSANG_DEW.get());
+                        // 材料
+                        output.accept(ModItems.HERMES_SANDALS.get());
+                        output.accept(ModItems.GOLDEN_CROW_FEATHER.get());
                     })
                     .build());
 
