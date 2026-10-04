@@ -1,8 +1,10 @@
 package com.onceheart.gazeofthepantheon.item;
 
+import com.onceheart.gazeofthepantheon.event.DivineSaveHandler;
 import com.onceheart.gazeofthepantheon.util.CuriosUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -57,6 +59,7 @@ public class EdictItem extends Item implements ICurioItem {
     public void onEquip(SlotContext slotContext, ItemStack prevStack, ItemStack stack) {
         if (slotContext.entity() instanceof ServerPlayer player) {
             applyAttributes(player);
+            refreshCacheNextTick(player);
         }
     }
 
@@ -64,7 +67,15 @@ public class EdictItem extends Item implements ICurioItem {
     public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
         if (slotContext.entity() instanceof ServerPlayer player) {
             removeAttributes(player);
+            refreshCacheNextTick(player);
         }
+    }
+
+    /** 延后一 tick 刷新激活缓存，确保 Curios 槽位变更已生效 */
+    private static void refreshCacheNextTick(ServerPlayer player) {
+        MinecraftServer server = player.getServer();
+        if (server == null) return;
+        server.execute(() -> DivineSaveHandler.refreshActiveCache(player));
     }
 
     private static void applyAttributes(ServerPlayer player) {

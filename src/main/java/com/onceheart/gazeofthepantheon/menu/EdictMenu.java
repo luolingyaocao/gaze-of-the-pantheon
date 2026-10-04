@@ -1,5 +1,6 @@
 package com.onceheart.gazeofthepantheon.menu;
 
+import com.onceheart.gazeofthepantheon.event.DivineSaveHandler;
 import com.onceheart.gazeofthepantheon.item.AchillesItem;
 import com.onceheart.gazeofthepantheon.item.AresItem;
 import com.onceheart.gazeofthepantheon.item.HermesItem;
@@ -181,6 +182,9 @@ public class EdictMenu extends AbstractContainerMenu {
 
         ItemStack deedStack = container.getItem(DEED_SLOT_INDEX);
         EdictData.setHasDeed(sp, !deedStack.isEmpty());
+
+        // 决策 UI 内容变化后刷新激活缓存
+        DivineSaveHandler.refreshActiveCache(sp);
     }
 
     @Override

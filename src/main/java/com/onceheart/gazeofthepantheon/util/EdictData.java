@@ -15,9 +15,13 @@ import java.util.Set;
 
 /**
  * 必行敕令的玩家数据工具类。
- * 所有数据都存储在玩家的 persistentData 里，跟随玩家而不是物品。
+ * 所有数据都存储在玩家的 persistentData 的 PlayerPersisted 子节点里，
+ * 跟随玩家跨维度、跨 respawn 保留。
  */
 public class EdictData {
+
+    /** Forge 的持久化子节点 key。写在根下会在 respawn 时丢失，必须写在 PlayerPersisted 里。 */
+    private static final String PERSISTED_NBT_TAG = "PlayerPersisted";
 
     private static final String NBT_EFFECTS = "gazeofthepantheon_edict_effects";
     private static final String NBT_BLESSINGS = "gazeofthepantheon_edict_blessings";
@@ -34,18 +38,27 @@ public class EdictData {
 
     public static final int EFFECT_ALL = EFFECT_IMMORTAL | EFFECT_RUIN | EFFECT_AUTHORITY | EFFECT_PERISH | EFFECT_SANCTION;
 
+    /** 取玩家持久化数据子节点，确保节点存在。所有 NBT 读写都走这里。 */
+    private static CompoundTag data(ServerPlayer player) {
+        CompoundTag root = player.getPersistentData();
+        if (!root.contains(PERSISTED_NBT_TAG, Tag.TAG_COMPOUND)) {
+            root.put(PERSISTED_NBT_TAG, new CompoundTag());
+        }
+        return root.getCompound(PERSISTED_NBT_TAG);
+    }
+
     // ============ 效果开关 ============
 
     public static int getEffects(ServerPlayer player) {
-        CompoundTag data = player.getPersistentData();
-        if (!data.contains(NBT_EFFECTS)) {
+        CompoundTag d = data(player);
+        if (!d.contains(NBT_EFFECTS)) {
             return EFFECT_ALL;
         }
-        return data.getInt(NBT_EFFECTS);
+        return d.getInt(NBT_EFFECTS);
     }
 
     public static void setEffects(ServerPlayer player, int mask) {
-        player.getPersistentData().putInt(NBT_EFFECTS, mask);
+        data(player).putInt(NBT_EFFECTS, mask);
     }
 
     public static boolean isEffectOn(ServerPlayer player, int effect) {
@@ -60,12 +73,12 @@ public class EdictData {
     // ============ 祝福注视列表 ============
 
     public static List<ItemStack> getBlessings(ServerPlayer player) {
-        CompoundTag data = player.getPersistentData();
+        CompoundTag d = data(player);
         List<ItemStack> list = new ArrayList<>();
-        if (!data.contains(NBT_BLESSINGS, Tag.TAG_LIST)) {
+        if (!d.contains(NBT_BLESSINGS, Tag.TAG_LIST)) {
             return list;
         }
-        ListTag listTag = data.getList(NBT_BLESSINGS, Tag.TAG_COMPOUND);
+        ListTag listTag = d.getList(NBT_BLESSINGS, Tag.TAG_COMPOUND);
         for (int i = 0; i < listTag.size(); i++) {
             CompoundTag itemTag = listTag.getCompound(i);
             ItemStack stack = ItemStack.of(itemTag);
@@ -83,17 +96,17 @@ public class EdictData {
                 listTag.add(stack.save(new CompoundTag()));
             }
         }
-        player.getPersistentData().put(NBT_BLESSINGS, listTag);
+        data(player).put(NBT_BLESSINGS, listTag);
     }
 
     // ============ 成事在人 ============
 
     public static boolean hasDeed(ServerPlayer player) {
-        return player.getPersistentData().getBoolean(NBT_HAS_DEED);
+        return data(player).getBoolean(NBT_HAS_DEED);
     }
 
     public static void setHasDeed(ServerPlayer player, boolean has) {
-        player.getPersistentData().putBoolean(NBT_HAS_DEED, has);
+        data(player).putBoolean(NBT_HAS_DEED, has);
     }
 
     // ============ 祝福是否集齐 ============
@@ -135,28 +148,28 @@ public class EdictData {
     // ============ 获得标记（保留，暂未使用） ============
 
     public static boolean hasObtainedEdict(ServerPlayer player) {
-        return player.getPersistentData().getBoolean(NBT_EDICT_OBTAINED);
+        return data(player).getBoolean(NBT_EDICT_OBTAINED);
     }
 
     public static void markEdictObtained(ServerPlayer player) {
-        player.getPersistentData().putBoolean(NBT_EDICT_OBTAINED, true);
+        data(player).putBoolean(NBT_EDICT_OBTAINED, true);
     }
 
     public static boolean hasObtainedDeed(ServerPlayer player) {
-        return player.getPersistentData().getBoolean(NBT_DEED_OBTAINED);
+        return data(player).getBoolean(NBT_DEED_OBTAINED);
     }
 
     public static void markDeedObtained(ServerPlayer player) {
-        player.getPersistentData().putBoolean(NBT_DEED_OBTAINED, true);
+        data(player).putBoolean(NBT_DEED_OBTAINED, true);
     }
 
     // ============ 决策栏位解锁 ============
 
     public static boolean isDecisionUnlocked(ServerPlayer player) {
-        return player.getPersistentData().getBoolean(NBT_DECISION_UNLOCKED);
+        return data(player).getBoolean(NBT_DECISION_UNLOCKED);
     }
 
     public static void setDecisionUnlocked(ServerPlayer player, boolean unlocked) {
-        player.getPersistentData().putBoolean(NBT_DECISION_UNLOCKED, unlocked);
+        data(player).putBoolean(NBT_DECISION_UNLOCKED, unlocked);
     }
 }

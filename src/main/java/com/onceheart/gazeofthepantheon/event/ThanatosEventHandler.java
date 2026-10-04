@@ -9,19 +9,18 @@ import com.onceheart.gazeofthepantheon.item.ThanatosItem;
 import com.onceheart.gazeofthepantheon.item.XiheItem;
 import com.onceheart.gazeofthepantheon.registry.ModItems;
 import com.onceheart.gazeofthepantheon.util.CuriosUtil;
-import com.onceheart.gazeofthepantheon.util.EdictData;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameType;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -37,6 +36,9 @@ import java.util.UUID;
 @Mod.EventBusSubscriber(modid = GazeOfThePantheon.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ThanatosEventHandler {
 
+    /** Forge 的持久化子节点 key。写在根下会在 respawn 时丢失，必须写在 PlayerPersisted 里。 */
+    private static final String PERSISTED_NBT_TAG = "PlayerPersisted";
+
     private static final String NBT_GIVEN = "gazeofthepantheon_given";
     private static final String NBT_HARDCORE_DEATH = "gazeofthepantheon_hardcore_death";
 
@@ -49,13 +51,22 @@ public class ThanatosEventHandler {
     private static final Map<UUID, ItemStack> SAVED_EDICT = new HashMap<>();
     private static final Map<UUID, Boolean> WRATH_DEATH = new HashMap<>();
 
+    /** 取玩家持久化数据子节点，确保节点存在。所有 NBT 读写都走这里。 */
+    private static CompoundTag persisted(ServerPlayer player) {
+        CompoundTag root = player.getPersistentData();
+        if (!root.contains(PERSISTED_NBT_TAG, Tag.TAG_COMPOUND)) {
+            root.put(PERSISTED_NBT_TAG, new CompoundTag());
+        }
+        return root.getCompound(PERSISTED_NBT_TAG);
+    }
+
     // ============ 登录：首次给予全部诅咒注视 ============
 
     @SubscribeEvent
     public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
 
-        CompoundTag data = player.getPersistentData();
+        CompoundTag data = persisted(player);
 
         if (data.getBoolean(NBT_HARDCORE_DEATH)) {
             data.putBoolean(NBT_HARDCORE_DEATH, false);
@@ -97,32 +108,37 @@ public class ThanatosEventHandler {
         return dirt;
     }
 
-    // ============ 死亡：善意复活（必行敕令激活时失效） ============
+    // ============ 每 tick：位置记录 + 善意虚空兜底 ============
+
+    @SubscribeEvent
+    public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
+        if (event.phase != TickEvent.Phase.END) return;
+        if (!(event.player instanceof ServerPlayer player)) return;
+
+        // 每 tick 记录最后站立位置（玩家踩地时写入）
+        DivineSaveHandler.recordGroundPosition(player);
+
+        // 每 20 tick 检测一次虚空
+        if (player.tickCount % 20 != 0) return;
+
+        // 善意玩家在虚空：立刻救赎
+        if (DivineSaveHandler.isKindnessActive(player)
+                && DivineSaveHandler.isInVoid(player)) {
+            DivineSaveHandler.applyKindnessSave(player);
+        }
+    }
+
+    // ============ 死亡：善意复活 ============
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onDeathKindness(LivingDeathEvent event) {
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
+        if (event.isCanceled()) return;
 
-        // 必行敕令激活时，祝福注视失效
-        if (EdictData.isEdictActive(player)) return;
-
-        ItemStack kindness = CuriosUtil.findKindness(player);
-        if (kindness.isEmpty()) return;
+        if (!DivineSaveHandler.isKindnessActive(player)) return;
 
         event.setCanceled(true);
-
-        player.setHealth(player.getMaxHealth());
-        player.deathTime = 0;
-        player.hurtTime = 0;
-        player.invulnerableTime = 40;
-        player.clearFire();
-        player.removeAllEffects();
-
-        player.addEffect(new MobEffectInstance(MobEffects.DARKNESS, 60, 0, false, false));
-        player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 4, false, false));
-
-        player.sendSystemMessage(Component.translatable(
-                "message.gazeofthepantheon.thanatos_kindness.triggered"));
+        DivineSaveHandler.applyKindnessSave(player);
     }
 
     // ============ 死亡：愠怒处理（诅咒永远生效） ============
@@ -136,7 +152,7 @@ public class ThanatosEventHandler {
         if (wrath.isEmpty()) return;
 
         WRATH_DEATH.put(player.getUUID(), true);
-        player.getPersistentData().putBoolean(NBT_HARDCORE_DEATH, true);
+        persisted(player).putBoolean(NBT_HARDCORE_DEATH, true);
 
         CuriosUtil.removeFromGaze(player, wrath);
         GazeOfThePantheon.LOGGER.debug("Thanatos Wrath: marked hardcore death for {}",
@@ -221,7 +237,7 @@ public class ThanatosEventHandler {
         }
 
         boolean wrathDeath = WRATH_DEATH.remove(player.getUUID()) != null;
-        CompoundTag data = player.getPersistentData();
+        CompoundTag data = persisted(player);
         if (wrathDeath || data.getBoolean(NBT_HARDCORE_DEATH)) {
             data.putBoolean(NBT_HARDCORE_DEATH, false);
             player.setGameMode(GameType.SPECTATOR);

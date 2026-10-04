@@ -3,6 +3,7 @@ package com.onceheart.gazeofthepantheon.event;
 import com.onceheart.gazeofthepantheon.GazeOfThePantheon;
 import com.onceheart.gazeofthepantheon.util.CuriosUtil;
 import com.onceheart.gazeofthepantheon.util.EdictData;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -12,6 +13,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -49,12 +51,45 @@ public class EdictEventHandler {
         }
     }
 
-    // ============ 每 tick 效果：天威 ============
+    // ============ 登录 / 重生：刷新激活缓存 ============
+
+    @SubscribeEvent
+    public static void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
+        if (!(event.getEntity() instanceof ServerPlayer player)) return;
+        MinecraftServer server = player.getServer();
+        if (server == null) return;
+        // 延后一 tick，确保 Curios 栏位已加载完毕
+        server.execute(() -> DivineSaveHandler.refreshActiveCache(player));
+    }
+
+    @SubscribeEvent
+    public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
+        if (!(event.getEntity() instanceof ServerPlayer player)) return;
+        MinecraftServer server = player.getServer();
+        if (server == null) return;
+        server.execute(() -> DivineSaveHandler.refreshActiveCache(player));
+    }
+
+    // ============ 每 tick：tick 兜底 + 天威 ============
 
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if (event.phase != TickEvent.Phase.END) return;
         if (!(event.player instanceof ServerPlayer player)) return;
+
+        // tick 兜底：血量归零或 NaN 时手动拉回
+        float hp = player.getHealth();
+        if (Float.isNaN(hp) || hp <= 0.0F) {
+            boolean immortal = DivineSaveHandler.isImmortalActive(player);
+            boolean kindness = DivineSaveHandler.isKindnessActive(player);
+            // 不朽：isDeadOrDying 被 Mixin 强制 false，直接回血
+            // 善意：只在未进入死亡流程时回血（进了的话 LivingDeathEvent 会拦）
+            if (immortal || (kindness && !player.isDeadOrDying())) {
+                player.setHealth(player.getMaxHealth());
+                player.deathTime = 0;
+                player.hurtTime = 0;
+            }
+        }
 
         if (!CuriosUtil.hasDecisionEquipped(player)) return;
         if (!EdictData.isEdictActive(player)) return;
@@ -104,35 +139,12 @@ public class EdictEventHandler {
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onPlayerDeath(LivingDeathEvent event) {
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
+        if (event.isCanceled()) return;
 
-        if (!CuriosUtil.hasDecisionEquipped(player)) return;
-        if (!EdictData.isEdictActive(player)) return;
-        if (!EdictData.isEffectOn(player, EdictData.EFFECT_IMMORTAL)) return;
+        if (!DivineSaveHandler.isImmortalActive(player)) return;
 
-        // 取消死亡
         event.setCanceled(true);
-
-        // 若掉入虚空，传送回安全位置
-        if (player.getY() < player.level().getMinBuildHeight() - 10) {
-            player.teleportTo(player.serverLevel(), 0.5, 80.0, 0.5, player.getYRot(), player.getXRot());
-        }
-
-        // 恢复生命
-        player.setHealth(player.getMaxHealth());
-        player.deathTime = 0;
-        player.hurtTime = 0;
-        player.invulnerableTime = 60;
-        player.clearFire();
-
-        // 抗性提升 V（5 秒）
-        player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 100, 4, false, false));
-        // 力量 X（10 秒）
-        player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 200, 9, false, false));
-        // 瞬间治疗 X（15 秒持续）
-        player.addEffect(new MobEffectInstance(MobEffects.HEAL, 300, 9, false, false));
-
-        player.sendSystemMessage(net.minecraft.network.chat.Component.translatable(
-                "message.gazeofthepantheon.edict.immortal"));
+        DivineSaveHandler.applyImmortalSave(player);
     }
 
     // ============ 破败 + 殁亡：玩家攻击时生效 ============

@@ -13,6 +13,9 @@ description = '''神有怒，亦有恩。
 一念之间，目光即降。
 万神垂目，所见皆汝。'''
 
+[[mixins]]
+config = "gazeofthepantheon.mixins.json"
+
 [[dependencies.gazeofthepantheon]]
 modId = "forge"
 mandatory = true
