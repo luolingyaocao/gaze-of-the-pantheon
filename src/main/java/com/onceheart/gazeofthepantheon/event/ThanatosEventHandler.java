@@ -15,11 +15,13 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
@@ -41,6 +43,9 @@ public class ThanatosEventHandler {
 
     private static final String NBT_GIVEN = "gazeofthepantheon_given";
     private static final String NBT_HARDCORE_DEATH = "gazeofthepantheon_hardcore_death";
+
+    /** 首次进世界时主世界降雨持续时间（5 分钟 = 6000 tick，与羲和诅咒的抗火时长对齐） */
+    private static final int WRATH_RAIN_DURATION = 6000;
 
     private static final Map<UUID, ItemStack> SAVED_KINDNESS = new HashMap<>();
     private static final Map<UUID, ItemStack> SAVED_HYGIEIA = new HashMap<>();
@@ -89,6 +94,12 @@ public class ThanatosEventHandler {
             ItemStack markedDirt = createMarkedDirt();
             if (!player.getInventory().add(markedDirt)) {
                 player.drop(markedDirt, false);
+            }
+
+            // 主世界开始下雨，贴合羲和诅咒的文案设计
+            ServerLevel overworld = player.server.getLevel(Level.OVERWORLD);
+            if (overworld != null) {
+                overworld.setWeatherParameters(WRATH_RAIN_DURATION, 0, true, false);
             }
         }
     }
