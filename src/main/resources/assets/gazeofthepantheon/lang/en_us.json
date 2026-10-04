@@ -69,8 +69,8 @@
   "tooltip.gazeofthepantheon.achilles_kindness.desc": "§6Gaze · Blessing of the Styx",
   "tooltip.gazeofthepantheon.achilles_kindness.effect": "§eThe waters of the Styx flow once more.",
 
-  "tooltip.gazeofthepantheon.edict.desc": "§6Edict: All Laws Follow",
-  "tooltip.gazeofthepantheon.edict.stats": "§e+20 Armor · +20 Toughness · +200% Attack · +10 Attack Speed · +10 Knockback Resistance",
+  "tooltip.gazeofthepantheon.edict.desc": "§6Edict · All Laws Follow",
+  "tooltip.gazeofthepantheon.edict.stats": "§e+20 Armor · +20 Toughness · +200% Attack · +10 Attack Speed · Full Knockback Immunity",
   "tooltip.gazeofthepantheon.edict.hint": "§7Press V to contemplate your decision",
 
   "tooltip.gazeofthepantheon.deed.desc": "§6Know that planning precedes action",
@@ -133,6 +133,12 @@
   "jei.gazeofthepantheon.hermes_sandals.condition": "While wearing Hermes's Shackles, mine the following:",
   "jei.gazeofthepantheon.hermes_sandals.condition.tooltip": "Only triggers with the cursed version (Shackles); blessed (Dash) drops nothing. Survival mode only.",
   "jei.gazeofthepantheon.hermes_sandals.chance": "Drop rate: 0.1% (about 2 per netherite pickaxe)",
+  "jei.gazeofthepantheon.edict_drop": "Obtaining the Inevitable Edict",
+  "jei.gazeofthepantheon.edict_drop.desc": "Drops when you slay the Wither and do not yet possess the Edict.",
+  "jei.gazeofthepantheon.deed_drop": "Obtaining the Deed of Man",
+  "jei.gazeofthepantheon.deed_drop.desc": "Equip the Inevitable Edict, gather all blessed gazes, then slay the Ender Dragon.",
+  "jei.gazeofthepantheon.deed_drop.line1": "Equip the Inevitable Edict, gather all blessed gazes,",
+  "jei.gazeofthepantheon.deed_drop.line2": "then slay the Ender Dragon — the Deed shall appear above the End portal.",
 
   "message.gazeofthepantheon.thanatos_kindness.triggered": "§6Death turned you away.",
   "message.gazeofthepantheon.thanatos_wrath.death": "§4In your final moments, take one last look at this world.",
@@ -156,10 +162,13 @@
 
   "message.gazeofthepantheon.edict.dropped": "§6The Supreme Edict is at hand",
   "message.gazeofthepantheon.edict.immortal": "§6Edict: Death Shall Not Come",
+  "message.gazeofthepantheon.edict.already_obtained": "§7The Edict is already in your hand; seek it no more.",
   "message.gazeofthepantheon.deed.summoned": "§6The plan is set; now comes the deed.",
   "message.gazeofthepantheon.deed.no_edict": "§7The Edict must be in hand before plans can span the world.",
   "message.gazeofthepantheon.deed.already": "§7Why do you hold this once more? Return it at once.",
   "message.gazeofthepantheon.deed.placed": "§6The Deed is Man's — and so is the plan...!",
+  "message.gazeofthepantheon.deed.missing_header": "§eThe following blessings are still missing:",
+  "message.gazeofthepantheon.deed.need_edict": "§7You must first equip the Inevitable Edict to receive the Deed of Man.",
 
   "message.gazeofthepantheon.command.decree.to_blessed": "§6Converted %s to its blessed form.",
   "message.gazeofthepantheon.command.decree.to_wrath": "§4Converted %s to its cursed form.",

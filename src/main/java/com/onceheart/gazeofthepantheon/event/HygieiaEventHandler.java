@@ -2,6 +2,7 @@ package com.onceheart.gazeofthepantheon.event;
 
 import com.onceheart.gazeofthepantheon.GazeOfThePantheon;
 import com.onceheart.gazeofthepantheon.util.CuriosUtil;
+import com.onceheart.gazeofthepantheon.util.EdictData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -26,7 +27,6 @@ public class HygieiaEventHandler {
     private static final UUID HEALTH_BONUS_UUID = UUID.fromString("a1b2c3d4-e5f6-7890-abcd-ef1234567890");
     private static final String HEALTH_BONUS_NAME = "gazeofthepantheon.hygieia_health_bonus";
 
-    /** 篝火回血速度：与原版自然回血一致（80 tick = 1 点血） */
     private static final int CAMPFIRE_HEAL_INTERVAL = 80;
 
     // ============ 衰竭 + 丰饶：每 tick 处理 ============
@@ -39,21 +39,22 @@ public class HygieiaEventHandler {
         boolean hasWrath = !CuriosUtil.findHygieiaWrath(player).isEmpty();
         boolean hasKindness = !CuriosUtil.findHygieiaKindness(player).isEmpty();
 
-        // ---- 衰竭：站在篝火旁缓慢回血 ----
+        // ---- 衰竭：诅咒，永远生效 ----
         if (hasWrath) {
             if (player.tickCount % CAMPFIRE_HEAL_INTERVAL == 0) {
                 if (isNearCampfire(player)) {
                     if (player.getHealth() < player.getMaxHealth()) {
-                        // 用 setHealth 直接设置，绕过 LivingHealEvent 的拦截
                         player.setHealth(Math.min(player.getMaxHealth(), player.getHealth() + 1.0F));
                     }
                 }
             }
         }
 
-        // ---- 丰饶 ----
-        if (hasKindness) {
-            // 1. 生命提升 +100%（乘法修饰符，兼容其他生命提升）
+        // ---- 丰饶：祝福，必行敕令激活时失效 ----
+        boolean kindnessActive = hasKindness && !EdictData.isEdictActive(player);
+
+        if (kindnessActive) {
+            // 生命提升 +100%
             AttributeInstance maxHealth = player.getAttribute(Attributes.MAX_HEALTH);
             if (maxHealth != null) {
                 AttributeModifier existing = maxHealth.getModifier(HEALTH_BONUS_UUID);
@@ -70,12 +71,12 @@ public class HygieiaEventHandler {
                 }
             }
 
-            // 2. 每 5 秒刷新一次伤害吸收 II
+            // 每 5 秒吸收 II
             if (player.tickCount % 100 == 0) {
                 player.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 120, 1, false, false));
             }
 
-            // 3. 每 10 秒获得 1 秒瞬间回复 II
+            // 每 10 秒瞬间回复 II
             if (player.tickCount % 200 == 0) {
                 player.addEffect(new MobEffectInstance(MobEffects.HEAL, 20, 1, false, false));
             }
@@ -87,36 +88,28 @@ public class HygieiaEventHandler {
         }
     }
 
-    // ============ 衰竭：拦截自然回血 ============
+    // ============ 衰竭：拦截自然回血（诅咒，永远生效） ============
 
     @SubscribeEvent
     public static void onLivingHeal(LivingHealEvent event) {
         if (event.getEntity().level().isClientSide) return;
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
 
-        // 只在佩戴衰竭时生效
         if (CuriosUtil.findHygieiaWrath(player).isEmpty()) return;
 
-        // 允许 Regeneration（生命恢复）和 Heal（瞬间治疗）带来的回血
-        // 这覆盖了药水、金苹果、信标等
         if (player.hasEffect(MobEffects.REGENERATION) || player.hasEffect(MobEffects.HEAL)) {
             return;
         }
 
-        // 其余全部取消——也就是自然回血（饱食度/饱和度）
         event.setCanceled(true);
     }
 
-    // ============ 衰竭：自然睡醒后回满血 ============
+    // ============ 衰竭：自然睡醒后回满血（诅咒，永远生效） ============
 
     @SubscribeEvent
     public static void onPlayerWakeUp(PlayerWakeUpEvent event) {
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
-
-        // 只在佩戴衰竭时生效
         if (CuriosUtil.findHygieiaWrath(player).isEmpty()) return;
-
-        // sleepCounter 在事件触发时尚未被重置，自然睡醒为 100，手动 ESC 时很小
         if (player.getSleepTimer() < 100) return;
 
         player.setHealth(player.getMaxHealth());
@@ -124,7 +117,7 @@ public class HygieiaEventHandler {
                 "message.gazeofthepantheon.hygieia_wrath.wake_up"));
     }
 
-    // ============ 工具方法：检测玩家附近是否有篝火 ============
+    // ============ 工具方法 ============
 
     private static boolean isNearCampfire(ServerPlayer player) {
         BlockPos center = player.blockPosition();

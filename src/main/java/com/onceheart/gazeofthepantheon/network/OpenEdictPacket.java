@@ -2,6 +2,7 @@ package com.onceheart.gazeofthepantheon.network;
 
 import com.onceheart.gazeofthepantheon.menu.EdictMenu;
 import com.onceheart.gazeofthepantheon.util.CuriosUtil;
+import com.onceheart.gazeofthepantheon.util.EdictData;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -11,10 +12,6 @@ import net.minecraftforge.network.NetworkHooks;
 
 import java.util.function.Supplier;
 
-/**
- * 客户端 → 服务端：请求打开决策 UI。
- * 服务端验证决策栏位是否装备了必行敕令。
- */
 public class OpenEdictPacket {
 
     public OpenEdictPacket() {
@@ -32,13 +29,19 @@ public class OpenEdictPacket {
             ServerPlayer player = ctx.get().getSender();
             if (player == null) return;
 
-            // 必须装备必行敕令才能打开
             if (!CuriosUtil.hasDecisionEquipped(player)) return;
+
+            int mask = EdictData.getEffects(player);
+            boolean isActive = EdictData.isEdictActive(player);
 
             NetworkHooks.openScreen(player,
                     new SimpleMenuProvider(
                             (containerId, inv, p) -> new EdictMenu(containerId, inv),
-                            Component.translatable("gui.gazeofthepantheon.edict.title")));
+                            Component.translatable("gui.gazeofthepantheon.edict.title")),
+                    buf -> {
+                        buf.writeInt(mask);
+                        buf.writeBoolean(isActive);
+                    });
         });
         ctx.get().setPacketHandled(true);
     }

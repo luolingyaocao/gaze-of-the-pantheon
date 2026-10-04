@@ -1,6 +1,5 @@
 package com.onceheart.gazeofthepantheon.client;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.onceheart.gazeofthepantheon.menu.EdictMenu;
 import com.onceheart.gazeofthepantheon.network.ModNetwork;
 import com.onceheart.gazeofthepantheon.network.ToggleEdictEffectPacket;
@@ -9,26 +8,21 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class EdictScreen extends AbstractContainerScreen<EdictMenu> {
 
-    /** 箱子界面背景（原版 generic_54） */
-    private static final ResourceLocation TEXTURE =
-            new ResourceLocation("minecraft", "textures/gui/container/generic_54.png");
-
-    /** 按钮位置 */
     private static final int BUTTON_X = 6;
-    private static final int BUTTON_Y_START = 18;
-    private static final int BUTTON_W = 90;
-    private static final int BUTTON_H = 18;
-    private static final int BUTTON_SPACING = 22;
+    private static final int BUTTON_Y_START = 24;
+    private static final int BUTTON_W = 54;
+    private static final int BUTTON_H = 20;
+    private static final int BUTTON_SPACING = 2;
 
-    /** 五种开关 */
     private static final int[] EFFECTS = {
             EdictData.EFFECT_IMMORTAL,
             EdictData.EFFECT_RUIN,
@@ -37,83 +31,143 @@ public class EdictScreen extends AbstractContainerScreen<EdictMenu> {
             EdictData.EFFECT_SANCTION
     };
 
-    /** 每种效果对应的语言键 */
-    private static final String[] EFFECT_NAMES = {
-            "edict.effect.immortal",
-            "edict.effect.ruin",
-            "edict.effect.authority",
-            "edict.effect.perish",
-            "edict.effect.sanction"
+    private static final String[] EFFECT_KEYS = {
+            "immortal", "ruin", "authority", "perish", "sanction"
     };
 
-    /** 缓存的开关状态，客户端本地维护，点击时同步给服务端 */
     private int localMask;
+    private boolean lastShouldShow;
 
     public EdictScreen(EdictMenu menu, Inventory playerInventory, Component title) {
         super(menu, playerInventory, title);
-        this.imageWidth = 220;
-        this.imageHeight = 222;
-        this.inventoryLabelY = this.imageHeight - 94;
-        this.localMask = EdictData.EFFECT_ALL;
+        this.imageWidth = 290;
+        this.imageHeight = 236;
+        this.titleLabelX = 6;
+        this.titleLabelY = 6;
+        this.inventoryLabelX = EdictMenu.INVENTORY_X;
+        this.inventoryLabelY = EdictMenu.INVENTORY_Y - 11;
+        this.localMask = menu.getSyncedMask();
+        this.lastShouldShow = shouldShowButtons();
     }
 
     @Override
     protected void init() {
         super.init();
-        // 请求一次当前开关状态（由 ToggleEdictEffectPacket 的空包触发服务端回发）
-        // 这里直接同步当前缓存的掩码，服务端才是权威
+        this.localMask = this.menu.getSyncedMask();
+        this.lastShouldShow = shouldShowButtons();
         rebuildButtons();
     }
 
-    /** 生成五个开关按钮 */
+    /** 按钮显示条件：成事在人已放入 + 六个神系祝福都在格子里 */
+    private boolean shouldShowButtons() {
+        return hasDeedInSlot() && allBlessingsInSlots();
+    }
+
+    private boolean hasDeedInSlot() {
+        Slot slot = this.menu.getSlot(EdictMenu.DEED_SLOT_INDEX);
+        return !slot.getItem().isEmpty();
+    }
+
+    /** 检查 54 格中是否集齐六个神系的祝福 */
+    private boolean allBlessingsInSlots() {
+        java.util.Set<Class<?>> found = new java.util.HashSet<>();
+        for (int i = 0; i < EdictMenu.BLESSING_SLOTS; i++) {
+            ItemStack s = this.menu.getSlot(i).getItem();
+            if (s.isEmpty()) continue;
+            Class<?> deity = deityOf(s);
+            if (deity != null) found.add(deity);
+        }
+        return found.size() >= 6;
+    }
+
+    private static Class<?> deityOf(ItemStack stack) {
+        var item = stack.getItem();
+        if (item instanceof com.onceheart.gazeofthepantheon.item.ThanatosItem)
+            return com.onceheart.gazeofthepantheon.item.ThanatosItem.class;
+        if (item instanceof com.onceheart.gazeofthepantheon.item.HygieiaItem)
+            return com.onceheart.gazeofthepantheon.item.HygieiaItem.class;
+        if (item instanceof com.onceheart.gazeofthepantheon.item.AresItem)
+            return com.onceheart.gazeofthepantheon.item.AresItem.class;
+        if (item instanceof com.onceheart.gazeofthepantheon.item.HermesItem)
+            return com.onceheart.gazeofthepantheon.item.HermesItem.class;
+        if (item instanceof com.onceheart.gazeofthepantheon.item.XiheItem)
+            return com.onceheart.gazeofthepantheon.item.XiheItem.class;
+        if (item instanceof com.onceheart.gazeofthepantheon.item.AchillesItem)
+            return com.onceheart.gazeofthepantheon.item.AchillesItem.class;
+        return null;
+    }
+
     private void rebuildButtons() {
         this.clearWidgets();
+        if (!shouldShowButtons()) return;
+
         for (int i = 0; i < EFFECTS.length; i++) {
             final int effect = EFFECTS[i];
-            final String key = EFFECT_NAMES[i];
-            int y = BUTTON_Y_START + i * BUTTON_SPACING;
+            final String key = EFFECT_KEYS[i];
+            int y = BUTTON_Y_START + i * (BUTTON_H + BUTTON_SPACING);
             Button btn = Button.builder(
-                    getButtonLabel(key, effect),
+                    label(key, effect),
                     b -> onEffectToggle(effect)
             ).pos(this.leftPos + BUTTON_X, this.topPos + y).size(BUTTON_W, BUTTON_H).build();
             this.addRenderableWidget(btn);
         }
     }
 
-    private Component getButtonLabel(String key, int effect) {
+    private Component label(String key, int effect) {
         boolean on = (localMask & effect) != 0;
         return Component.translatable("edict.effect." + key + (on ? ".on" : ".off"));
     }
 
     private void onEffectToggle(int effect) {
-        // 客户端立即切换显示，网络包同步给服务端
         localMask ^= effect;
         ModNetwork.CHANNEL.sendToServer(new ToggleEdictEffectPacket(effect));
         rebuildButtons();
     }
 
-    /** 从服务端同步开关状态 */
     public void updateMask(int mask) {
         this.localMask = mask;
         rebuildButtons();
     }
 
     @Override
-    public void render(GuiGraphics g, int mouseX, int mouseY, float partialTick) {
-        // 背景
-        this.renderBackground(g);
-        // 绘制容器贴图
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        g.blit(TEXTURE, this.leftPos, this.topPos, 0, 0, this.imageWidth, this.imageHeight);
-        // 槽位和标签
-        super.render(g, mouseX, mouseY, partialTick);
-        // tooltip
-        this.renderTooltip(g, mouseX, mouseY);
+    protected void containerTick() {
+        super.containerTick();
+        boolean now = shouldShowButtons();
+        if (now != lastShouldShow) {
+            lastShouldShow = now;
+            rebuildButtons();
+        }
     }
 
     @Override
     protected void renderBg(GuiGraphics g, float partialTick, int mouseX, int mouseY) {
-        // 贴图在 render 里已经画过，这里留空
+        int x = this.leftPos;
+        int y = this.topPos;
+        int w = this.imageWidth;
+        int h = this.imageHeight;
+
+        g.fill(x, y, x + w, y + h, 0xFFC6C6C6);
+        g.renderOutline(x - 1, y - 1, w + 2, h + 2, 0xFF000000);
+        g.fill(x, y, x + w - 1, y + 1, 0xFFFFFFFF);
+        g.fill(x, y, x + 1, y + h - 1, 0xFFFFFFFF);
+        g.fill(x + w - 1, y, x + w, y + h, 0xFF555555);
+        g.fill(x, y + h - 1, x + w, y + h, 0xFF555555);
+
+        for (Slot slot : this.menu.slots) {
+            drawSlotBackground(g, x + slot.x, y + slot.y);
+        }
+    }
+
+    private void drawSlotBackground(GuiGraphics g, int sx, int sy) {
+        g.fill(sx - 1, sy - 1, sx + 17, sy + 17, 0xFF8B8B8B);
+        g.fill(sx, sy, sx + 16, sy + 16, 0xFF373737);
+    }
+
+    @Override
+    public void render(GuiGraphics g, int mouseX, int mouseY, float partialTick) {
+        this.renderBackground(g);
+        super.render(g, mouseX, mouseY, partialTick);
+        this.renderTooltip(g, mouseX, mouseY);
     }
 
     @Override

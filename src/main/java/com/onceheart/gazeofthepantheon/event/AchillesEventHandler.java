@@ -2,6 +2,7 @@ package com.onceheart.gazeofthepantheon.event;
 
 import com.onceheart.gazeofthepantheon.GazeOfThePantheon;
 import com.onceheart.gazeofthepantheon.util.CuriosUtil;
+import com.onceheart.gazeofthepantheon.util.EdictData;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -19,32 +20,32 @@ import java.util.UUID;
 @Mod.EventBusSubscriber(modid = GazeOfThePantheon.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class AchillesEventHandler {
 
-    /** 每 10 秒抗性 IV，持续 3 秒 */
     private static final int RESISTANCE_INTERVAL = 200;
     private static final int RESISTANCE_DURATION = 60;
 
-    /** 记录玩家上次受击的原始伤害值，用于真伤覆盖 */
     private static final Map<UUID, Float> RAW_DAMAGE = new HashMap<>();
 
-    // ============ 坚毅：每 10 秒抗性 IV ============
+    // ============ 坚毅：祝福，必行敕令激活时失效 ============
 
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if (event.phase != TickEvent.Phase.END) return;
         if (!(event.player instanceof ServerPlayer player)) return;
 
-        if (CuriosUtil.findAchillesKindness(player).isEmpty()) return;
+        boolean hasKindness = !CuriosUtil.findAchillesKindness(player).isEmpty();
+        boolean kindnessActive = hasKindness && !EdictData.isEdictActive(player);
 
-        if (player.tickCount % RESISTANCE_INTERVAL == 0) {
-            player.addEffect(new MobEffectInstance(
-                    MobEffects.DAMAGE_RESISTANCE,
-                    RESISTANCE_DURATION, 3, false, false));
+        if (kindnessActive) {
+            if (player.tickCount % RESISTANCE_INTERVAL == 0) {
+                player.addEffect(new MobEffectInstance(
+                        MobEffects.DAMAGE_RESISTANCE,
+                        RESISTANCE_DURATION, 3, false, false));
+            }
         }
     }
 
-    // ============ 踵：受到真伤 ============
+    // ============ 踵：诅咒，永远生效 ============
 
-    /** 在护甲/抗性减免之前，记录原始伤害 */
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onLivingHurt(LivingHurtEvent event) {
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
@@ -54,7 +55,6 @@ public class AchillesEventHandler {
         RAW_DAMAGE.put(player.getUUID(), event.getAmount());
     }
 
-    /** 在护甲/抗性减免之后，把伤害覆盖回原始值 */
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onLivingDamage(LivingDamageEvent event) {
         if (!(event.getEntity() instanceof ServerPlayer player)) return;

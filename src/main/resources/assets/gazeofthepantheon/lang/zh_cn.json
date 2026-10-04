@@ -69,8 +69,8 @@
   "tooltip.gazeofthepantheon.achilles_kindness.desc": "§6注视·冥河之佑",
   "tooltip.gazeofthepantheon.achilles_kindness.effect": "§e冥河之水，再度涌流",
 
-  "tooltip.gazeofthepantheon.edict.desc": "§6敕令：万法随行",
-  "tooltip.gazeofthepantheon.edict.stats": "§e+20 护甲 · +20 韧性 · +200% 攻击 · +10 攻速 · +10 击退抗",
+  "tooltip.gazeofthepantheon.edict.desc": "§6敕令·万法随行",
+  "tooltip.gazeofthepantheon.edict.stats": "§e+20 护甲 · +20 韧性 · +200% 攻击 · +10 攻速 · 完全免疫击退",
   "tooltip.gazeofthepantheon.edict.hint": "§7按V思索决策",
 
   "tooltip.gazeofthepantheon.deed.desc": "§6须知谋定而后动",
@@ -133,6 +133,12 @@
   "jei.gazeofthepantheon.hermes_sandals.condition": "佩戴赫尔墨斯的枷锁时，挖掘以下方块：",
   "jei.gazeofthepantheon.hermes_sandals.condition.tooltip": "只有诅咒版（枷锁）触发；祝福版（疾驰）不掉落。仅在生存模式生效。",
   "jei.gazeofthepantheon.hermes_sandals.chance": "掉落概率：0.1%（一把下界合金镐约出 2 个）",
+  "jei.gazeofthepantheon.edict_drop": "必行敕令的获取",
+  "jei.gazeofthepantheon.edict_drop.desc": "击败凋零，且自身尚未持有必行敕令时掉落",
+  "jei.gazeofthepantheon.deed_drop": "成事在人的获取",
+  "jei.gazeofthepantheon.deed_drop.desc": "装备必行敕令，集齐全部祝福注视后击败末影龙",
+  "jei.gazeofthepantheon.deed_drop.line1": "装备必行敕令，集齐所有祝福注视，",
+  "jei.gazeofthepantheon.deed_drop.line2": "击杀末影龙后，成事在人将现于末地传送门上方。",
 
   "message.gazeofthepantheon.thanatos_kindness.triggered": "§6死亡拒绝了你",
   "message.gazeofthepantheon.thanatos_wrath.death": "§4弥留之际，再看看这个世界吧",
@@ -156,10 +162,13 @@
 
   "message.gazeofthepantheon.edict.dropped": "§6可行无上敕令",
   "message.gazeofthepantheon.edict.immortal": "§6敕令：死劫不复",
+  "message.gazeofthepantheon.edict.already_obtained": "§7敕令已在你手，无需再求",
   "message.gazeofthepantheon.deed.summoned": "§6谋定而后动",
   "message.gazeofthepantheon.deed.no_edict": "§7需敕令在手，方可谋定四海",
   "message.gazeofthepantheon.deed.already": "§7何故复得此物？望速速归还",
   "message.gazeofthepantheon.deed.placed": "§6成事在人，谋事……亦然！",
+  "message.gazeofthepantheon.deed.missing_header": "§e尚缺以下祝福：",
+  "message.gazeofthepantheon.deed.need_edict": "§7须先装备必行敕令，方可承接成事在人",
 
   "message.gazeofthepantheon.command.decree.to_blessed": "§6已转化 %s 为祝福版",
   "message.gazeofthepantheon.command.decree.to_wrath": "§4已转化 %s 为诅咒版",

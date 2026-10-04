@@ -24,18 +24,15 @@ import java.util.UUID;
 
 public class EdictItem extends Item implements ICurioItem {
 
-    // ============ 属性修饰符 UUID ============
     private static final UUID ARMOR_UUID        = UUID.fromString("ed1c7001-0001-0001-0001-000000000001");
     private static final UUID TOUGH_UUID        = UUID.fromString("ed1c7002-0002-0002-0002-000000000002");
     private static final UUID ATTACK_DMG_UUID   = UUID.fromString("ed1c7003-0003-0003-0003-000000000003");
     private static final UUID ATTACK_SPD_UUID   = UUID.fromString("ed1c7004-0004-0004-0004-000000000004");
-    private static final UUID KNOCKBACK_UUID    = UUID.fromString("ed1c7005-0005-0005-0005-000000000005");
+    private static final UUID KNOCKBACK_RES_UUID = UUID.fromString("ed1c7005-0005-0005-0005-000000000005");
 
     public EdictItem(Properties properties) {
         super(properties);
     }
-
-    // ============ Curios 栏位限制 ============
 
     @Override
     public boolean canEquip(SlotContext slotContext, ItemStack stack) {
@@ -79,8 +76,9 @@ public class EdictItem extends Item implements ICurioItem {
                 "gazeofthepantheon.edict_attack", 2.0, AttributeModifier.Operation.MULTIPLY_TOTAL);
         apply(player, Attributes.ATTACK_SPEED, ATTACK_SPD_UUID,
                 "gazeofthepantheon.edict_attack_speed", 10.0, AttributeModifier.Operation.ADDITION);
-        apply(player, Attributes.ATTACK_KNOCKBACK, KNOCKBACK_UUID,
-                "gazeofthepantheon.edict_knockback", 10.0, AttributeModifier.Operation.ADDITION);
+        // 击退抗性：原版范围 0.0~1.0，1.0 即完全免疫击退
+        apply(player, Attributes.KNOCKBACK_RESISTANCE, KNOCKBACK_RES_UUID,
+                "gazeofthepantheon.edict_knockback_res", 1.0, AttributeModifier.Operation.ADDITION);
     }
 
     private static void removeAttributes(ServerPlayer player) {
@@ -88,7 +86,7 @@ public class EdictItem extends Item implements ICurioItem {
         remove(player, Attributes.ARMOR_TOUGHNESS, TOUGH_UUID);
         remove(player, Attributes.ATTACK_DAMAGE, ATTACK_DMG_UUID);
         remove(player, Attributes.ATTACK_SPEED, ATTACK_SPD_UUID);
-        remove(player, Attributes.ATTACK_KNOCKBACK, KNOCKBACK_UUID);
+        remove(player, Attributes.KNOCKBACK_RESISTANCE, KNOCKBACK_RES_UUID);
     }
 
     private static void apply(ServerPlayer player, Attribute attr, UUID uuid,
@@ -109,7 +107,7 @@ public class EdictItem extends Item implements ICurioItem {
         }
     }
 
-    // ============ 右键装备到决策栏位 ============
+    // ============ 右键装备 ============
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {

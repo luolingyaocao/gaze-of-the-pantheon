@@ -2,9 +2,11 @@ package com.onceheart.gazeofthepantheon.event;
 
 import com.onceheart.gazeofthepantheon.GazeOfThePantheon;
 import com.onceheart.gazeofthepantheon.util.CuriosUtil;
+import com.onceheart.gazeofthepantheon.util.EdictData;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -24,7 +26,6 @@ import java.util.UUID;
 @Mod.EventBusSubscriber(modid = GazeOfThePantheon.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class AresEventHandler {
 
-    // ============ 属性修饰符 UUID ============
     private static final UUID WRATH_ATTACK_DAMAGE_UUID = UUID.fromString("a4e50001-0001-0001-0001-000000000001");
     private static final UUID WRATH_ARMOR_UUID         = UUID.fromString("a4e50002-0002-0002-0002-000000000002");
     private static final UUID WRATH_ARMOR_TOUGH_UUID   = UUID.fromString("a4e50003-0003-0003-0003-000000000003");
@@ -33,7 +34,6 @@ public class AresEventHandler {
     private static final UUID KIND_ARMOR_UUID          = UUID.fromString("a4e51002-0002-0002-0002-000000000002");
     private static final UUID KIND_ARMOR_TOUGH_UUID    = UUID.fromString("a4e51003-0003-0003-0003-000000000003");
 
-    /** 中立生物白名单：佩戴纷争时直接敌对 */
     private static final Set<EntityType<?>> NEUTRAL_MOBS = Set.of(
             EntityType.ENDERMAN, EntityType.ZOMBIFIED_PIGLIN, EntityType.IRON_GOLEM,
             EntityType.SNOW_GOLEM, EntityType.WOLF, EntityType.LLAMA,
@@ -42,10 +42,10 @@ public class AresEventHandler {
             EntityType.PIGLIN, EntityType.SPIDER, EntityType.CAVE_SPIDER
     );
 
-    /** 纷争：中立生物强制敌对的检测半径 */
     private static final double WRATH_AGGRO_RADIUS = 20.0D;
 
     // ============ 属性维护 ============
+
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if (event.phase != TickEvent.Phase.END) return;
@@ -54,6 +54,7 @@ public class AresEventHandler {
         boolean hasWrath = !CuriosUtil.findAresWrath(player).isEmpty();
         boolean hasKindness = !CuriosUtil.findAresKindness(player).isEmpty();
 
+        // ---- 纷争：诅咒，永远生效 ----
         if (hasWrath) {
             applyModifier(player, Attributes.ATTACK_DAMAGE, WRATH_ATTACK_DAMAGE_UUID,
                     "gazeofthepantheon.ares_wrath_attack", -0.3D, AttributeModifier.Operation.MULTIPLY_TOTAL);
@@ -68,7 +69,10 @@ public class AresEventHandler {
             removeModifier(player, Attributes.ARMOR_TOUGHNESS, WRATH_ARMOR_TOUGH_UUID);
         }
 
-        if (hasKindness) {
+        // ---- 战佑：祝福，必行敕令激活时失效 ----
+        boolean kindnessActive = hasKindness && !EdictData.isEdictActive(player);
+
+        if (kindnessActive) {
             applyModifier(player, Attributes.ATTACK_DAMAGE, KIND_ATTACK_DAMAGE_UUID,
                     "gazeofthepantheon.ares_kind_attack", 0.5D, AttributeModifier.Operation.MULTIPLY_TOTAL);
             applyModifier(player, Attributes.ARMOR, KIND_ARMOR_UUID,
@@ -82,7 +86,7 @@ public class AresEventHandler {
         }
     }
 
-    private static void applyModifier(ServerPlayer player, net.minecraft.world.entity.ai.attributes.Attribute attr,
+    private static void applyModifier(ServerPlayer player, Attribute attr,
                                       UUID uuid, String name, double amount,
                                       AttributeModifier.Operation op) {
         AttributeInstance instance = player.getAttribute(attr);
@@ -94,12 +98,13 @@ public class AresEventHandler {
         }
     }
 
-    private static void removeModifier(ServerPlayer player, net.minecraft.world.entity.ai.attributes.Attribute attr, UUID uuid) {
+    private static void removeModifier(ServerPlayer player, Attribute attr, UUID uuid) {
         AttributeInstance instance = player.getAttribute(attr);
         if (instance != null && instance.getModifier(uuid) != null) instance.removeModifier(uuid);
     }
 
-    // ============ 纷争：中立生物强制敌对 ============
+    // ============ 纷争：中立生物强制敌对（诅咒，永远生效） ============
+
     private static void forceNeutralMobsHostile(ServerPlayer player) {
         AABB area = player.getBoundingBox().inflate(WRATH_AGGRO_RADIUS);
         List<Mob> mobs = player.level().getEntitiesOfClass(Mob.class, area);
@@ -112,7 +117,8 @@ public class AresEventHandler {
         }
     }
 
-    // ============ 战佑：敌对生物索敌半径减半（核心实现） ============
+    // ============ 战佑：敌对生物索敌半径减半（祝福，必行敕令激活时失效） ============
+
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void onLivingChangeTarget(LivingChangeTargetEvent event) {
         if (!(event.getEntity() instanceof Mob mob)) return;
@@ -121,7 +127,9 @@ public class AresEventHandler {
         var newTarget = event.getNewTarget();
         if (!(newTarget instanceof ServerPlayer player)) return;
 
-        // 玩家是否佩戴战佑
+        // 必行敕令激活时，祝福失效
+        if (EdictData.isEdictActive(player)) return;
+
         if (CuriosUtil.findAresKindness(player).isEmpty()) return;
 
         double followRange = mob.getAttributeValue(Attributes.FOLLOW_RANGE);
@@ -132,6 +140,7 @@ public class AresEventHandler {
     }
 
     // ============ 受伤倍率 ============
+
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void onLivingHurt(LivingHurtEvent event) {
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
@@ -140,9 +149,11 @@ public class AresEventHandler {
         boolean hasWrath = !CuriosUtil.findAresWrath(player).isEmpty();
         boolean hasKindness = !CuriosUtil.findAresKindness(player).isEmpty();
 
+        // 纷争优先（诅咒永远生效）
         if (hasWrath) {
             event.setAmount(event.getAmount() * 1.5F);
-        } else if (hasKindness) {
+        } else if (hasKindness && !EdictData.isEdictActive(player)) {
+            // 战佑：必行敕令激活时失效
             event.setAmount(event.getAmount() * 0.5F);
         }
     }

@@ -9,6 +9,7 @@ import com.onceheart.gazeofthepantheon.item.ThanatosItem;
 import com.onceheart.gazeofthepantheon.item.XiheItem;
 import com.onceheart.gazeofthepantheon.registry.ModItems;
 import com.onceheart.gazeofthepantheon.util.CuriosUtil;
+import com.onceheart.gazeofthepantheon.util.EdictData;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -56,7 +57,6 @@ public class ThanatosEventHandler {
 
         CompoundTag data = player.getPersistentData();
 
-        // 检查未完成的极限死亡标记
         if (data.getBoolean(NBT_HARDCORE_DEATH)) {
             data.putBoolean(NBT_HARDCORE_DEATH, false);
             player.setGameMode(GameType.SPECTATOR);
@@ -65,7 +65,6 @@ public class ThanatosEventHandler {
             return;
         }
 
-        // 首次给予
         if (!data.getBoolean(NBT_GIVEN)) {
             data.putBoolean(NBT_GIVEN, true);
 
@@ -98,11 +97,14 @@ public class ThanatosEventHandler {
         return dirt;
     }
 
-    // ============ 死亡：善意复活 ============
+    // ============ 死亡：善意复活（必行敕令激活时失效） ============
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onDeathKindness(LivingDeathEvent event) {
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
+
+        // 必行敕令激活时，祝福注视失效
+        if (EdictData.isEdictActive(player)) return;
 
         ItemStack kindness = CuriosUtil.findKindness(player);
         if (kindness.isEmpty()) return;
@@ -123,7 +125,7 @@ public class ThanatosEventHandler {
                 "message.gazeofthepantheon.thanatos_kindness.triggered"));
     }
 
-    // ============ 死亡：愠怒处理 ============
+    // ============ 死亡：愠怒处理（诅咒永远生效） ============
 
     @SubscribeEvent(priority = EventPriority.LOW)
     public static void onDeathWrath(LivingDeathEvent event) {
@@ -218,7 +220,6 @@ public class ThanatosEventHandler {
             CuriosUtil.tryEquipToDecision(player, savedEdict);
         }
 
-        // 极限死亡：切换旁观者
         boolean wrathDeath = WRATH_DEATH.remove(player.getUUID()) != null;
         CompoundTag data = player.getPersistentData();
         if (wrathDeath || data.getBoolean(NBT_HARDCORE_DEATH)) {

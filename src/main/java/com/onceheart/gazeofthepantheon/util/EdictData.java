@@ -1,13 +1,17 @@
 package com.onceheart.gazeofthepantheon.util;
 
+import com.onceheart.gazeofthepantheon.registry.ModItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 必行敕令的玩家数据工具类。
@@ -15,39 +19,23 @@ import java.util.List;
  */
 public class EdictData {
 
-    // ============ NBT 键名 ============
-
-    /** 五种效果的开关状态，用位掩码存 */
     private static final String NBT_EFFECTS = "gazeofthepantheon_edict_effects";
-
-    /** 内部的祝福注视列表 */
     private static final String NBT_BLESSINGS = "gazeofthepantheon_edict_blessings";
-
-    /** 成事在人是否已放入 */
     private static final String NBT_HAS_DEED = "gazeofthepantheon_edict_has_deed";
-
-    /** 是否已经获得过必行敕令（用于"最多一个"判定） */
     private static final String NBT_EDICT_OBTAINED = "gazeofthepantheon_edict_obtained";
-
-    /** 是否已经获得过成事在人 */
     private static final String NBT_DEED_OBTAINED = "gazeofthepantheon_deed_obtained";
-
-    /** 决策栏位是否解锁 */
     private static final String NBT_DECISION_UNLOCKED = "gazeofthepantheon_decision_unlocked";
 
-    // ============ 效果位掩码 ============
-
-    public static final int EFFECT_IMMORTAL = 1;      // 不朽
-    public static final int EFFECT_RUIN = 1 << 1;     // 破败
-    public static final int EFFECT_AUTHORITY = 1 << 2; // 天威
-    public static final int EFFECT_PERISH = 1 << 3;   // 殁亡
-    public static final int EFFECT_SANCTION = 1 << 4; // 制裁
+    public static final int EFFECT_IMMORTAL = 1;
+    public static final int EFFECT_RUIN = 1 << 1;
+    public static final int EFFECT_AUTHORITY = 1 << 2;
+    public static final int EFFECT_PERISH = 1 << 3;
+    public static final int EFFECT_SANCTION = 1 << 4;
 
     public static final int EFFECT_ALL = EFFECT_IMMORTAL | EFFECT_RUIN | EFFECT_AUTHORITY | EFFECT_PERISH | EFFECT_SANCTION;
 
     // ============ 效果开关 ============
 
-    /** 读取玩家的效果位掩码，默认全开 */
     public static int getEffects(ServerPlayer player) {
         CompoundTag data = player.getPersistentData();
         if (!data.contains(NBT_EFFECTS)) {
@@ -71,7 +59,6 @@ public class EdictData {
 
     // ============ 祝福注视列表 ============
 
-    /** 读取内部的祝福注视列表（只读副本） */
     public static List<ItemStack> getBlessings(ServerPlayer player) {
         CompoundTag data = player.getPersistentData();
         List<ItemStack> list = new ArrayList<>();
@@ -89,7 +76,6 @@ public class EdictData {
         return list;
     }
 
-    /** 保存祝福注视列表 */
     public static void setBlessings(ServerPlayer player, List<ItemStack> blessings) {
         ListTag listTag = new ListTag();
         for (ItemStack stack : blessings) {
@@ -110,12 +96,43 @@ public class EdictData {
         player.getPersistentData().putBoolean(NBT_HAS_DEED, has);
     }
 
-    /** 五种效果是否真正生效：需要成事在人已放入 */
-    public static boolean isEdictActive(ServerPlayer player) {
-        return hasDeed(player);
+    // ============ 祝福是否集齐 ============
+
+    /**
+     * 检查决策 UI 里是否已集齐全部祝福注视。
+     * 判定基于"所有注册的祝福注视物品是否都存在"。
+     */
+    public static boolean isBlessingsComplete(ServerPlayer player) {
+        Set<Item> current = new HashSet<>();
+        for (ItemStack s : getBlessings(player)) {
+            current.add(s.getItem());
+        }
+        return current.containsAll(getAllBlessingItems());
     }
 
-    // ============ 获得标记 ============
+    /** 全部祝福注视的物品列表。以后加新神在这里追加即可。 */
+    public static Set<Item> getAllBlessingItems() {
+        Set<Item> set = new HashSet<>();
+        set.add(ModItems.THANATOS.get());
+        set.add(ModItems.HYGIEIA.get());
+        set.add(ModItems.ARES.get());
+        set.add(ModItems.HERMES.get());
+        set.add(ModItems.XIHE.get());
+        set.add(ModItems.ACHILLES.get());
+        return set;
+    }
+
+    // ============ 必行敕令是否真正激活 ============
+
+    /**
+     * 五种效果是否真正生效：
+     * 需要成事在人已放入 且 所有祝福注视已集齐。
+     */
+    public static boolean isEdictActive(ServerPlayer player) {
+        return hasDeed(player) && isBlessingsComplete(player);
+    }
+
+    // ============ 获得标记（保留，暂未使用） ============
 
     public static boolean hasObtainedEdict(ServerPlayer player) {
         return player.getPersistentData().getBoolean(NBT_EDICT_OBTAINED);

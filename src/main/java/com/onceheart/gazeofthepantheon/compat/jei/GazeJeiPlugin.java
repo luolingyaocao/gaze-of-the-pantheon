@@ -9,6 +9,7 @@ import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 import java.util.List;
 
@@ -27,33 +28,37 @@ public class GazeJeiPlugin implements IModPlugin {
     public void registerCategories(IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(
                 new FusangRitualCategory(registration.getJeiHelpers().getGuiHelper()),
-                new HermesSandalsCategory(registration.getJeiHelpers().getGuiHelper())
+                new HermesSandalsCategory(registration.getJeiHelpers().getGuiHelper()),
+                new EdictDropCategory(registration.getJeiHelpers().getGuiHelper()),
+                new DeedDropCategory(registration.getJeiHelpers().getGuiHelper())
         );
     }
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        registration.addRecipes(
-                FusangRitualCategory.RECIPE_TYPE,
-                List.of(new FusangRitualCategory.Recipe())
-        );
-        registration.addRecipes(
-                HermesSandalsCategory.RECIPE_TYPE,
-                List.of(new HermesSandalsCategory.Recipe())
-        );
+        registration.addRecipes(FusangRitualCategory.RECIPE_TYPE,
+                List.of(new FusangRitualCategory.Recipe()));
+        registration.addRecipes(HermesSandalsCategory.RECIPE_TYPE,
+                List.of(new HermesSandalsCategory.Recipe()));
+        registration.addRecipes(EdictDropCategory.RECIPE_TYPE,
+                List.of(new EdictDropCategory.Recipe()));
+        registration.addRecipes(DeedDropCategory.RECIPE_TYPE,
+                List.of(new DeedDropCategory.Recipe()));
     }
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        // 金乌翎羽 → 扶桑祭祀
         registration.addRecipeCatalyst(
                 new ItemStack(ModItems.GOLDEN_CROW_FEATHER.get()),
-                FusangRitualCategory.RECIPE_TYPE
-        );
-        // 赫尔墨斯的枷锁 → 草鞋掉落
+                FusangRitualCategory.RECIPE_TYPE);
         registration.addRecipeCatalyst(
                 new ItemStack(ModItems.HERMES.get()),
-                HermesSandalsCategory.RECIPE_TYPE
-        );
+                HermesSandalsCategory.RECIPE_TYPE);
+        registration.addRecipeCatalyst(
+                new ItemStack(Items.WITHER_SKELETON_SKULL),
+                EdictDropCategory.RECIPE_TYPE);
+        registration.addRecipeCatalyst(
+                new ItemStack(Items.DRAGON_EGG),
+                DeedDropCategory.RECIPE_TYPE);
     }
 }

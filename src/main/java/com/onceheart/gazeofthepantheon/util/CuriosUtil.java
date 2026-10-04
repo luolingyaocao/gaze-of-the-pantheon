@@ -6,6 +6,7 @@ import com.onceheart.gazeofthepantheon.item.HermesItem;
 import com.onceheart.gazeofthepantheon.item.HygieiaItem;
 import com.onceheart.gazeofthepantheon.item.ThanatosItem;
 import com.onceheart.gazeofthepantheon.item.XiheItem;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -35,7 +36,6 @@ public class CuriosUtil {
 
     // ============ 决策栏位 ============
 
-    /** 检查决策栏位是否已装备必行敕令 */
     public static boolean hasDecisionEquipped(Player player) {
         var handlerOpt = getDecisionHandler(player);
         if (handlerOpt.isEmpty()) return false;
@@ -49,7 +49,6 @@ public class CuriosUtil {
         return false;
     }
 
-    /** 尝试把物品放入决策栏位 */
     public static boolean tryEquipToDecision(Player player, ItemStack stack) {
         var handlerOpt = getDecisionHandler(player);
         if (handlerOpt.isEmpty()) return false;
@@ -178,6 +177,7 @@ public class CuriosUtil {
 
     // ============ 通用查找 ============
 
+    /** 查找未祝福的注视：仅注视栏位 */
     public static ItemStack findWrath(Player player, Item item) {
         var handlerOpt = getGazeHandler(player);
         if (handlerOpt.isEmpty()) return ItemStack.EMPTY;
@@ -185,32 +185,44 @@ public class CuriosUtil {
         for (int i = 0; i < stacks.getSlots(); i++) {
             ItemStack s = stacks.getStackInSlot(i);
             if (s.getItem() != item) continue;
-            if (s.getItem() instanceof ThanatosItem && ThanatosItem.isBlessed(s)) continue;
-            if (s.getItem() instanceof HygieiaItem && HygieiaItem.isBlessed(s)) continue;
-            if (s.getItem() instanceof AresItem && AresItem.isBlessed(s)) continue;
-            if (s.getItem() instanceof HermesItem && HermesItem.isBlessed(s)) continue;
-            if (s.getItem() instanceof XiheItem && XiheItem.isBlessed(s)) continue;
-            if (s.getItem() instanceof AchillesItem && AchillesItem.isBlessed(s)) continue;
+            if (isBlessed(s)) continue;
             return s;
         }
         return ItemStack.EMPTY;
     }
 
+    /** 查找已祝福的注视：注视栏位 + 决策 UI 都查 */
     public static ItemStack findKindness(Player player, Item item) {
+        // 先查注视栏位
         var handlerOpt = getGazeHandler(player);
-        if (handlerOpt.isEmpty()) return ItemStack.EMPTY;
-        var stacks = handlerOpt.get().getStacks();
-        for (int i = 0; i < stacks.getSlots(); i++) {
-            ItemStack s = stacks.getStackInSlot(i);
-            if (s.getItem() != item) continue;
-            if (s.getItem() instanceof ThanatosItem && ThanatosItem.isBlessed(s)) return s;
-            if (s.getItem() instanceof HygieiaItem && HygieiaItem.isBlessed(s)) return s;
-            if (s.getItem() instanceof AresItem && AresItem.isBlessed(s)) return s;
-            if (s.getItem() instanceof HermesItem && HermesItem.isBlessed(s)) return s;
-            if (s.getItem() instanceof XiheItem && XiheItem.isBlessed(s)) return s;
-            if (s.getItem() instanceof AchillesItem && AchillesItem.isBlessed(s)) return s;
+        if (!handlerOpt.isEmpty()) {
+            var stacks = handlerOpt.get().getStacks();
+            for (int i = 0; i < stacks.getSlots(); i++) {
+                ItemStack s = stacks.getStackInSlot(i);
+                if (s.getItem() != item) continue;
+                if (!isBlessed(s)) continue;
+                return s;
+            }
+        }
+        // 再查决策 UI
+        if (player instanceof ServerPlayer sp) {
+            for (ItemStack s : EdictData.getBlessings(sp)) {
+                if (s.getItem() == item) return s;
+            }
         }
         return ItemStack.EMPTY;
+    }
+
+    /** 判断是否已祝福 */
+    private static boolean isBlessed(ItemStack s) {
+        var item = s.getItem();
+        if (item instanceof ThanatosItem) return ThanatosItem.isBlessed(s);
+        if (item instanceof HygieiaItem) return HygieiaItem.isBlessed(s);
+        if (item instanceof AresItem) return AresItem.isBlessed(s);
+        if (item instanceof HermesItem) return HermesItem.isBlessed(s);
+        if (item instanceof XiheItem) return XiheItem.isBlessed(s);
+        if (item instanceof AchillesItem) return AchillesItem.isBlessed(s);
+        return false;
     }
 
     // ============ 通用转化 / 删除 ============

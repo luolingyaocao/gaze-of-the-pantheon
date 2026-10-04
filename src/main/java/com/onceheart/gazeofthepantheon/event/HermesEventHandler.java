@@ -3,6 +3,7 @@ package com.onceheart.gazeofthepantheon.event;
 import com.onceheart.gazeofthepantheon.GazeOfThePantheon;
 import com.onceheart.gazeofthepantheon.registry.ModItems;
 import com.onceheart.gazeofthepantheon.util.CuriosUtil;
+import com.onceheart.gazeofthepantheon.util.EdictData;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -30,10 +31,8 @@ public class HermesEventHandler {
     public static final int GEAR_25 = 25;
     public static final int GEAR_50 = 50;
 
-    /** 草鞋掉落概率：0.1%，一把下界合金镐约掉 2 个 */
     private static final float SANDALS_DROP_CHANCE = 0.001F;
 
-    /** 读取玩家当前挡位，默认 50 */
     public static int getGear(ServerPlayer player) {
         CompoundTag data = player.getPersistentData();
         if (!data.contains(NBT_GEAR)) {
@@ -46,7 +45,6 @@ public class HermesEventHandler {
         return g;
     }
 
-    /** 循环切换挡位：50 → 0 → 25 → 50 */
     public static int cycleGear(ServerPlayer player) {
         int current = getGear(player);
         int next;
@@ -67,13 +65,17 @@ public class HermesEventHandler {
         boolean hasWrath = !CuriosUtil.findHermesWrath(player).isEmpty();
         boolean hasKindness = !CuriosUtil.findHermesKindness(player).isEmpty();
 
+        // ---- 枷锁：诅咒，永远生效 ----
         if (hasWrath) {
             applyModifier(player, WRATH_SPEED_UUID, "gazeofthepantheon.hermes_wrath_speed", -0.2D);
         } else {
             removeModifier(player, WRATH_SPEED_UUID);
         }
 
-        if (hasKindness) {
+        // ---- 疾驰：祝福，必行敕令激活时失效 ----
+        boolean kindnessActive = hasKindness && !EdictData.isEdictActive(player);
+
+        if (kindnessActive) {
             int gear = getGear(player);
             double amount = gear / 100.0D;
             if (amount > 0) {
@@ -105,7 +107,7 @@ public class HermesEventHandler {
         }
     }
 
-    // ============ 草鞋掉落 ============
+    // ============ 草鞋掉落（诅咒专属，永远生效） ============
 
     @SubscribeEvent
     public static void onBlockBreak(BlockEvent.BreakEvent event) {
