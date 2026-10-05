@@ -12,6 +12,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -92,6 +93,15 @@ public class DivineSaveHandler {
         return EdictData.isEffectOn(player, EdictData.EFFECT_IMMORTAL);
     }
 
+    /**
+     * 不朽无敌此刻是否生效——**热路径专用，零开销**。
+     * 只读一个 NBT boolean，不查 Curios、不查 effect mask。
+     * 由 refreshActiveCache 在敕令状态变化时刷新。
+     */
+    public static boolean isImmortalNow(ServerPlayer player) {
+        return EdictData.isImmortalNow(player);
+    }
+
     /** 善意此刻是否生效：佩戴了善意且必行敕令未激活 */
     public static boolean isKindnessActive(ServerPlayer player) {
         if (EdictData.isEdictActive(player)) return false;
@@ -99,10 +109,28 @@ public class DivineSaveHandler {
                 .findKindness(player).isEmpty();
     }
 
-    /** 刷新激活缓存。在决策 UI 内容变化、敕令装备/卸下时调用。 */
+    /**
+     * 刷新激活缓存。在决策 UI 内容变化、敕令装备/卸下、登录、重生时调用。
+     *
+     * 同时刷新不朽无敌缓存（immortal_cache / immortal_max），
+     * 用于 getHealth / getMaxHealth 的超热路径读取。
+     */
     public static void refreshActiveCache(ServerPlayer player) {
         boolean active = EdictData.isEdictActive(player);
         persisted(player).putBoolean(NBT_ACTIVE_CACHE, active);
+
+        // 从属性系统读取真实最大血量（不能用 getMaxHealth，会被 mod 污染）
+        float realMax = 20.0F;
+        try {
+            var attr = player.getAttribute(Attributes.MAX_HEALTH);
+            if (attr != null) {
+                float v = (float) attr.getValue();
+                if (v > 0.0F && !Float.isNaN(v)) realMax = v;
+            }
+        } catch (Throwable ignored) {
+        }
+
+        EdictData.refreshImmortalCache(player, realMax);
     }
 
     // ============ 虚空判断 ============

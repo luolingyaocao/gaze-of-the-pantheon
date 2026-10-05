@@ -30,6 +30,11 @@ public class EdictData {
     private static final String NBT_DEED_OBTAINED = "gazeofthepantheon_deed_obtained";
     private static final String NBT_DECISION_UNLOCKED = "gazeofthepantheon_decision_unlocked";
 
+    /** 不朽无敌缓存：不朽此刻是否生效（供超热方法 getHealth/getMaxHealth 零开销读取） */
+    private static final String NBT_IMMORTAL_CACHE = "gazeofthepantheon_immortal_cache";
+    /** 不朽开启时冻结的最大血量 */
+    private static final String NBT_IMMORTAL_MAX = "gazeofthepantheon_immortal_max";
+
     public static final int EFFECT_IMMORTAL = 1;
     public static final int EFFECT_RUIN = 1 << 1;
     public static final int EFFECT_AUTHORITY = 1 << 2;
@@ -68,6 +73,49 @@ public class EdictData {
     public static void toggleEffect(ServerPlayer player, int effect) {
         int current = getEffects(player);
         setEffects(player, current ^ effect);
+    }
+
+    // ============ 不朽缓存（热路径） ============
+
+    /**
+     * 不朽此刻是否生效——**只读一个 NBT boolean**，零额外开销。
+     * 由 refreshImmortalCache 在敕令状态变化时刷新。
+     * 不查 Curios、不查 effect mask。
+     */
+    public static boolean isImmortalNow(ServerPlayer player) {
+        return data(player).getBoolean(NBT_IMMORTAL_CACHE);
+    }
+
+    /** 不朽开启时冻结的最大血量。返回 20.0F 为兜底默认值。 */
+    public static float getImmortalMax(ServerPlayer player) {
+        CompoundTag d = data(player);
+        if (!d.contains(NBT_IMMORTAL_MAX)) return 20.0F;
+        float v = d.getFloat(NBT_IMMORTAL_MAX);
+        return (v > 0.0F && !Float.isNaN(v)) ? v : 20.0F;
+    }
+
+    /**
+     * 刷新不朽缓存。
+     * 由 DivineSaveHandler.refreshActiveCache 调用。
+     *
+     * @param realMaxHealth 由调用方从 Attributes.MAX_HEALTH 读取的真实最大血量
+     *                      （不能用 getMaxHealth()，会被 mod 污染）
+     */
+    public static void refreshImmortalCache(ServerPlayer player, float realMaxHealth) {
+        CompoundTag d = data(player);
+
+        boolean prev = d.getBoolean(NBT_IMMORTAL_CACHE);
+        boolean active = isEdictActive(player);
+        boolean immortalNow = active && isEffectOn(player, EFFECT_IMMORTAL);
+
+        d.putBoolean(NBT_IMMORTAL_CACHE, immortalNow);
+
+        // 只在 off → on 的瞬间冻结最大血量，之后不再改变
+        if (immortalNow && !prev) {
+            float max = (realMaxHealth > 0.0F && !Float.isNaN(realMaxHealth))
+                    ? realMaxHealth : 20.0F;
+            d.putFloat(NBT_IMMORTAL_MAX, max);
+        }
     }
 
     // ============ 祝福注视列表 ============

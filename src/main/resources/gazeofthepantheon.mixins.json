@@ -3,9 +3,12 @@
   "minVersion": "0.8",
   "package": "com.onceheart.gazeofthepantheon.mixin",
   "compatibilityLevel": "JAVA_17",
+  "refmap": "gazeofthepantheon.refmap.json",
   "mixins": [
     "MixinEntity",
-    "MixinLivingEntity"
+    "MixinLivingEntity",
+    "MixinServerGamePacketListenerImpl",
+    "MixinPlayerList"
   ],
   "injectors": {
     "defaultRequire": 1

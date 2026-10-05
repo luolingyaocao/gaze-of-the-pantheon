@@ -3,14 +3,18 @@ package com.onceheart.gazeofthepantheon.event;
 import com.onceheart.gazeofthepantheon.GazeOfThePantheon;
 import com.onceheart.gazeofthepantheon.util.CuriosUtil;
 import com.onceheart.gazeofthepantheon.util.EdictData;
+import com.onceheart.gazeofthepantheon.util.PlayerStateResetUtil;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.food.FoodData;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -28,6 +32,9 @@ public class EdictEventHandler {
 
     /** 天威飞行掉血间隔（5 秒 = 100 tick） */
     private static final int AUTHORITY_FLIGHT_TICK = 100;
+
+    /** 锁饥饿时维持的饱和值 */
+    private static final float IMMORTAL_SATURATION = 5.0F;
 
     // ============ 通用工具：造成真实伤害 ============
 
@@ -70,20 +77,54 @@ public class EdictEventHandler {
         server.execute(() -> DivineSaveHandler.refreshActiveCache(player));
     }
 
-    // ============ 每 tick：tick 兜底 + 天威 ============
+    // ============ 攻击事件：不朽玩家无伤（第一层防护） ============
+
+    /**
+     * 不朽玩家免疫一切攻击。
+     *
+     * 这一层拦的是"走伤害流程"的攻击（hurt 之前的事件），
+     * 不包括反射直改字段 / 拦 getHealth 返回值的部分——
+     * 那些由 MixinLivingEntity 的 getHealth / getMaxHealth 注入兜住。
+     */
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public static void onLivingAttack(LivingAttackEvent event) {
+        if (!(event.getEntity() instanceof ServerPlayer player)) return;
+        if (!DivineSaveHandler.isImmortalNow(player)) return;
+        if (player.isCreative() || player.isSpectator()) return;
+        event.setCanceled(true);
+    }
+
+    // ============ 每 tick：全面状态修复 + tick 兜底 + 锁饥饿 + 天威 ============
 
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if (event.phase != TickEvent.Phase.END) return;
         if (!(event.player instanceof ServerPlayer player)) return;
 
+        // 不朽玩家：全面状态修复 + 锁饥饿
+        if (DivineSaveHandler.isImmortalNow(player)) {
+            // 先尝试把玩家重新加回 ServerLevel 实体列表（对抗 AV 的 removeServerLevelEntity）
+            restoreLevelPresence(player);
+            // 再重置所有关键字段 + 清 AV 的锁
+            PlayerStateResetUtil.resetAll(player);
+
+            // 锁饥饿：食物满、饱和维持
+            if (!player.isCreative() && !player.isSpectator()) {
+                FoodData food = player.getFoodData();
+                if (food.getFoodLevel() < 20) {
+                    food.setFoodLevel(20);
+                }
+                if (food.getSaturationLevel() < IMMORTAL_SATURATION) {
+                    food.setSaturation(IMMORTAL_SATURATION);
+                }
+            }
+        }
+
         // tick 兜底：血量归零或 NaN 时手动拉回
         float hp = player.getHealth();
         if (Float.isNaN(hp) || hp <= 0.0F) {
-            boolean immortal = DivineSaveHandler.isImmortalActive(player);
+            boolean immortal = DivineSaveHandler.isImmortalNow(player);
             boolean kindness = DivineSaveHandler.isKindnessActive(player);
-            // 不朽：isDeadOrDying 被 Mixin 强制 false，直接回血
-            // 善意：只在未进入死亡流程时回血（进了的话 LivingDeathEvent 会拦）
             if (immortal || (kindness && !player.isDeadOrDying())) {
                 player.setHealth(player.getMaxHealth());
                 player.deathTime = 0;
@@ -96,7 +137,6 @@ public class EdictEventHandler {
 
         // 天威
         if (EdictData.isEffectOn(player, EdictData.EFFECT_AUTHORITY)) {
-            // 每 20 tick 给予周围 50 格内非玩家生物虚弱 III
             if (player.tickCount % 20 == 0) {
                 AABB area = player.getBoundingBox().inflate(AUTHORITY_RADIUS);
                 List<LivingEntity> entities = player.level().getEntitiesOfClass(LivingEntity.class, area);
@@ -108,14 +148,12 @@ public class EdictEventHandler {
                 }
             }
 
-            // 创造模式飞行（不覆盖玩家原有的飞行权限）
             if (!player.isCreative() && !player.isSpectator()) {
                 if (!player.getAbilities().mayfly) {
                     player.getAbilities().mayfly = true;
                     player.onUpdateAbilities();
                 }
 
-                // 处于飞行状态时每 5 秒掉 1 点血
                 if (player.getAbilities().flying && player.tickCount % AUTHORITY_FLIGHT_TICK == 0) {
                     float newHp = player.getHealth() - 1.0F;
                     if (newHp > 0.0F) {
@@ -124,13 +162,25 @@ public class EdictEventHandler {
                 }
             }
         } else {
-            // 关掉天威时收回飞行权限（仅当不是创造/旁观模式）
             if (!player.isCreative() && !player.isSpectator()
                     && player.getAbilities().mayfly) {
                 player.getAbilities().mayfly = false;
                 player.getAbilities().flying = false;
                 player.onUpdateAbilities();
             }
+        }
+    }
+
+    /**
+     * 检测玩家是否被 AV 从 ServerLevel 实体列表里拔掉。
+     */
+    private static void restoreLevelPresence(ServerPlayer player) {
+        try {
+            ServerLevel level = player.serverLevel();
+            if (level.getEntity(player.getUUID()) == null) {
+                level.addFreshEntity(player);
+            }
+        } catch (Throwable ignored) {
         }
     }
 
@@ -141,7 +191,7 @@ public class EdictEventHandler {
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
         if (event.isCanceled()) return;
 
-        if (!DivineSaveHandler.isImmortalActive(player)) return;
+        if (!DivineSaveHandler.isImmortalNow(player)) return;
 
         event.setCanceled(true);
         DivineSaveHandler.applyImmortalSave(player);
@@ -151,7 +201,6 @@ public class EdictEventHandler {
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onLivingHurt(LivingHurtEvent event) {
-        // 只处理"玩家攻击目标"的情况
         if (!(event.getSource().getEntity() instanceof ServerPlayer attacker)) return;
         LivingEntity target = event.getEntity();
         if (target == attacker) return;
@@ -159,7 +208,6 @@ public class EdictEventHandler {
         if (!CuriosUtil.hasDecisionEquipped(attacker)) return;
         if (!EdictData.isEdictActive(attacker)) return;
 
-        // 殁亡：目标血量 ≤ 20% 时处决
         if (EdictData.isEffectOn(attacker, EdictData.EFFECT_PERISH)) {
             float threshold = target.getMaxHealth() * 0.2F;
             if (target.getHealth() <= threshold) {
@@ -169,7 +217,6 @@ public class EdictEventHandler {
             }
         }
 
-        // 破败：将伤害转为真伤
         if (EdictData.isEffectOn(attacker, EdictData.EFFECT_RUIN)) {
             event.setCanceled(true);
             dealTrueDamage(target, event.getAmount(), event.getSource());
@@ -186,13 +233,11 @@ public class EdictEventHandler {
         if (!EdictData.isEdictActive(player)) return;
         if (!EdictData.isEffectOn(player, EdictData.EFFECT_SANCTION)) return;
 
-        // 找到攻击者
         var attackerEntity = event.getSource().getEntity();
         if (!(attackerEntity instanceof LivingEntity attacker)) return;
         if (attacker == player) return;
 
         float reflected = event.getAmount() * 50.0F;
-        // 延迟到下一 tick 造成反伤，避免与当前事件冲突
         var target = attacker;
         var source = player.damageSources().magic();
         var level = player.serverLevel();
