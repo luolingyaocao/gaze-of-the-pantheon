@@ -6,6 +6,7 @@ import com.onceheart.gazeofthepantheon.item.AresItem;
 import com.onceheart.gazeofthepantheon.item.DeathsRecognitionItem;
 import com.onceheart.gazeofthepantheon.item.DeedItem;
 import com.onceheart.gazeofthepantheon.item.EdictItem;
+import com.onceheart.gazeofthepantheon.item.FaqItem;
 import com.onceheart.gazeofthepantheon.item.FusangDewItem;
 import com.onceheart.gazeofthepantheon.item.GoldenCrowFeatherItem;
 import com.onceheart.gazeofthepantheon.item.HermesItem;
@@ -87,6 +88,11 @@ public class ModItems {
 
     public static final RegistryObject<Item> GOLDEN_CROW_FEATHER = ITEMS.register("golden_crow_feather",
             () -> new GoldenCrowFeatherItem(new Item.Properties().stacksTo(16).rarity(Rarity.RARE)));
+
+    // ============ 彩蛋 ============
+
+    public static final RegistryObject<Item> FAQ = ITEMS.register("faq",
+            () -> new FaqItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

@@ -97,9 +97,10 @@ public class ThanatosEventHandler {
             }
 
             // 主世界开始下雨，贴合羲和诅咒的文案设计
+            // setWeatherParameters(clearTime, rainTime, raining, thundering)
             ServerLevel overworld = player.server.getLevel(Level.OVERWORLD);
             if (overworld != null) {
-                overworld.setWeatherParameters(WRATH_RAIN_DURATION, 0, true, false);
+                overworld.setWeatherParameters(0, WRATH_RAIN_DURATION, true, false);
             }
         }
     }
