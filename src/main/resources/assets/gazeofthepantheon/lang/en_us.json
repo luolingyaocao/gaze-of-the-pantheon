@@ -13,6 +13,8 @@
   "item.gazeofthepantheon.xihe_kindness": "Xihe's Grace",
   "item.gazeofthepantheon.achilles_wrath": "Achilles's Heel",
   "item.gazeofthepantheon.achilles_kindness": "Achilles's Resolve",
+  "item.gazeofthepantheon.dionysus_wrath": "Dionysus's Intoxication",
+  "item.gazeofthepantheon.dionysus_kindness": "Dionysus's Clarity",
   "item.gazeofthepantheon.edict": "Inevitable Edict",
   "item.gazeofthepantheon.deed": "Deed of Man",
   "item.gazeofthepantheon.soul_contract": "Soul Contract",
@@ -24,17 +26,20 @@
   "item.gazeofthepantheon.fusang_dew": "Dew of Fusang",
   "item.gazeofthepantheon.golden_crow_feather": "Golden Crow's Plume",
   "item.gazeofthepantheon.styx_infusion": "Styx Infusion",
+  "item.gazeofthepantheon.ivy_crown": "Ivy Crown",
+  "item.gazeofthepantheon.brew": "Brew",
+  "item.gazeofthepantheon.moon_mirror": "Moon Mirror",
   "item.gazeofthepantheon.marked_dirt": "Death Has Its Eyes on You",
   "item.gazeofthepantheon.faq": "Fuck You",
 
-  "tooltip.gazeofthepantheon.marked_dirt.desc": "§7Place the dirt into a crafting table and offer your soul to Death, so He shall trouble you no more.",
+  "tooltip.gazeofthepantheon.marked_dirt.desc": "§7Place the dirt in a crafting table and offer your soul to Death, so He will trouble you no more.",
 
   "tooltip.gazeofthepantheon.thanatos_wrath.desc": "§4Gaze · Death Is the End",
   "tooltip.gazeofthepantheon.thanatos_wrath.effect": "§cThe dead don't come back. You know that.",
   "tooltip.gazeofthepantheon.thanatos_wrath.locked": "§7Cannot be removed",
 
   "tooltip.gazeofthepantheon.thanatos_kindness.desc": "§6Gaze · Beyond Life and Death",
-  "tooltip.gazeofthepantheon.thanatos_kindness.effect": "§eThanatos will no longer meddle in your cycle of life and death—so long as you don't wish to die.",
+  "tooltip.gazeofthepantheon.thanatos_kindness.effect": "§eThanatos will no longer meddle in your cycle of life and death—so long as you do not wish to die.",
 
   "tooltip.gazeofthepantheon.hygieia_wrath.desc": "§4Gaze · Vitality Severed",
   "tooltip.gazeofthepantheon.hygieia_wrath.effect": "§cWounds no longer heal on their own. Only firelight and dreams grant you brief respite.",
@@ -44,14 +49,14 @@
   "tooltip.gazeofthepantheon.hygieia_kindness.effect": "§eHygieia watches over you. Life force surges without end.",
 
   "tooltip.gazeofthepantheon.ares_wrath.desc": "§4Gaze · War Unbound",
-  "tooltip.gazeofthepantheon.ares_wrath.effect": "§cAres's fury burns within you. Everywhere, hostility.",
+  "tooltip.gazeofthepantheon.ares_wrath.effect": "§cAres's fury burns within you; hostility lurks everywhere.",
   "tooltip.gazeofthepantheon.ares_wrath.locked": "§7Cannot be removed",
 
   "tooltip.gazeofthepantheon.ares_kindness.desc": "§6Gaze · Aegis of Ares",
-  "tooltip.gazeofthepantheon.ares_kindness.effect": "§eAres grants you victory. The eyes of your enemies slip from you.",
+  "tooltip.gazeofthepantheon.ares_kindness.effect": "§eAres grants you victory. Your enemies' eyes slide away from you.",
 
   "tooltip.gazeofthepantheon.hermes_wrath.desc": "§4Gaze · Heavy Shackles",
-  "tooltip.gazeofthepantheon.hermes_wrath.effect": "§cEvery step weighs like lead.",
+  "tooltip.gazeofthepantheon.hermes_wrath.effect": "§cEvery step feels as heavy as lead.",
   "tooltip.gazeofthepantheon.hermes_wrath.locked": "§7Cannot be removed",
 
   "tooltip.gazeofthepantheon.hermes_kindness.desc": "§6Gaze · Swift as the Wind",
@@ -64,18 +69,26 @@
   "tooltip.gazeofthepantheon.xihe_kindness.effect": "§eBorn in Fire, Thou Dost Find Rest in Flame",
 
   "tooltip.gazeofthepantheon.achilles_wrath.desc": "§4Gaze · Only the Weak Spot Remains",
-  "tooltip.gazeofthepantheon.achilles_wrath.effect": "§cAll armor is vain; only flesh remains.",
+  "tooltip.gazeofthepantheon.achilles_wrath.effect": "§cAll armor is worthless; only flesh remains.",
   "tooltip.gazeofthepantheon.achilles_wrath.locked": "§7Cannot be removed",
 
   "tooltip.gazeofthepantheon.achilles_kindness.desc": "§6Gaze · Blessing of the Styx",
   "tooltip.gazeofthepantheon.achilles_kindness.effect": "§eThe waters of the Styx flow once more.",
 
+  "tooltip.gazeofthepantheon.dionysus_wrath.desc": "§4Gaze · Deep in Drink",
+  "tooltip.gazeofthepantheon.dionysus_wrath.effect": "§cThe Wine God's wrath pours down your throat; drunkenness gnaws at your mind.",
+  "tooltip.gazeofthepantheon.dionysus_wrath.locked": "§7Cannot be removed",
+
+  "tooltip.gazeofthepantheon.dionysus_kindness.desc": "§6Gaze · Clarity Unclouded",
+  "tooltip.gazeofthepantheon.dionysus_kindness.effect": "§eDionysus keeps your mind clear; foreign magic cannot come near.",
+  "tooltip.gazeofthepantheon.dionysus_kindness.toggle": "§7Press I to toggle Clarity",
+
   "tooltip.gazeofthepantheon.edict.desc": "§6Edict · All Laws Follow",
   "tooltip.gazeofthepantheon.edict.stats": "§e+20 Armor · +20 Toughness · +200% Attack · +10 Attack Speed · Full Knockback Immunity",
-  "tooltip.gazeofthepantheon.edict.hint": "§7Press V to contemplate your decision",
+  "tooltip.gazeofthepantheon.edict.hint": "§7Press V to ponder your decision",
 
   "tooltip.gazeofthepantheon.deed.desc": "§6Know that planning precedes action",
-  "tooltip.gazeofthepantheon.deed.use": "§eRight-click: Make it part of the decision",
+  "tooltip.gazeofthepantheon.deed.use": "§eRight-click: Make it part of your decision",
 
   "tooltip.gazeofthepantheon.soul_contract.desc": "§7Offer your soul with both hands, and Death may absolve your sins.",
   "tooltip.gazeofthepantheon.soul_contract.use": "§5Right-click: Destroy \"Thanatos's Wrath\" in the Gaze slot",
@@ -95,23 +108,34 @@
   "tooltip.gazeofthepantheon.hermes_sandals.desc": "§7Footprints left by the Messenger.",
 
   "tooltip.gazeofthepantheon.fusang_dew.desc": "§7At Sunrising, Dew Gathereth upon Fusang",
-  "tooltip.gazeofthepantheon.fusang_dew.use": "§6Right-click to use: Transform \"Xihe's Worldflame\" in the Gaze Slot into \"Xihe's Grace\"",
+  "tooltip.gazeofthepantheon.fusang_dew.use": "§6Right-click to use: Transform \"Xihe's Worldflame\" in the Gaze slot into \"Xihe's Grace\"",
 
   "tooltip.gazeofthepantheon.golden_crow_feather.desc": "§7A Plume Left by the Golden Crow, That Doth Answer the Sun",
   "tooltip.gazeofthepantheon.golden_crow_feather.use": "§6When the Sun Riseth from Fusang, Hold This and Offer It, and Thou Shalt Call Xihe's Gaze",
 
-  "tooltip.gazeofthepantheon.styx_infusion.desc": "§7The water of the Styx, that makes you invulnerable.",
+  "tooltip.gazeofthepantheon.styx_infusion.desc": "§7The waters of the Styx, which make you invulnerable.",
   "tooltip.gazeofthepantheon.styx_infusion.use": "§6Right-click: Convert \"Achilles's Heel\" in the Gaze slot into \"Achilles's Resolve\"",
+
+  "tooltip.gazeofthepantheon.ivy_crown.desc": "§7A crown woven from ivy.",
+  "tooltip.gazeofthepantheon.ivy_crown.use": "§6Right-click: Convert \"Dionysus's Intoxication\" in the Gaze slot into \"Dionysus's Clarity\"",
+
+  "tooltip.gazeofthepantheon.brew.desc": "§7Wine as the lure, offered to the Wine God",
+  "tooltip.gazeofthepantheon.brew.drink": "§6Hold to drink: taste the grace of the Wine God",
+  "tooltip.gazeofthepantheon.brew.ritual": "§5On a full-moon night, stand beside ivy to claim its crown",
+
+  "tooltip.gazeofthepantheon.moon_mirror.desc": "§7A mirror that reflects the moon, revealing its wax and wane",
+  "tooltip.gazeofthepantheon.moon_mirror.use": "§6Right-click: Ask the moon",
 
   "curios.identifier.gaze": "Gaze",
   "curios.identifier.decision": "Decision",
   "curios.modifiers.gaze": "§bCelestial Blessing:",
 
-  "gui.gazeofthepantheon.edict.title": "Think Thrice Before Acting",
+  "gui.gazeofthepantheon.edict.title": "Think Thrice Before You Act",
 
   "key.categories.gazeofthepantheon": "Gaze of the Pantheon",
   "key.gazeofthepantheon.toggle_hermes_gear": "Toggle Hermes Charge",
   "key.gazeofthepantheon.open_edict": "Make Your Decision",
+  "key.gazeofthepantheon.toggle_dionysus": "Toggle Clarity",
 
   "edict.effect.immortal.on": "§aImmortality · Unleashed",
   "edict.effect.immortal.off": "§7Immortality · Sealed",
@@ -140,17 +164,20 @@
   "jei.gazeofthepantheon.deed_drop.desc": "Equip the Inevitable Edict, gather all blessed gazes, then slay the Ender Dragon.",
   "jei.gazeofthepantheon.deed_drop.line1": "Equip the Inevitable Edict, gather all blessed gazes,",
   "jei.gazeofthepantheon.deed_drop.line2": "then slay the Ender Dragon — the Deed shall appear above the End portal.",
+  "jei.gazeofthepantheon.ivy_ritual": "Ivy Ritual",
+  "jei.gazeofthepantheon.ivy_ritual.condition": "On a full-moon night, holding Brew",
+  "jei.gazeofthepantheon.ivy_ritual.action": "Right-click Ivy",
 
   "message.gazeofthepantheon.thanatos_kindness.triggered": "§6Death turned you away.",
   "message.gazeofthepantheon.thanatos_wrath.death": "§4In your final moments, take one last look at this world.",
   "message.gazeofthepantheon.soul_contract.used": "§5\"The gods covet your soul.\"",
-  "message.gazeofthepantheon.soul_contract.failed": "§7\"Farewell. It has no meaning.\"",
+  "message.gazeofthepantheon.soul_contract.failed": "§7\"Farewell. It means nothing.\"",
   "message.gazeofthepantheon.deaths_recognition.used": "§6\"Your death shall be forgiven.\"",
   "message.gazeofthepantheon.deaths_recognition.failed": "§7\"There is no need to repeat this.\"",
   "message.gazeofthepantheon.medicine_gods_recognition.used": "§6\"Your suffering shall be eased.\"",
   "message.gazeofthepantheon.medicine_gods_recognition.failed": "§7\"You have no need of healing.\"",
   "message.gazeofthepantheon.war_gods_recognition.used": "§6\"Take up your arms. Fight for glory.\"",
-  "message.gazeofthepantheon.war_gods_recognition.failed": "§7\"There is no strife in your hands.\"",
+  "message.gazeofthepantheon.war_gods_recognition.failed": "§7\"You carry no strife.\"",
   "message.gazeofthepantheon.messengers_recognition.used": "§6\"The winds clear your path.\"",
   "message.gazeofthepantheon.messengers_recognition.failed": "§7\"You are not yet bound by the shackles.\"",
   "message.gazeofthepantheon.fusang_dew.used": "§6The Light of Dawn Hath Come; the Fire of Karma Is Washed Clean",
@@ -160,14 +187,22 @@
   "message.gazeofthepantheon.xihe_wrath.grace_period": "§6The Worldflame is stayed; haste thee, and seek a path",
   "message.gazeofthepantheon.hygieia_wrath.wake_up": "§aYou wake up full of energy.",
   "message.gazeofthepantheon.hermes.gear_changed": "§bCharge: %s%%",
+  "message.gazeofthepantheon.brew.ritual_success": "§6Moonlight spills upon the vines; the Ivy Crown falls into your hand",
+  "message.gazeofthepantheon.brew.ritual_fail": "§7The hour is not right. The brew spills; only the wind remains.",
+  "message.gazeofthepantheon.ivy_crown.used": "§6Intoxication fades; clarity is born",
+  "message.gazeofthepantheon.ivy_crown.failed": "§7The Wine God does not answer",
+  "message.gazeofthepantheon.dionysus.toggle_on": "§aClarity · On",
+  "message.gazeofthepantheon.dionysus.toggle_off": "§7Clarity · Off",
+  "message.gazeofthepantheon.moon_mirror.phase": "Moon phase: %s",
+  "message.gazeofthepantheon.moon_mirror.next_full": "Days until next full moon: %s",
 
   "message.gazeofthepantheon.edict.dropped": "§6The Supreme Edict is at hand",
   "message.gazeofthepantheon.edict.immortal": "§6Edict: Death Shall Not Come",
   "message.gazeofthepantheon.edict.already_obtained": "§7The Edict is already in your hand; seek it no more.",
   "message.gazeofthepantheon.deed.summoned": "§6The plan is set; now comes the deed.",
-  "message.gazeofthepantheon.deed.no_edict": "§7The Edict must be in hand before plans can span the world.",
+  "message.gazeofthepantheon.deed.no_edict": "§7The Edict must be in hand before your plans can span the world.",
   "message.gazeofthepantheon.deed.already": "§7Why do you hold this once more? Return it at once.",
-  "message.gazeofthepantheon.deed.placed": "§6The Deed is Man's — and so is the plan...!",
+  "message.gazeofthepantheon.deed.placed": "§6The Deed is Man's—and so is the plan...!",
   "message.gazeofthepantheon.deed.missing_header": "§eThe following blessings are still missing:",
   "message.gazeofthepantheon.deed.need_edict": "§7You must first equip the Inevitable Edict to receive the Deed of Man.",
 
@@ -191,5 +226,18 @@
   "message.gazeofthepantheon.gaze.xihe_wrath": "§4Xihe · Worldflame",
   "message.gazeofthepantheon.gaze.xihe_kindness": "§6Xihe · Grace",
   "message.gazeofthepantheon.gaze.achilles_wrath": "§4Achilles's Heel",
-  "message.gazeofthepantheon.gaze.achilles_kindness": "§6Achilles · Resolve"
+  "message.gazeofthepantheon.gaze.achilles_kindness": "§6Achilles · Resolve",
+  "message.gazeofthepantheon.gaze.dionysus_wrath": "§4Dionysus · Intoxication",
+  "message.gazeofthepantheon.gaze.dionysus_kindness": "§6Dionysus · Clarity",
+
+  "moonphase.gazeofthepantheon.full": "Full Moon",
+  "moonphase.gazeofthepantheon.waning_gibbous": "Waning Gibbous",
+  "moonphase.gazeofthepantheon.third_quarter": "Third Quarter",
+  "moonphase.gazeofthepantheon.waning_crescent": "Waning Crescent",
+  "moonphase.gazeofthepantheon.new_moon": "New Moon",
+  "moonphase.gazeofthepantheon.waxing_crescent": "Waxing Crescent",
+  "moonphase.gazeofthepantheon.first_quarter": "First Quarter",
+  "moonphase.gazeofthepantheon.waxing_gibbous": "Waxing Gibbous",
+
+  "effect.gazeofthepantheon.intoxication": "Intoxication"
 }

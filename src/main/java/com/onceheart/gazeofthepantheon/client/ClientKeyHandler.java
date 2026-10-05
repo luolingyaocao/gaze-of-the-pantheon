@@ -3,6 +3,7 @@ package com.onceheart.gazeofthepantheon.client;
 import com.onceheart.gazeofthepantheon.GazeOfThePantheon;
 import com.onceheart.gazeofthepantheon.network.ModNetwork;
 import com.onceheart.gazeofthepantheon.network.OpenEdictPacket;
+import com.onceheart.gazeofthepantheon.network.ToggleDionysusPacket;
 import com.onceheart.gazeofthepantheon.network.ToggleHermesPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
@@ -23,14 +24,17 @@ public class ClientKeyHandler {
             ModNetwork.CHANNEL.sendToServer(new ToggleHermesPacket());
         }
 
+        // I 键：切换澄明开关
+        while (ModKeyMappings.TOGGLE_DIONYSUS.consumeClick()) {
+            ModNetwork.CHANNEL.sendToServer(new ToggleDionysusPacket());
+        }
+
         // V 键：打开/关闭决策 UI
         while (ModKeyMappings.OPEN_EDICT.consumeClick()) {
             Minecraft mc = Minecraft.getInstance();
             if (mc.screen instanceof EdictScreen) {
-                // 已经打开则关闭
                 mc.setScreen(null);
             } else if (mc.screen == null) {
-                // 没有其他界面时才发送打开请求
                 ModNetwork.CHANNEL.sendToServer(new OpenEdictPacket());
             }
         }

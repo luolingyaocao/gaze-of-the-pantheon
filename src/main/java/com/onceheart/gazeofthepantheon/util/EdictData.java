@@ -77,16 +77,10 @@ public class EdictData {
 
     // ============ 不朽缓存（热路径） ============
 
-    /**
-     * 不朽此刻是否生效——**只读一个 NBT boolean**，零额外开销。
-     * 由 refreshImmortalCache 在敕令状态变化时刷新。
-     * 不查 Curios、不查 effect mask。
-     */
     public static boolean isImmortalNow(ServerPlayer player) {
         return data(player).getBoolean(NBT_IMMORTAL_CACHE);
     }
 
-    /** 不朽开启时冻结的最大血量。返回 20.0F 为兜底默认值。 */
     public static float getImmortalMax(ServerPlayer player) {
         CompoundTag d = data(player);
         if (!d.contains(NBT_IMMORTAL_MAX)) return 20.0F;
@@ -94,13 +88,6 @@ public class EdictData {
         return (v > 0.0F && !Float.isNaN(v)) ? v : 20.0F;
     }
 
-    /**
-     * 刷新不朽缓存。
-     * 由 DivineSaveHandler.refreshActiveCache 调用。
-     *
-     * @param realMaxHealth 由调用方从 Attributes.MAX_HEALTH 读取的真实最大血量
-     *                      （不能用 getMaxHealth()，会被 mod 污染）
-     */
     public static void refreshImmortalCache(ServerPlayer player, float realMaxHealth) {
         CompoundTag d = data(player);
 
@@ -110,7 +97,6 @@ public class EdictData {
 
         d.putBoolean(NBT_IMMORTAL_CACHE, immortalNow);
 
-        // 只在 off → on 的瞬间冻结最大血量，之后不再改变
         if (immortalNow && !prev) {
             float max = (realMaxHealth > 0.0F && !Float.isNaN(realMaxHealth))
                     ? realMaxHealth : 20.0F;
@@ -159,10 +145,6 @@ public class EdictData {
 
     // ============ 祝福是否集齐 ============
 
-    /**
-     * 检查决策 UI 里是否已集齐全部祝福注视。
-     * 判定基于"所有注册的祝福注视物品是否都存在"。
-     */
     public static boolean isBlessingsComplete(ServerPlayer player) {
         Set<Item> current = new HashSet<>();
         for (ItemStack s : getBlessings(player)) {
@@ -180,15 +162,12 @@ public class EdictData {
         set.add(ModItems.HERMES.get());
         set.add(ModItems.XIHE.get());
         set.add(ModItems.ACHILLES.get());
+        set.add(ModItems.DIONYSUS.get());
         return set;
     }
 
     // ============ 必行敕令是否真正激活 ============
 
-    /**
-     * 五种效果是否真正生效：
-     * 需要成事在人已放入 且 所有祝福注视已集齐。
-     */
     public static boolean isEdictActive(ServerPlayer player) {
         return hasDeed(player) && isBlessingsComplete(player);
     }

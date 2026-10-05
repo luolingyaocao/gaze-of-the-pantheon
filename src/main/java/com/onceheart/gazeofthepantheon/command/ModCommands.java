@@ -7,6 +7,7 @@ import com.onceheart.gazeofthepantheon.GazeOfThePantheon;
 import com.onceheart.gazeofthepantheon.event.ThanatosEventHandler;
 import com.onceheart.gazeofthepantheon.item.AchillesItem;
 import com.onceheart.gazeofthepantheon.item.AresItem;
+import com.onceheart.gazeofthepantheon.item.DionysusItem;
 import com.onceheart.gazeofthepantheon.item.HermesItem;
 import com.onceheart.gazeofthepantheon.item.HygieiaItem;
 import com.onceheart.gazeofthepantheon.item.ThanatosItem;
@@ -40,7 +41,8 @@ public class ModCommands {
             GazeOfThePantheon.MOD_ID + ":ares",
             GazeOfThePantheon.MOD_ID + ":hermes",
             GazeOfThePantheon.MOD_ID + ":xihe",
-            GazeOfThePantheon.MOD_ID + ":achilles"
+            GazeOfThePantheon.MOD_ID + ":achilles",
+            GazeOfThePantheon.MOD_ID + ":dionysus"
     );
 
     private static final SuggestionProvider<CommandSourceStack> GAZE_SUGGESTIONS =
@@ -220,6 +222,11 @@ public class ModCommands {
                     ? "message.gazeofthepantheon.gaze.achilles_kindness"
                     : "message.gazeofthepantheon.gaze.achilles_wrath");
         }
+        if (stack.getItem() instanceof DionysusItem) {
+            return Component.translatable(DionysusItem.isBlessed(stack)
+                    ? "message.gazeofthepantheon.gaze.dionysus_kindness"
+                    : "message.gazeofthepantheon.gaze.dionysus_wrath");
+        }
         return null;
     }
 
@@ -247,7 +254,8 @@ public class ModCommands {
                 && item != ModItems.ARES.get()
                 && item != ModItems.HERMES.get()
                 && item != ModItems.XIHE.get()
-                && item != ModItems.ACHILLES.get()) {
+                && item != ModItems.ACHILLES.get()
+                && item != ModItems.DIONYSUS.get()) {
             source.sendFailure(Component.literal("§c该物品不是注视饰品：" + id));
             return null;
         }

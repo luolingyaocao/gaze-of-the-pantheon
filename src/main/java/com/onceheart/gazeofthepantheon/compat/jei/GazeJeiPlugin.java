@@ -30,7 +30,8 @@ public class GazeJeiPlugin implements IModPlugin {
                 new FusangRitualCategory(registration.getJeiHelpers().getGuiHelper()),
                 new HermesSandalsCategory(registration.getJeiHelpers().getGuiHelper()),
                 new EdictDropCategory(registration.getJeiHelpers().getGuiHelper()),
-                new DeedDropCategory(registration.getJeiHelpers().getGuiHelper())
+                new DeedDropCategory(registration.getJeiHelpers().getGuiHelper()),
+                new IvyRitualCategory(registration.getJeiHelpers().getGuiHelper())
         );
     }
 
@@ -44,6 +45,8 @@ public class GazeJeiPlugin implements IModPlugin {
                 List.of(new EdictDropCategory.Recipe()));
         registration.addRecipes(DeedDropCategory.RECIPE_TYPE,
                 List.of(new DeedDropCategory.Recipe()));
+        registration.addRecipes(IvyRitualCategory.RECIPE_TYPE,
+                List.of(new IvyRitualCategory.Recipe()));
     }
 
     @Override
@@ -60,5 +63,8 @@ public class GazeJeiPlugin implements IModPlugin {
         registration.addRecipeCatalyst(
                 new ItemStack(Items.DRAGON_EGG),
                 DeedDropCategory.RECIPE_TYPE);
+        registration.addRecipeCatalyst(
+                new ItemStack(ModItems.BREW.get()),
+                IvyRitualCategory.RECIPE_TYPE);
     }
 }

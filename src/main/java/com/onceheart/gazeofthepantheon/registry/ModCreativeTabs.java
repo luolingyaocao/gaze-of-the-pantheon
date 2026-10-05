@@ -25,6 +25,7 @@ public class ModCreativeTabs {
                         output.accept(ModItems.HERMES.get());
                         output.accept(ModItems.XIHE.get());
                         output.accept(ModItems.ACHILLES.get());
+                        output.accept(ModItems.DIONYSUS.get());
                         // 必行敕令与成事在人
                         output.accept(ModItems.EDICT.get());
                         output.accept(ModItems.DEED.get());
@@ -36,9 +37,12 @@ public class ModCreativeTabs {
                         output.accept(ModItems.MESSENGERS_RECOGNITION.get());
                         output.accept(ModItems.STYX_INFUSION.get());
                         output.accept(ModItems.FUSANG_DEW.get());
-                        // 材料
+                        output.accept(ModItems.IVY_CROWN.get());
+                        // 材料与工具
                         output.accept(ModItems.HERMES_SANDALS.get());
                         output.accept(ModItems.GOLDEN_CROW_FEATHER.get());
+                        output.accept(ModItems.BREW.get());
+                        output.accept(ModItems.MOON_MIRROR.get());
                     })
                     .build());
 

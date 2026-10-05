@@ -29,9 +29,17 @@ public class ModKeyMappings {
             CATEGORY
     );
 
+    public static final KeyMapping TOGGLE_DIONYSUS = new KeyMapping(
+            "key.gazeofthepantheon.toggle_dionysus",
+            InputConstants.Type.KEYSYM,
+            GLFW.GLFW_KEY_I,
+            CATEGORY
+    );
+
     @SubscribeEvent
     public static void registerKeys(RegisterKeyMappingsEvent event) {
         event.register(TOGGLE_HERMES_GEAR);
         event.register(OPEN_EDICT);
+        event.register(TOGGLE_DIONYSUS);
     }
 }

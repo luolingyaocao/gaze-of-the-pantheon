@@ -1,6 +1,7 @@
 package com.onceheart.gazeofthepantheon;
 
 import com.mojang.logging.LogUtils;
+import com.onceheart.gazeofthepantheon.effect.ModEffects;
 import com.onceheart.gazeofthepantheon.network.ModNetwork;
 import com.onceheart.gazeofthepantheon.registry.ModCreativeTabs;
 import com.onceheart.gazeofthepantheon.registry.ModItems;
@@ -21,6 +22,7 @@ public class GazeOfThePantheon {
         ModItems.register(modEventBus);
         ModCreativeTabs.register(modEventBus);
         ModMenus.register(modEventBus);
+        ModEffects.register(modEventBus);
 
         ModNetwork.register();
     }

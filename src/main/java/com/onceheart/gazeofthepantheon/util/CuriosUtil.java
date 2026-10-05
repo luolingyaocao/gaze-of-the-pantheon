@@ -2,6 +2,7 @@ package com.onceheart.gazeofthepantheon.util;
 
 import com.onceheart.gazeofthepantheon.item.AchillesItem;
 import com.onceheart.gazeofthepantheon.item.AresItem;
+import com.onceheart.gazeofthepantheon.item.DionysusItem;
 import com.onceheart.gazeofthepantheon.item.HermesItem;
 import com.onceheart.gazeofthepantheon.item.HygieiaItem;
 import com.onceheart.gazeofthepantheon.item.ThanatosItem;
@@ -175,6 +176,20 @@ public class CuriosUtil {
         return convertToBlessed(player, com.onceheart.gazeofthepantheon.registry.ModItems.ACHILLES.get());
     }
 
+    // ============ 狄俄尼索斯 ============
+
+    public static ItemStack findDionysusWrath(Player player) {
+        return findWrath(player, com.onceheart.gazeofthepantheon.registry.ModItems.DIONYSUS.get());
+    }
+
+    public static ItemStack findDionysusKindness(Player player) {
+        return findKindness(player, com.onceheart.gazeofthepantheon.registry.ModItems.DIONYSUS.get());
+    }
+
+    public static boolean convertDionysusWrathToKindness(Player player) {
+        return convertToBlessed(player, com.onceheart.gazeofthepantheon.registry.ModItems.DIONYSUS.get());
+    }
+
     // ============ 通用查找 ============
 
     /** 查找未祝福的注视：仅注视栏位 */
@@ -193,7 +208,6 @@ public class CuriosUtil {
 
     /** 查找已祝福的注视：注视栏位 + 决策 UI 都查 */
     public static ItemStack findKindness(Player player, Item item) {
-        // 先查注视栏位
         var handlerOpt = getGazeHandler(player);
         if (!handlerOpt.isEmpty()) {
             var stacks = handlerOpt.get().getStacks();
@@ -204,7 +218,6 @@ public class CuriosUtil {
                 return s;
             }
         }
-        // 再查决策 UI
         if (player instanceof ServerPlayer sp) {
             for (ItemStack s : EdictData.getBlessings(sp)) {
                 if (s.getItem() == item) return s;
@@ -222,6 +235,7 @@ public class CuriosUtil {
         if (item instanceof HermesItem) return HermesItem.isBlessed(s);
         if (item instanceof XiheItem) return XiheItem.isBlessed(s);
         if (item instanceof AchillesItem) return AchillesItem.isBlessed(s);
+        if (item instanceof DionysusItem) return DionysusItem.isBlessed(s);
         return false;
     }
 
@@ -258,6 +272,10 @@ public class CuriosUtil {
                 if (AchillesItem.isBlessed(s)) return false;
                 AchillesItem.setBlessed(s, true);
                 return true;
+            } else if (s.getItem() instanceof DionysusItem) {
+                if (DionysusItem.isBlessed(s)) return false;
+                DionysusItem.setBlessed(s, true);
+                return true;
             }
         }
         return false;
@@ -293,6 +311,10 @@ public class CuriosUtil {
             } else if (s.getItem() instanceof AchillesItem) {
                 if (!AchillesItem.isBlessed(s)) return false;
                 AchillesItem.setBlessed(s, false);
+                return true;
+            } else if (s.getItem() instanceof DionysusItem) {
+                if (!DionysusItem.isBlessed(s)) return false;
+                DionysusItem.setBlessed(s, false);
                 return true;
             }
         }

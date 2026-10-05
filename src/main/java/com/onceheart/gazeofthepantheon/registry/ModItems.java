@@ -3,8 +3,10 @@ package com.onceheart.gazeofthepantheon.registry;
 import com.onceheart.gazeofthepantheon.GazeOfThePantheon;
 import com.onceheart.gazeofthepantheon.item.AchillesItem;
 import com.onceheart.gazeofthepantheon.item.AresItem;
+import com.onceheart.gazeofthepantheon.item.BrewItem;
 import com.onceheart.gazeofthepantheon.item.DeathsRecognitionItem;
 import com.onceheart.gazeofthepantheon.item.DeedItem;
+import com.onceheart.gazeofthepantheon.item.DionysusItem;
 import com.onceheart.gazeofthepantheon.item.EdictItem;
 import com.onceheart.gazeofthepantheon.item.FaqItem;
 import com.onceheart.gazeofthepantheon.item.FusangDewItem;
@@ -12,8 +14,10 @@ import com.onceheart.gazeofthepantheon.item.GoldenCrowFeatherItem;
 import com.onceheart.gazeofthepantheon.item.HermesItem;
 import com.onceheart.gazeofthepantheon.item.HermesSandalsItem;
 import com.onceheart.gazeofthepantheon.item.HygieiaItem;
+import com.onceheart.gazeofthepantheon.item.IvyCrownItem;
 import com.onceheart.gazeofthepantheon.item.MedicineGodsRecognitionItem;
 import com.onceheart.gazeofthepantheon.item.MessengersRecognitionItem;
+import com.onceheart.gazeofthepantheon.item.MoonMirrorItem;
 import com.onceheart.gazeofthepantheon.item.SoulContractItem;
 import com.onceheart.gazeofthepantheon.item.StyxInfusionItem;
 import com.onceheart.gazeofthepantheon.item.ThanatosItem;
@@ -50,6 +54,9 @@ public class ModItems {
     public static final RegistryObject<Item> ACHILLES = ITEMS.register("achilles",
             () -> new AchillesItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).fireResistant()));
 
+    public static final RegistryObject<Item> DIONYSUS = ITEMS.register("dionysus",
+            () -> new DionysusItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).fireResistant()));
+
     // ============ 必行敕令与成事在人 ============
 
     public static final RegistryObject<Item> EDICT = ITEMS.register("edict",
@@ -81,13 +88,22 @@ public class ModItems {
     public static final RegistryObject<Item> FUSANG_DEW = ITEMS.register("fusang_dew",
             () -> new FusangDewItem(new Item.Properties().stacksTo(16).rarity(Rarity.EPIC)));
 
-    // ============ 材料 ============
+    public static final RegistryObject<Item> IVY_CROWN = ITEMS.register("ivy_crown",
+            () -> new IvyCrownItem(new Item.Properties().stacksTo(16).rarity(Rarity.EPIC)));
+
+    // ============ 材料与工具 ============
 
     public static final RegistryObject<Item> HERMES_SANDALS = ITEMS.register("hermes_sandals",
             () -> new HermesSandalsItem(new Item.Properties().stacksTo(16).rarity(Rarity.RARE)));
 
     public static final RegistryObject<Item> GOLDEN_CROW_FEATHER = ITEMS.register("golden_crow_feather",
             () -> new GoldenCrowFeatherItem(new Item.Properties().stacksTo(16).rarity(Rarity.RARE)));
+
+    public static final RegistryObject<Item> BREW = ITEMS.register("brew",
+            () -> new BrewItem(new Item.Properties().stacksTo(16).rarity(Rarity.RARE)));
+
+    public static final RegistryObject<Item> MOON_MIRROR = ITEMS.register("moon_mirror",
+            () -> new MoonMirrorItem(new Item.Properties().stacksTo(1).rarity(Rarity.RARE)));
 
     // ============ 彩蛋 ============
 

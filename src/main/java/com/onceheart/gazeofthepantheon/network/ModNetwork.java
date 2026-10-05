@@ -30,5 +30,9 @@ public class ModNetwork {
                 ToggleEdictEffectPacket::encode,
                 ToggleEdictEffectPacket::decode,
                 ToggleEdictEffectPacket::handle);
+        CHANNEL.registerMessage(id++, ToggleDionysusPacket.class,
+                ToggleDionysusPacket::encode,
+                ToggleDionysusPacket::decode,
+                ToggleDionysusPacket::handle);
     }
 }

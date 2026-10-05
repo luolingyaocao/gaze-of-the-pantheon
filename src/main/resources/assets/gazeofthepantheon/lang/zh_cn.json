@@ -13,6 +13,8 @@
   "item.gazeofthepantheon.xihe_kindness": "羲和之恩泽",
   "item.gazeofthepantheon.achilles_wrath": "阿喀琉斯之踵",
   "item.gazeofthepantheon.achilles_kindness": "阿喀琉斯的坚毅",
+  "item.gazeofthepantheon.dionysus_wrath": "狄俄尼索斯的酩酊",
+  "item.gazeofthepantheon.dionysus_kindness": "狄俄尼索斯的澄明",
   "item.gazeofthepantheon.edict": "必行敕令",
   "item.gazeofthepantheon.deed": "成事在人",
   "item.gazeofthepantheon.soul_contract": "灵魂契约",
@@ -24,6 +26,9 @@
   "item.gazeofthepantheon.fusang_dew": "扶桑朝露",
   "item.gazeofthepantheon.golden_crow_feather": "金乌翎羽",
   "item.gazeofthepantheon.styx_infusion": "冥河之浸",
+  "item.gazeofthepantheon.ivy_crown": "常春藤冠",
+  "item.gazeofthepantheon.brew": "精酿",
+  "item.gazeofthepantheon.moon_mirror": "望月镜",
   "item.gazeofthepantheon.marked_dirt": "死神盯上了你",
   "item.gazeofthepantheon.faq": "跟你爆了",
 
@@ -70,6 +75,14 @@
   "tooltip.gazeofthepantheon.achilles_kindness.desc": "§6注视·冥河之佑",
   "tooltip.gazeofthepantheon.achilles_kindness.effect": "§e冥河之水，再度涌流",
 
+  "tooltip.gazeofthepantheon.dionysus_wrath.desc": "§4注视·酩酊大醉",
+  "tooltip.gazeofthepantheon.dionysus_wrath.effect": "§c酒神之怒随杯入喉，醉意侵蚀心神",
+  "tooltip.gazeofthepantheon.dionysus_wrath.locked": "§7不可取下",
+
+  "tooltip.gazeofthepantheon.dionysus_kindness.desc": "§6注视·万念澄明",
+  "tooltip.gazeofthepantheon.dionysus_kindness.effect": "§e酒神庇佑你心志清明，外道术法皆不得近",
+  "tooltip.gazeofthepantheon.dionysus_kindness.toggle": "§7按 I 键开合澄明",
+
   "tooltip.gazeofthepantheon.edict.desc": "§6敕令·万法随行",
   "tooltip.gazeofthepantheon.edict.stats": "§e+20 护甲 · +20 韧性 · +200% 攻击 · +10 攻速 · 完全免疫击退",
   "tooltip.gazeofthepantheon.edict.hint": "§7按V思索决策",
@@ -103,6 +116,16 @@
   "tooltip.gazeofthepantheon.styx_infusion.desc": "§7冥河之水，令汝刀枪不入",
   "tooltip.gazeofthepantheon.styx_infusion.use": "§6右键使用：将注视栏中的’阿喀琉斯之踵‘转化为’阿喀琉斯的坚毅‘",
 
+  "tooltip.gazeofthepantheon.ivy_crown.desc": "§7常春藤结成的冠冕",
+  "tooltip.gazeofthepantheon.ivy_crown.use": "§6右键使用：将注视栏中的'狄俄尼索斯的酩酊'转化为'狄俄尼索斯的澄明'",
+
+  "tooltip.gazeofthepantheon.brew.desc": "§7以酒为引，奉于酒神",
+  "tooltip.gazeofthepantheon.brew.drink": "§6长按饮用：感受酒神的恩典吧",
+  "tooltip.gazeofthepantheon.brew.ritual": "§5月圆之夜，立于常春藤旁，可得其冠",
+
+  "tooltip.gazeofthepantheon.moon_mirror.desc": "§7映月之镜，可知盈虚",
+  "tooltip.gazeofthepantheon.moon_mirror.use": "§6右键使用：问月",
+
   "curios.identifier.gaze": "注视",
   "curios.identifier.decision": "决策",
   "curios.modifiers.gaze": "§b星降恩典：",
@@ -112,6 +135,7 @@
   "key.categories.gazeofthepantheon": "众神垂目",
   "key.gazeofthepantheon.toggle_hermes_gear": "切换赫尔墨斯奔袭",
   "key.gazeofthepantheon.open_edict": "做出你的决策",
+  "key.gazeofthepantheon.toggle_dionysus": "开合澄明",
 
   "edict.effect.immortal.on": "§a不朽·出鞘",
   "edict.effect.immortal.off": "§7不朽·敛芒",
@@ -140,6 +164,9 @@
   "jei.gazeofthepantheon.deed_drop.desc": "装备必行敕令，集齐全部祝福注视后击败末影龙",
   "jei.gazeofthepantheon.deed_drop.line1": "装备必行敕令，集齐所有祝福注视，",
   "jei.gazeofthepantheon.deed_drop.line2": "击杀末影龙后，成事在人将现于末地传送门上方。",
+  "jei.gazeofthepantheon.ivy_ritual": "常春藤仪式",
+  "jei.gazeofthepantheon.ivy_ritual.condition": "满月之夜，手持精酿",
+  "jei.gazeofthepantheon.ivy_ritual.action": "右键藤蔓",
 
   "message.gazeofthepantheon.thanatos_kindness.triggered": "§6死亡拒绝了你",
   "message.gazeofthepantheon.thanatos_wrath.death": "§4弥留之际，再看看这个世界吧",
@@ -160,6 +187,14 @@
   "message.gazeofthepantheon.xihe_wrath.grace_period": "§6焚世之火暂敛，速寻生路",
   "message.gazeofthepantheon.hygieia_wrath.wake_up": "§a一觉醒来，你精力充沛",
   "message.gazeofthepantheon.hermes.gear_changed": "§b奔袭：%s%%",
+  "message.gazeofthepantheon.brew.ritual_success": "§6月光倾洒藤蔓，常春藤冠落入你手中",
+  "message.gazeofthepantheon.brew.ritual_fail": "§7时机未至，精酿倾覆，空余风声",
+  "message.gazeofthepantheon.ivy_crown.used": "§6酩酊散尽，澄明自生",
+  "message.gazeofthepantheon.ivy_crown.failed": "§7酒神未应",
+  "message.gazeofthepantheon.dionysus.toggle_on": "§a澄明·启",
+  "message.gazeofthepantheon.dionysus.toggle_off": "§7澄明·阖",
+  "message.gazeofthepantheon.moon_mirror.phase": "月相：%s",
+  "message.gazeofthepantheon.moon_mirror.next_full": "距下一次满月：%s 日",
 
   "message.gazeofthepantheon.edict.dropped": "§6可行无上敕令",
   "message.gazeofthepantheon.edict.immortal": "§6敕令：死劫不复",
@@ -191,5 +226,18 @@
   "message.gazeofthepantheon.gaze.xihe_wrath": "§4羲和·焚世",
   "message.gazeofthepantheon.gaze.xihe_kindness": "§6羲和·恩泽",
   "message.gazeofthepantheon.gaze.achilles_wrath": "§4阿喀琉斯之踵",
-  "message.gazeofthepantheon.gaze.achilles_kindness": "§6阿喀琉斯·坚毅"
+  "message.gazeofthepantheon.gaze.achilles_kindness": "§6阿喀琉斯·坚毅",
+  "message.gazeofthepantheon.gaze.dionysus_wrath": "§4狄俄尼索斯·酩酊",
+  "message.gazeofthepantheon.gaze.dionysus_kindness": "§6狄俄尼索斯·澄明",
+
+  "moonphase.gazeofthepantheon.full": "满月",
+  "moonphase.gazeofthepantheon.waning_gibbous": "亏凸月",
+  "moonphase.gazeofthepantheon.third_quarter": "下弦月",
+  "moonphase.gazeofthepantheon.waning_crescent": "残月",
+  "moonphase.gazeofthepantheon.new_moon": "新月",
+  "moonphase.gazeofthepantheon.waxing_crescent": "蛾眉月",
+  "moonphase.gazeofthepantheon.first_quarter": "上弦月",
+  "moonphase.gazeofthepantheon.waxing_gibbous": "盈凸月",
+
+  "effect.gazeofthepantheon.intoxication": "醉酒"
 }

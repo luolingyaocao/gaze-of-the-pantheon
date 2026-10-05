@@ -17,7 +17,7 @@ import net.minecraftforge.fml.common.Mod;
  * 首次进世界时的初始化逻辑。
  *
  * 覆盖：
- * - 六系诅咒注视发放（进注视栏位）
+ * - 七系诅咒注视发放（进注视栏位）
  * - 标记泥土发放（进背包，装不下就掉地上）
  * - 羲和首登降雨（委托 XiheEventHandler）
  *
@@ -66,6 +66,7 @@ public class FirstJoinHandler {
         CuriosUtil.tryEquipToGaze(player, new ItemStack(ModItems.HERMES.get()));
         CuriosUtil.tryEquipToGaze(player, new ItemStack(ModItems.XIHE.get()));
         CuriosUtil.tryEquipToGaze(player, new ItemStack(ModItems.ACHILLES.get()));
+        CuriosUtil.tryEquipToGaze(player, new ItemStack(ModItems.DIONYSUS.get()));
 
         ItemStack markedDirt = ThanatosEventHandler.createMarkedDirt();
         if (!player.getInventory().add(markedDirt)) {
