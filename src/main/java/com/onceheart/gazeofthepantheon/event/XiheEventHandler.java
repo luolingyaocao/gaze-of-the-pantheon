@@ -3,6 +3,7 @@ package com.onceheart.gazeofthepantheon.event;
 import com.onceheart.gazeofthepantheon.GazeOfThePantheon;
 import com.onceheart.gazeofthepantheon.util.CuriosUtil;
 import com.onceheart.gazeofthepantheon.util.EdictData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -17,6 +18,19 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = GazeOfThePantheon.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class XiheEventHandler {
+
+    /** 首登降雨持续时间（5 分钟 = 6000 tick）。 */
+    private static final int FIRST_JOIN_RAIN_DURATION = 6000;
+
+    // ============ 首登降雨 ============
+
+    /** 由 FirstJoinHandler 在首次进世界时调用。 */
+    public static void triggerFirstJoinRain(ServerPlayer player) {
+        ServerLevel overworld = player.server.getLevel(Level.OVERWORLD);
+        if (overworld == null) return;
+        // setWeatherParameters(clearTime, rainTime, raining, thundering)
+        overworld.setWeatherParameters(0, FIRST_JOIN_RAIN_DURATION, true, false);
+    }
 
     // ============ 焚世：诅咒，永远生效 ============
 
