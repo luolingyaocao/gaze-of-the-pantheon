@@ -8,7 +8,13 @@
     "MixinEntity",
     "MixinLivingEntity",
     "MixinServerGamePacketListenerImpl",
-    "MixinPlayerList"
+    "MixinPlayerList",
+    "MixinItemEntity",
+    "MixinPlayerInventory"
+  ],
+  "client": [
+    "client.MixinKeyboardHandler",
+    "client.MixinMouseHandler"
   ],
   "injectors": {
     "defaultRequire": 1

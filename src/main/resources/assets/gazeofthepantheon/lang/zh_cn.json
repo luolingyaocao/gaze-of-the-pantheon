@@ -31,6 +31,7 @@
   "item.gazeofthepantheon.moon_mirror": "望月镜",
   "item.gazeofthepantheon.marked_dirt": "死神盯上了你",
   "item.gazeofthepantheon.faq": "跟你爆了",
+  "item.gazeofthepantheon.stop": "神行",
 
   "tooltip.gazeofthepantheon.marked_dirt.desc": "§7将泥土放入合成台，将灵魂献予死神，祂就不会再为难你了",
 
@@ -117,7 +118,7 @@
   "tooltip.gazeofthepantheon.styx_infusion.use": "§6右键使用：将注视栏中的’阿喀琉斯之踵‘转化为’阿喀琉斯的坚毅‘",
 
   "tooltip.gazeofthepantheon.ivy_crown.desc": "§7常春藤结成的冠冕",
-  "tooltip.gazeofthepantheon.ivy_crown.use": "§6右键使用：将注视栏中的'狄俄尼索斯的酩酊'转化为'狄俄尼索斯的澄明'",
+  "tooltip.gazeofthepantheon.ivy_crown.use": "§6右键使用：将注视栏中的‘狄俄尼索斯的酩酊’转化为‘狄俄尼索斯的澄明’",
 
   "tooltip.gazeofthepantheon.brew.desc": "§7以酒为引，奉于酒神",
   "tooltip.gazeofthepantheon.brew.drink": "§6长按饮用：感受酒神的恩典吧",
@@ -125,6 +126,8 @@
 
   "tooltip.gazeofthepantheon.moon_mirror.desc": "§7映月之镜，可知盈虚",
   "tooltip.gazeofthepantheon.moon_mirror.use": "§6右键使用：问月",
+
+  "tooltip.gazeofthepantheon.stop.desc": "§4不可违抗",
 
   "curios.identifier.gaze": "注视",
   "curios.identifier.decision": "决策",

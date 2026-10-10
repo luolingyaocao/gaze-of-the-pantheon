@@ -3,6 +3,7 @@ package com.onceheart.gazeofthepantheon.menu;
 import com.onceheart.gazeofthepantheon.event.DivineSaveHandler;
 import com.onceheart.gazeofthepantheon.item.AchillesItem;
 import com.onceheart.gazeofthepantheon.item.AresItem;
+import com.onceheart.gazeofthepantheon.item.DionysusItem;
 import com.onceheart.gazeofthepantheon.item.HermesItem;
 import com.onceheart.gazeofthepantheon.item.HygieiaItem;
 import com.onceheart.gazeofthepantheon.item.ThanatosItem;
@@ -357,6 +358,7 @@ public class EdictMenu extends AbstractContainerMenu {
         if (item instanceof HermesItem) return HermesItem.isBlessed(stack);
         if (item instanceof XiheItem) return XiheItem.isBlessed(stack);
         if (item instanceof AchillesItem) return AchillesItem.isBlessed(stack);
+        if (item instanceof DionysusItem) return DionysusItem.isBlessed(stack);
         return false;
     }
 
@@ -368,7 +370,8 @@ public class EdictMenu extends AbstractContainerMenu {
                 || item instanceof AresItem
                 || item instanceof HermesItem
                 || item instanceof XiheItem
-                || item instanceof AchillesItem;
+                || item instanceof AchillesItem
+                || item instanceof DionysusItem;
     }
 
     private static Class<?> deityClass(ItemStack stack) {
@@ -378,6 +381,7 @@ public class EdictMenu extends AbstractContainerMenu {
         if (stack.getItem() instanceof HermesItem) return HermesItem.class;
         if (stack.getItem() instanceof XiheItem) return XiheItem.class;
         if (stack.getItem() instanceof AchillesItem) return AchillesItem.class;
+        if (stack.getItem() instanceof DionysusItem) return DionysusItem.class;
         return null;
     }
 }

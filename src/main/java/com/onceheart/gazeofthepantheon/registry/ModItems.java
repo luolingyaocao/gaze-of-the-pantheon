@@ -19,6 +19,7 @@ import com.onceheart.gazeofthepantheon.item.MedicineGodsRecognitionItem;
 import com.onceheart.gazeofthepantheon.item.MessengersRecognitionItem;
 import com.onceheart.gazeofthepantheon.item.MoonMirrorItem;
 import com.onceheart.gazeofthepantheon.item.SoulContractItem;
+import com.onceheart.gazeofthepantheon.item.StopItem;
 import com.onceheart.gazeofthepantheon.item.StyxInfusionItem;
 import com.onceheart.gazeofthepantheon.item.ThanatosItem;
 import com.onceheart.gazeofthepantheon.item.WarGodsRecognitionItem;
@@ -109,6 +110,9 @@ public class ModItems {
 
     public static final RegistryObject<Item> FAQ = ITEMS.register("faq",
             () -> new FaqItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC)));
+
+    public static final RegistryObject<Item> STOP = ITEMS.register("stop",
+            () -> new StopItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).fireResistant()));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

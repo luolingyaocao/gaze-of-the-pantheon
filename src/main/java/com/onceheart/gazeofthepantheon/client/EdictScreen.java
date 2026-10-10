@@ -58,7 +58,7 @@ public class EdictScreen extends AbstractContainerScreen<EdictMenu> {
         rebuildButtons();
     }
 
-    /** 按钮显示条件：成事在人已放入 + 六个神系祝福都在格子里 */
+    /** 按钮显示条件：成事在人已放入 + 全部神系祝福都在格子里 */
     private boolean shouldShowButtons() {
         return hasDeedInSlot() && allBlessingsInSlots();
     }
@@ -68,7 +68,7 @@ public class EdictScreen extends AbstractContainerScreen<EdictMenu> {
         return !slot.getItem().isEmpty();
     }
 
-    /** 检查 54 格中是否集齐六个神系的祝福 */
+    /** 检查 54 格中是否集齐全部神系的祝福 */
     private boolean allBlessingsInSlots() {
         java.util.Set<Class<?>> found = new java.util.HashSet<>();
         for (int i = 0; i < EdictMenu.BLESSING_SLOTS; i++) {
@@ -77,7 +77,7 @@ public class EdictScreen extends AbstractContainerScreen<EdictMenu> {
             Class<?> deity = deityOf(s);
             if (deity != null) found.add(deity);
         }
-        return found.size() >= 6;
+        return found.size() >= EdictData.getAllBlessingItems().size();
     }
 
     private static Class<?> deityOf(ItemStack stack) {
@@ -94,6 +94,8 @@ public class EdictScreen extends AbstractContainerScreen<EdictMenu> {
             return com.onceheart.gazeofthepantheon.item.XiheItem.class;
         if (item instanceof com.onceheart.gazeofthepantheon.item.AchillesItem)
             return com.onceheart.gazeofthepantheon.item.AchillesItem.class;
+        if (item instanceof com.onceheart.gazeofthepantheon.item.DionysusItem)
+            return com.onceheart.gazeofthepantheon.item.DionysusItem.class;
         return null;
     }
 

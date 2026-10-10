@@ -43,6 +43,8 @@ public class ModCreativeTabs {
                         output.accept(ModItems.GOLDEN_CROW_FEATHER.get());
                         output.accept(ModItems.BREW.get());
                         output.accept(ModItems.MOON_MIRROR.get());
+                        // 彩蛋
+                        output.accept(ModItems.STOP.get());
                     })
                     .build());
 

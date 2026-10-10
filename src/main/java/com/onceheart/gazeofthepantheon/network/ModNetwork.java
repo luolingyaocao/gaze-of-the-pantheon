@@ -34,5 +34,9 @@ public class ModNetwork {
                 ToggleDionysusPacket::encode,
                 ToggleDionysusPacket::decode,
                 ToggleDionysusPacket::handle);
+        CHANNEL.registerMessage(id++, StopShieldPacket.class,
+                StopShieldPacket::encode,
+                StopShieldPacket::decode,
+                StopShieldPacket::handle);
     }
 }
