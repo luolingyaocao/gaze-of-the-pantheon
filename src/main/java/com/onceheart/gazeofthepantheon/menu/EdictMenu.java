@@ -33,7 +33,7 @@ public class EdictMenu extends AbstractContainerMenu {
     public static final int BLESSING_SLOTS = 54;
     public static final int DEED_SLOT_INDEX = 54;
     public static final int TOTAL_SLOTS = 55;
-    public static final int GAZE_SLOTS = 6;
+    public static final int GAZE_SLOTS = 7;
 
     public static final int BLESSING_X = 66;
     public static final int BLESSING_Y = 24;

@@ -3,6 +3,7 @@ package com.onceheart.gazeofthepantheon.event;
 import com.onceheart.gazeofthepantheon.GazeOfThePantheon;
 import com.onceheart.gazeofthepantheon.item.AchillesItem;
 import com.onceheart.gazeofthepantheon.item.AresItem;
+import com.onceheart.gazeofthepantheon.item.DionysusItem;
 import com.onceheart.gazeofthepantheon.item.HermesItem;
 import com.onceheart.gazeofthepantheon.item.HygieiaItem;
 import com.onceheart.gazeofthepantheon.item.ThanatosItem;
@@ -26,7 +27,7 @@ import java.util.UUID;
 /**
  * 注视饰品与必行敕令的死亡保存 / 重生恢复。
  *
- * 覆盖六个神系的注视饰品（诅咒或祝福）与必行敕令：
+ * 覆盖七个神系的注视饰品（诅咒或祝福）与必行敕令：
  * 死亡时从掉落物中摘出并缓存，重生时按原栏位放回。
  *
  * 硬核死亡（愠怒死亡后的旁观模式）不在这里，见 ThanatosEventHandler。
@@ -40,6 +41,7 @@ public class GazePersistenceHandler {
     private static final Map<UUID, ItemStack> SAVED_HERMES = new HashMap<>();
     private static final Map<UUID, ItemStack> SAVED_XIHE = new HashMap<>();
     private static final Map<UUID, ItemStack> SAVED_ACHILLES = new HashMap<>();
+    private static final Map<UUID, ItemStack> SAVED_DIONYSUS = new HashMap<>();
     private static final Map<UUID, ItemStack> SAVED_EDICT = new HashMap<>();
 
     // ============ 掉落：摘出注视饰品与必行敕令 ============
@@ -71,6 +73,9 @@ public class GazePersistenceHandler {
             } else if (stack.getItem() instanceof AchillesItem) {
                 SAVED_ACHILLES.put(player.getUUID(), stack.copy());
                 it.remove();
+            } else if (stack.getItem() instanceof DionysusItem) {
+                SAVED_DIONYSUS.put(player.getUUID(), stack.copy());
+                it.remove();
             } else if (stack.getItem() == ModItems.EDICT.get()) {
                 SAVED_EDICT.put(player.getUUID(), stack.copy());
                 it.remove();
@@ -90,6 +95,7 @@ public class GazePersistenceHandler {
         restoreGaze(player, SAVED_HERMES.remove(player.getUUID()));
         restoreGaze(player, SAVED_XIHE.remove(player.getUUID()));
         restoreGaze(player, SAVED_ACHILLES.remove(player.getUUID()));
+        restoreGaze(player, SAVED_DIONYSUS.remove(player.getUUID()));
 
         ItemStack savedEdict = SAVED_EDICT.remove(player.getUUID());
         if (savedEdict != null && !savedEdict.isEmpty()) {

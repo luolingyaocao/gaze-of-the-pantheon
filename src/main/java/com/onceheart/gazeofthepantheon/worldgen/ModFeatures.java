@@ -14,7 +14,12 @@ public class ModFeatures {
             DeferredRegister.create(ForgeRegistries.FEATURES, GazeOfThePantheon.MOD_ID);
 
     public static final RegistryObject<Feature<NoneFeatureConfiguration>> OLYMPUS_MONS =
-            FEATURES.register("olympus_mons", () -> new OlympusMonsFeature(NoneFeatureConfiguration.CODEC));
+            FEATURES.register("olympus_mons",
+                    () -> new OlympusMonsFeature(NoneFeatureConfiguration.CODEC));
+
+    public static final RegistryObject<Feature<NoneFeatureConfiguration>> OLYMPIAN_PEAKS =
+            FEATURES.register("olympian_peaks",
+                    () -> new DivineRangeFeature(NoneFeatureConfiguration.CODEC));
 
     public static void register(IEventBus eventBus) {
         FEATURES.register(eventBus);
