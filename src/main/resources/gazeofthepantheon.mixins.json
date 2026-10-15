@@ -10,7 +10,8 @@
     "MixinServerGamePacketListenerImpl",
     "MixinPlayerList",
     "MixinItemEntity",
-    "MixinPlayerInventory"
+    "MixinPlayerInventory",
+    "MixinServerLevel"
   ],
   "client": [
     "client.MixinKeyboardHandler",

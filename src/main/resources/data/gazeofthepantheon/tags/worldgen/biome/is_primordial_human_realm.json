@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "gazeofthepantheon:primordial_peaks",
+    "gazeofthepantheon:primordial_plains",
+    "gazeofthepantheon:primordial_plateau",
+    "gazeofthepantheon:primordial_ocean",
+    "gazeofthepantheon:primordial_desert"
+  ]
+}

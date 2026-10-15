@@ -96,6 +96,8 @@ public class EdictScreen extends AbstractContainerScreen<EdictMenu> {
             return com.onceheart.gazeofthepantheon.item.AchillesItem.class;
         if (item instanceof com.onceheart.gazeofthepantheon.item.DionysusItem)
             return com.onceheart.gazeofthepantheon.item.DionysusItem.class;
+        if (item instanceof com.onceheart.gazeofthepantheon.item.HephaestusItem)
+            return com.onceheart.gazeofthepantheon.item.HephaestusItem.class;
         return null;
     }
 

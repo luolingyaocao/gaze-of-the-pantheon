@@ -163,6 +163,7 @@ public class EdictData {
         set.add(ModItems.XIHE.get());
         set.add(ModItems.ACHILLES.get());
         set.add(ModItems.DIONYSUS.get());
+        set.add(ModItems.HEPHAESTUS.get());
         return set;
     }
 

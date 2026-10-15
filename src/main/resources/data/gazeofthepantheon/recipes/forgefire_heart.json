@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "ingredient": {
+    "item": "minecraft:netherite_ingot"
+  },
+  "result": {
+    "item": "gazeofthepantheon:forgefire_heart",
+    "count": 1
+  },
+  "experience": 2.0,
+  "cookingtime": 1000
+}

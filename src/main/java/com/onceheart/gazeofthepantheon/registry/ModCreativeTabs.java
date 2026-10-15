@@ -26,6 +26,7 @@ public class ModCreativeTabs {
                         output.accept(ModItems.XIHE.get());
                         output.accept(ModItems.ACHILLES.get());
                         output.accept(ModItems.DIONYSUS.get());
+                        output.accept(ModItems.HEPHAESTUS.get());
                         // 必行敕令与成事在人
                         output.accept(ModItems.EDICT.get());
                         output.accept(ModItems.DEED.get());
@@ -38,6 +39,7 @@ public class ModCreativeTabs {
                         output.accept(ModItems.STYX_INFUSION.get());
                         output.accept(ModItems.FUSANG_DEW.get());
                         output.accept(ModItems.IVY_CROWN.get());
+                        output.accept(ModItems.FORGEFIRE_HEART.get());
                         // 材料与工具
                         output.accept(ModItems.HERMES_SANDALS.get());
                         output.accept(ModItems.GOLDEN_CROW_FEATHER.get());
@@ -45,6 +47,27 @@ public class ModCreativeTabs {
                         output.accept(ModItems.MOON_MIRROR.get());
                         // 彩蛋
                         output.accept(ModItems.STOP.get());
+                    })
+                    .build());
+
+    public static final RegistryObject<CreativeModeTab> PRIMORDIAL_HUMAN_REALM_TAB = CREATIVE_MODE_TABS.register("primordial_human_realm",
+            () -> CreativeModeTab.builder()
+                    .title(Component.translatable("itemGroup.gazeofthepantheon.primordial_human_realm"))
+                    .icon(() -> new ItemStack(ModItems.PRIMORDIAL_MATTER.get()))
+                    .displayItems((parameters, output) -> {
+                        output.accept(ModItems.RARIFIED_ESSENCE.get());
+                        output.accept(ModItems.TURBID_ESSENCE.get());
+                        output.accept(ModItems.PRIMORDIAL_MATTER.get());
+                    })
+                    .build());
+
+    public static final RegistryObject<CreativeModeTab> DEV_TEST_TAB = CREATIVE_MODE_TABS.register("dev_test",
+            () -> CreativeModeTab.builder()
+                    .title(Component.translatable("itemGroup.gazeofthepantheon.dev_test"))
+                    .icon(() -> new ItemStack(ModItems.TEST_TP_UNFIXED_HEAVEN.get()))
+                    .displayItems((parameters, output) -> {
+                        output.accept(ModItems.TEST_TP_UNFIXED_HEAVEN.get());
+                        output.accept(ModItems.TEST_TP_PRIMORDIAL_HUMAN_REALM.get());
                     })
                     .build());
 

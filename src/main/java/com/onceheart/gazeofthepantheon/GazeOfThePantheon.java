@@ -3,9 +3,11 @@ package com.onceheart.gazeofthepantheon;
 import com.mojang.logging.LogUtils;
 import com.onceheart.gazeofthepantheon.effect.ModEffects;
 import com.onceheart.gazeofthepantheon.network.ModNetwork;
+import com.onceheart.gazeofthepantheon.registry.ModBlocks;
 import com.onceheart.gazeofthepantheon.registry.ModCreativeTabs;
 import com.onceheart.gazeofthepantheon.registry.ModItems;
 import com.onceheart.gazeofthepantheon.registry.ModMenus;
+import com.onceheart.gazeofthepantheon.worldgen.ModChunkGenerators;
 import com.onceheart.gazeofthepantheon.worldgen.ModFeatures;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -20,11 +22,13 @@ public class GazeOfThePantheon {
     public GazeOfThePantheon(FMLJavaModLoadingContext context) {
         IEventBus modEventBus = context.getModEventBus();
 
+        ModBlocks.register(modEventBus);
         ModItems.register(modEventBus);
         ModCreativeTabs.register(modEventBus);
         ModMenus.register(modEventBus);
         ModEffects.register(modEventBus);
         ModFeatures.register(modEventBus);
+        ModChunkGenerators.register(modEventBus);
 
         ModNetwork.register();
     }

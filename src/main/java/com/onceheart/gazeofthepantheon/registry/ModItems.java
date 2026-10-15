@@ -9,8 +9,10 @@ import com.onceheart.gazeofthepantheon.item.DeedItem;
 import com.onceheart.gazeofthepantheon.item.DionysusItem;
 import com.onceheart.gazeofthepantheon.item.EdictItem;
 import com.onceheart.gazeofthepantheon.item.FaqItem;
+import com.onceheart.gazeofthepantheon.item.ForgefireHeartItem;
 import com.onceheart.gazeofthepantheon.item.FusangDewItem;
 import com.onceheart.gazeofthepantheon.item.GoldenCrowFeatherItem;
+import com.onceheart.gazeofthepantheon.item.HephaestusItem;
 import com.onceheart.gazeofthepantheon.item.HermesItem;
 import com.onceheart.gazeofthepantheon.item.HermesSandalsItem;
 import com.onceheart.gazeofthepantheon.item.HygieiaItem;
@@ -21,9 +23,12 @@ import com.onceheart.gazeofthepantheon.item.MoonMirrorItem;
 import com.onceheart.gazeofthepantheon.item.SoulContractItem;
 import com.onceheart.gazeofthepantheon.item.StopItem;
 import com.onceheart.gazeofthepantheon.item.StyxInfusionItem;
+import com.onceheart.gazeofthepantheon.item.TestTpPrimordialHumanRealmItem;
+import com.onceheart.gazeofthepantheon.item.TestTpUnfixedHeavenItem;
 import com.onceheart.gazeofthepantheon.item.ThanatosItem;
 import com.onceheart.gazeofthepantheon.item.WarGodsRecognitionItem;
 import com.onceheart.gazeofthepantheon.item.XiheItem;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -57,6 +62,9 @@ public class ModItems {
 
     public static final RegistryObject<Item> DIONYSUS = ITEMS.register("dionysus",
             () -> new DionysusItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).fireResistant()));
+
+    public static final RegistryObject<Item> HEPHAESTUS = ITEMS.register("hephaestus",
+            () -> new HephaestusItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).fireResistant()));
 
     // ============ 必行敕令与成事在人 ============
 
@@ -92,6 +100,9 @@ public class ModItems {
     public static final RegistryObject<Item> IVY_CROWN = ITEMS.register("ivy_crown",
             () -> new IvyCrownItem(new Item.Properties().stacksTo(16).rarity(Rarity.EPIC)));
 
+    public static final RegistryObject<Item> FORGEFIRE_HEART = ITEMS.register("forgefire_heart",
+            () -> new ForgefireHeartItem(new Item.Properties().stacksTo(16).rarity(Rarity.EPIC)));
+
     // ============ 材料与工具 ============
 
     public static final RegistryObject<Item> HERMES_SANDALS = ITEMS.register("hermes_sandals",
@@ -113,6 +124,25 @@ public class ModItems {
 
     public static final RegistryObject<Item> STOP = ITEMS.register("stop",
             () -> new StopItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).fireResistant()));
+
+    // ============ 开发测试 ============
+
+    public static final RegistryObject<Item> TEST_TP_UNFIXED_HEAVEN = ITEMS.register("test_tp_unfixed_heaven",
+            () -> new TestTpUnfixedHeavenItem(new Item.Properties().stacksTo(1)));
+
+    public static final RegistryObject<Item> TEST_TP_PRIMORDIAL_HUMAN_REALM = ITEMS.register("test_tp_primordial_human_realm",
+            () -> new TestTpPrimordialHumanRealmItem(new Item.Properties().stacksTo(1)));
+
+    // ============ 鸿蒙人间方块（BlockItem） ============
+
+    public static final RegistryObject<Item> RARIFIED_ESSENCE = ITEMS.register("rarified_essence",
+            () -> new BlockItem(ModBlocks.RARIFIED_ESSENCE.get(), new Item.Properties()));
+
+    public static final RegistryObject<Item> TURBID_ESSENCE = ITEMS.register("turbid_essence",
+            () -> new BlockItem(ModBlocks.TURBID_ESSENCE.get(), new Item.Properties()));
+
+    public static final RegistryObject<Item> PRIMORDIAL_MATTER = ITEMS.register("primordial_matter",
+            () -> new BlockItem(ModBlocks.PRIMORDIAL_MATTER.get(), new Item.Properties()));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

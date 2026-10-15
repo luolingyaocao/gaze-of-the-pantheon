@@ -1,5 +1,7 @@
 {
   "itemGroup.gazeofthepantheon": "Gaze of the Pantheon",
+  "itemGroup.gazeofthepantheon.dev_test": "Gaze of the Pantheon · Dev Test",
+  "itemGroup.gazeofthepantheon.primordial_human_realm": "Primordial Human Realm",
 
   "item.gazeofthepantheon.thanatos_wrath": "Thanatos's Wrath",
   "item.gazeofthepantheon.thanatos_kindness": "Thanatos's Kindness",
@@ -15,6 +17,8 @@
   "item.gazeofthepantheon.achilles_kindness": "Achilles' Resolve",
   "item.gazeofthepantheon.dionysus_wrath": "Dionysus's Intoxication",
   "item.gazeofthepantheon.dionysus_kindness": "Dionysus's Clarity",
+  "item.gazeofthepantheon.hephaestus_wrath": "Hephaestus's Slag",
+  "item.gazeofthepantheon.hephaestus_kindness": "Hephaestus's Blaze",
   "item.gazeofthepantheon.edict": "Inevitable Edict",
   "item.gazeofthepantheon.deed": "Deed of Man",
   "item.gazeofthepantheon.soul_contract": "Soul Contract",
@@ -29,9 +33,16 @@
   "item.gazeofthepantheon.ivy_crown": "Ivy Crown",
   "item.gazeofthepantheon.brew": "Brew",
   "item.gazeofthepantheon.moon_mirror": "Moon Mirror",
+  "item.gazeofthepantheon.forgefire_heart": "Forgefire Heart",
   "item.gazeofthepantheon.marked_dirt": "Death Has His Eyes on You",
   "item.gazeofthepantheon.faq": "Fuck You",
   "item.gazeofthepantheon.stop": "Stop",
+  "item.gazeofthepantheon.test_tp_unfixed_heaven": "Debug: Teleport to The Unfixed Heaven",
+  "item.gazeofthepantheon.test_tp_primordial_human_realm": "Debug: Teleport to The Primordial Human Realm",
+
+  "block.gazeofthepantheon.rarified_essence": "Rarified Essence",
+  "block.gazeofthepantheon.turbid_essence": "Turbid Essence",
+  "block.gazeofthepantheon.primordial_matter": "Primordial Matter",
 
   "tooltip.gazeofthepantheon.marked_dirt.desc": "§7Place the dirt in a crafting table and offer your soul to Death; He will trouble you no more.",
 
@@ -84,6 +95,13 @@
   "tooltip.gazeofthepantheon.dionysus_kindness.effect": "§eDionysus keeps your mind clear; no foreign magic can touch you.",
   "tooltip.gazeofthepantheon.dionysus_kindness.toggle": "§7Press I to toggle Clarity",
 
+  "tooltip.gazeofthepantheon.hephaestus_wrath.desc": "§4Gaze · The Forgefire Fades",
+  "tooltip.gazeofthepantheon.hephaestus_wrath.effect": "§cSlag coats your hands; every motion is heavy as stone.",
+  "tooltip.gazeofthepantheon.hephaestus_wrath.locked": "§7Cannot be removed",
+
+  "tooltip.gazeofthepantheon.hephaestus_kindness.desc": "§6Gaze · The Forgefire Blazes",
+  "tooltip.gazeofthepantheon.hephaestus_kindness.effect": "§eClad in flame, you shatter stone and steel.",
+
   "tooltip.gazeofthepantheon.edict.desc": "§6Edict · All Laws Bow",
   "tooltip.gazeofthepantheon.edict.stats": "§e+20 Armor · +20 Toughness · +200% Attack · +10 Attack Speed · Full Knockback Immunity",
   "tooltip.gazeofthepantheon.edict.hint": "§7Press V to open your Edict",
@@ -126,6 +144,9 @@
 
   "tooltip.gazeofthepantheon.moon_mirror.desc": "§7A mirror that reflects the moon, revealing its wax and wane.",
   "tooltip.gazeofthepantheon.moon_mirror.use": "§6Right-click: Ask the moon",
+
+  "tooltip.gazeofthepantheon.forgefire_heart.desc": "§7The forge never dies; its flame sears the heart.",
+  "tooltip.gazeofthepantheon.forgefire_heart.use": "§6Right-click: Convert \"Hephaestus's Slag\" in the Gaze slot into \"Hephaestus's Blaze\"",
 
   "tooltip.gazeofthepantheon.stop.desc": "§4Stop",
 
@@ -198,6 +219,8 @@
   "message.gazeofthepantheon.dionysus.toggle_off": "§7Clarity · Off",
   "message.gazeofthepantheon.moon_mirror.phase": "Moon phase: %s",
   "message.gazeofthepantheon.moon_mirror.next_full": "Days until next full moon: %s",
+  "message.gazeofthepantheon.forgefire_heart.used": "§6The slag burns away; the blaze is reborn.",
+  "message.gazeofthepantheon.forgefire_heart.failed": "§7The forgefire has not yet gone out.",
 
   "message.gazeofthepantheon.edict.dropped": "§6The Edict has found you.",
   "message.gazeofthepantheon.edict.immortal": "§6Edict: Death Shall Not Come",
@@ -232,6 +255,8 @@
   "message.gazeofthepantheon.gaze.achilles_kindness": "§6Achilles · Resolve",
   "message.gazeofthepantheon.gaze.dionysus_wrath": "§4Dionysus · Intoxication",
   "message.gazeofthepantheon.gaze.dionysus_kindness": "§6Dionysus · Clarity",
+  "message.gazeofthepantheon.gaze.hephaestus_wrath": "§4Hephaestus · Slag",
+  "message.gazeofthepantheon.gaze.hephaestus_kindness": "§6Hephaestus · Blaze",
 
   "moonphase.gazeofthepantheon.full": "Full Moon",
   "moonphase.gazeofthepantheon.waning_gibbous": "Waning Gibbous",

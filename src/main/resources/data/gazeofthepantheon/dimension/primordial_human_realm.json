@@ -1,0 +1,72 @@
+{
+  "type": "gazeofthepantheon:primordial_human_realm_type",
+  "generator": {
+    "type": "gazeofthepantheon:primordial_human_realm",
+    "biome_source": {
+      "type": "minecraft:multi_noise",
+      "biomes": [
+        {
+          "biome": "gazeofthepantheon:primordial_ocean",
+          "parameters": {
+            "temperature": [-0.4, 0.2],
+            "humidity": [-1.0, 0.0],
+            "continentalness": [-1.2, -0.6],
+            "erosion": [-1.0, 0.0],
+            "depth": [0, 0],
+            "weirdness": [-0.6, 0.6],
+            "offset": 0
+          }
+        },
+        {
+          "biome": "gazeofthepantheon:primordial_plains",
+          "parameters": {
+            "temperature": [0.0, 0.6],
+            "humidity": [0.0, 0.6],
+            "continentalness": [-0.5, 0.0],
+            "erosion": [-0.8, -0.2],
+            "depth": [0, 0],
+            "weirdness": [-0.3, 0.3],
+            "offset": 0
+          }
+        },
+        {
+          "biome": "gazeofthepantheon:primordial_plateau",
+          "parameters": {
+            "temperature": [0.2, 0.8],
+            "humidity": [-0.4, 0.2],
+            "continentalness": [0.0, 0.4],
+            "erosion": [0.0, 0.5],
+            "depth": [0, 0],
+            "weirdness": [-0.2, 0.2],
+            "offset": 0
+          }
+        },
+        {
+          "biome": "gazeofthepantheon:primordial_peaks",
+          "parameters": {
+            "temperature": [-0.6, 0.2],
+            "humidity": [-0.6, 0.0],
+            "continentalness": [0.3, 0.8],
+            "erosion": [0.6, 1.2],
+            "depth": [0, 0],
+            "weirdness": [-0.3, 0.3],
+            "offset": 0
+          }
+        },
+        {
+          "biome": "gazeofthepantheon:primordial_desert",
+          "parameters": {
+            "temperature": [0.7, 1.2],
+            "humidity": [-1.2, -0.5],
+            "continentalness": [0.1, 0.5],
+            "erosion": [-0.3, 0.2],
+            "depth": [0, 0],
+            "weirdness": [-0.2, 0.2],
+            "offset": 0
+          }
+        }
+      ]
+    },
+    "settings": "minecraft:overworld"
+  }
+}

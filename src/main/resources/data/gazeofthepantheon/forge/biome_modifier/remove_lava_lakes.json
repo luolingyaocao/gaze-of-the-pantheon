@@ -1,0 +1,9 @@
+{
+  "type": "forge:remove_features",
+  "biomes": "#gazeofthepantheon:is_primordial_human_realm",
+  "features": [
+    "minecraft:lake_lava_underground",
+    "minecraft:lake_lava_surface"
+  ],
+  "steps": "lakes"
+}
