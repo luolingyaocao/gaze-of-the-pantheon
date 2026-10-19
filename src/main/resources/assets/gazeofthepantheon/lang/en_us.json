@@ -37,14 +37,13 @@
   "item.gazeofthepantheon.marked_dirt": "Death Has His Eyes on You",
   "item.gazeofthepantheon.faq": "Fuck You",
   "item.gazeofthepantheon.stop": "Stop",
-  "item.gazeofthepantheon.test_tp_unfixed_heaven": "Debug: Teleport to The Unfixed Heaven",
-  "item.gazeofthepantheon.test_tp_primordial_human_realm": "Debug: Teleport to The Primordial Human Realm",
+  "item.gazeofthepantheon.test_tp_primordial_human_realm": "Debug: Teleport to the Primordial Human Realm",
 
   "block.gazeofthepantheon.rarified_essence": "Rarified Essence",
   "block.gazeofthepantheon.turbid_essence": "Turbid Essence",
   "block.gazeofthepantheon.primordial_matter": "Primordial Matter",
 
-  "tooltip.gazeofthepantheon.marked_dirt.desc": "§7Place the dirt in a crafting table and offer your soul to Death; He will trouble you no more.",
+  "tooltip.gazeofthepantheon.marked_dirt.desc": "§7Craft the dirt into a soul contract and offer your soul to Death; He will trouble you no more.",
 
   "tooltip.gazeofthepantheon.thanatos_wrath.desc": "§4Gaze · Death Is the End",
   "tooltip.gazeofthepantheon.thanatos_wrath.effect": "§cThe dead don't come back. You know that.",
@@ -93,7 +92,7 @@
 
   "tooltip.gazeofthepantheon.dionysus_kindness.desc": "§6Gaze · Clarity Unclouded",
   "tooltip.gazeofthepantheon.dionysus_kindness.effect": "§eDionysus keeps your mind clear; no foreign magic can touch you.",
-  "tooltip.gazeofthepantheon.dionysus_kindness.toggle": "§7Press I to toggle Clarity",
+  "tooltip.gazeofthepantheon.dionysus_kindness.toggle": "§7Toggle Clarity",
 
   "tooltip.gazeofthepantheon.hephaestus_wrath.desc": "§4Gaze · The Forgefire Fades",
   "tooltip.gazeofthepantheon.hephaestus_wrath.effect": "§cSlag coats your hands; every motion is heavy as stone.",
@@ -103,8 +102,8 @@
   "tooltip.gazeofthepantheon.hephaestus_kindness.effect": "§eClad in flame, you shatter stone and steel.",
 
   "tooltip.gazeofthepantheon.edict.desc": "§6Edict · All Laws Bow",
-  "tooltip.gazeofthepantheon.edict.stats": "§e+20 Armor · +20 Toughness · +200% Attack · +10 Attack Speed · Full Knockback Immunity",
-  "tooltip.gazeofthepantheon.edict.hint": "§7Press V to open your Edict",
+  "tooltip.gazeofthepantheon.edict.stats": "§e+20 Armor · +20 Armor Toughness · +200% Attack Damage · +10 Attack Speed · Full Knockback Immunity",
+  "tooltip.gazeofthepantheon.edict.hint": "§7Consider your Edict",
 
   "tooltip.gazeofthepantheon.deed.desc": "§6Know that planning precedes action.",
   "tooltip.gazeofthepantheon.deed.use": "§eRight-click: Add it to your Decision slot",
@@ -154,7 +153,7 @@
   "curios.identifier.decision": "Decision",
   "curios.modifiers.gaze": "§bCelestial Blessing:",
 
-  "gui.gazeofthepantheon.edict.title": "Think Thrice Before You Act",
+  "gui.gazeofthepantheon.edict.title": "Think Before You Act",
 
   "key.categories.gazeofthepantheon": "Gaze of the Pantheon",
   "key.gazeofthepantheon.toggle_hermes_gear": "Toggle Hermes's Dash",
@@ -173,24 +172,24 @@
   "edict.effect.sanction.off": "§7Sanction · Sealed",
 
   "jei.gazeofthepantheon.fusang_ritual": "Fusang Ritual",
-  "jei.gazeofthepantheon.block.iron_pillar": "Iron Pillar (Glowstone on Top, 4 Blocks Tall)",
+  "jei.gazeofthepantheon.block.iron_pillar": "Iron Pillar (Glowstone-capped, 4 Blocks Tall)",
   "jei.gazeofthepantheon.block.diamond": "Diamond Block",
-  "jei.gazeofthepantheon.block.gold": "Gold Block (Player Stands Here)",
-  "jei.gazeofthepantheon.block.dirt_sapling": "Dirt (Sapling on Top)",
-  "jei.gazeofthepantheon.block.quartz": "Smooth Quartz",
+  "jei.gazeofthepantheon.block.gold": "Gold Block (Stand Here for Ritual)",
+  "jei.gazeofthepantheon.block.dirt_sapling": "Dirt (Sapling on Top to Call Fusang)",
+  "jei.gazeofthepantheon.block.quartz": "Smooth Quartz Block",
   "jei.gazeofthepantheon.hermes_sandals": "Obtaining Hermes's Sandals",
   "jei.gazeofthepantheon.hermes_sandals.condition": "While wearing Hermes's Shackles, mine the following:",
-  "jei.gazeofthepantheon.hermes_sandals.condition.tooltip": "Only triggers with the cursed version (Shackles); blessed (Dash) drops nothing. Survival mode only.",
-  "jei.gazeofthepantheon.hermes_sandals.chance": "Drop rate: 0.1% (about 2 per netherite pickaxe).",
+  "jei.gazeofthepantheon.hermes_sandals.condition.tooltip": "Only triggers with Hermes's Shackles; nothing drops with Hermes's Dash. Survival mode only.",
+  "jei.gazeofthepantheon.hermes_sandals.chance": "Drop rate: approximately 1 in 1000.",
   "jei.gazeofthepantheon.edict_drop": "Obtaining the Inevitable Edict",
   "jei.gazeofthepantheon.edict_drop.desc": "Drops when you slay the Wither and do not yet possess the Edict.",
   "jei.gazeofthepantheon.deed_drop": "Obtaining the Deed of Man",
   "jei.gazeofthepantheon.deed_drop.desc": "Equip the Inevitable Edict, gather all blessed gazes, then slay the Ender Dragon.",
   "jei.gazeofthepantheon.deed_drop.line1": "Equip the Inevitable Edict, gather all blessed gazes,",
-  "jei.gazeofthepantheon.deed_drop.line2": "then slay the Ender Dragon — the Deed shall appear above the End portal.",
+  "jei.gazeofthepantheon.deed_drop.line2": "then slay the Ender Dragon — the Deed shall appear above the End Portal.",
   "jei.gazeofthepantheon.ivy_ritual": "Ivy Ritual",
   "jei.gazeofthepantheon.ivy_ritual.condition": "On a full-moon night, holding Brew",
-  "jei.gazeofthepantheon.ivy_ritual.action": "Right-click Ivy",
+  "jei.gazeofthepantheon.ivy_ritual.action": "Right-click Vines",
 
   "message.gazeofthepantheon.thanatos_kindness.triggered": "§6Death turned you away.",
   "message.gazeofthepantheon.thanatos_wrath.death": "§4In your final moments, take one last look at this world.",
@@ -222,7 +221,7 @@
   "message.gazeofthepantheon.forgefire_heart.used": "§6The slag burns away; the blaze is reborn.",
   "message.gazeofthepantheon.forgefire_heart.failed": "§7The forgefire has not yet gone out.",
 
-  "message.gazeofthepantheon.edict.dropped": "§6The Edict has found you.",
+  "message.gazeofthepantheon.edict.dropped": "§6The Inevitable Edict may now be wielded.",
   "message.gazeofthepantheon.edict.immortal": "§6Edict: Death Shall Not Come",
   "message.gazeofthepantheon.edict.already_obtained": "§7The Edict is already in your hand; seek it no more.",
   "message.gazeofthepantheon.deed.summoned": "§6First the plan. Then the deed.",

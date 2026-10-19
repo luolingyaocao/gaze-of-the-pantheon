@@ -27,13 +27,8 @@ public class TestTpPrimordialHumanRealmItem extends Item {
             return InteractionResultHolder.pass(stack);
         }
 
-        // 仅当玩家身处未定之天时可用
-        if (!sp.level().dimension().equals(ModDimensions.THE_UNFIXED_HEAVEN)) {
-            return InteractionResultHolder.pass(stack);
-        }
-
         ServerLevel target = sp.server.getLevel(ModDimensions.PRIMORDIAL_HUMAN_REALM);
-        if (target == null) {
+        if (target == null || sp.level() == target) {
             return InteractionResultHolder.pass(stack);
         }
 

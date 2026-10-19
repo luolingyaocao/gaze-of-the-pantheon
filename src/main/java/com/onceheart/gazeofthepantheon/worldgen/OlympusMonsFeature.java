@@ -13,23 +13,25 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
 /**
  * 奥林匹斯山 + 山尖。
  *
- * 山尖底部从「山脊环高度」起步，向中心逐渐抬升 20 格，与山脊环无缝衔接。
- * 穹顶形状是「从山脊环隆起的锥」，不悬空、无柱。
- * 穹顶覆盖范围内，地表上方一格放 light 方块（光照 15，防刷怪）。
- * 穹顶底部（下表面）用低频噪声点缀荧石，稀疏分布。
+ * 底部宽大且通过二维域扭曲打破标准圆形，山体挺拔。
+ * 内部包含平整战斗平台，顶部穹顶崎岖。
  */
 public class OlympusMonsFeature extends Feature<NoneFeatureConfiguration> {
 
     private static final int CENTER_X = 10000;
     private static final int CENTER_Z = 10000;
-    private static final int RADIUS = 128;
+
+    // 恢复宽大的底部半径，甚至更宽
+    private static final int RADIUS = 150;
     private static final double RADIUS_SQ = (double) RADIUS * RADIUS;
 
     private static final double PLATEAU_RADIUS = 50.0;
     private static final double DIP_DEPTH = 20.0;
     private static final double FLAT_RATIO = 0.6;
 
-    private static final int MAX_HEIGHT = 140;
+    // 保持较高高度，维持挺拔感
+    private static final int MAX_HEIGHT = 160;
+
     private static final int SEA_LEVEL = 62;
     private static final double GRASS_RADIUS = PLATEAU_RADIUS * 0.85;
 
@@ -37,13 +39,11 @@ public class OlympusMonsFeature extends Feature<NoneFeatureConfiguration> {
 
     private static final double DOME_BASE_RADIUS = 50.0;
     private static final double DOME_PEAK_HEIGHT = 80.0;
-    private static final double DOME_NOISE_AMP = 2.5;
+    private static final double DOME_NOISE_AMP = 6.0;
     private static final int DOME_BOTTOM_CLEARANCE = 20;
     private static final double DOME_SHARPNESS = 4.0;
 
-    /** 穹顶底部荧石阈值（fbm 结果大于此值则放荧石），越高越稀疏 */
     private static final double DOME_GLOW_THRESHOLD = 0.78;
-    /** 穹顶底部荧石噪声频率，越小团越大 */
     private static final double DOME_GLOW_FREQ = 0.12;
 
     public OlympusMonsFeature(Codec<NoneFeatureConfiguration> codec) {
@@ -66,44 +66,39 @@ public class OlympusMonsFeature extends Feature<NoneFeatureConfiguration> {
                 int wx = chunkMinX + dx;
                 int wz = chunkMinZ + dz;
 
-                double relX = wx - CENTER_X;
-                double relZ = wz - CENTER_Z;
+                // 使用域扭曲，把坐标在一个大范围内扯歪
+                double warpX = (fbm2D(seed + 71L, wx * 0.012, wz * 0.012, 3) * 2 - 1) * 30.0;
+                double warpZ = (fbm2D(seed + 73L, wx * 0.012, wz * 0.012, 3) * 2 - 1) * 30.0;
+                double swx = wx + warpX;
+                double swz = wz + warpZ;
+
+                double relX = swx - CENTER_X;
+                double relZ = swz - CENTER_Z;
                 double distSq = relX * relX + relZ * relZ;
-                if (distSq > RADIUS_SQ * 2.0) continue;
+                // 判定范围稍微放大以容纳扭曲
+                if (distSq > RADIUS_SQ * 1.5) continue;
 
                 double dist = Math.sqrt(distSq);
-                double angle = Math.atan2(relZ, relX);
 
                 double h_body = Double.NEGATIVE_INFINITY;
-                double angleNoise = fbm1D(seed + 101L, angle * 2.5, 4) * 2 - 1;
-                double rMod = 1.0 + angleNoise * 0.20;
+
+                // 辅助边缘噪声，让边界更毛糙
+                double edgeNoise = fbm2D(seed + 101L, wx * 0.025, wz * 0.025, 3) * 2 - 1;
+                double rMod = 1.0 + edgeNoise * 0.1;
                 double effectiveRadius = RADIUS * rMod;
 
                 if (dist <= effectiveRadius) {
                     double t = dist / effectiveRadius;
-                    double profile = 1.0 - Math.pow(t, 3.5);
+                    // 剖面曲线 2.5 次方，保证中下部有一定体积感，但也向中心收拢
+                    double profile = 1.0 - Math.pow(t, 2.5);
                     h_body = MAX_HEIGHT * profile;
 
                     double bigNoise  = fbm2D(seed + 211L, wx * 0.015, wz * 0.015, 4) * 2 - 1;
-                    double midNoise  = fbm2D(seed + 307L, wx * 0.050, wz * 0.050, 3) * 2 - 1;
+                    double midNoise  = fbm2D(seed + 307L, wx * 0.045, wz * 0.045, 3) * 2 - 1;
                     double fineNoise = fbm2D(seed + 419L, wx * 0.150, wz * 0.150, 2) * 2 - 1;
-                    h_body += bigNoise  * 10.0;
-                    h_body += midNoise  * 5.0;
-                    h_body += fineNoise * 2.0;
-
-                    double erosion = fbm2D(seed + 523L, wx * 0.020, wz * 0.020, 3);
-                    if (erosion > 0.62
-                            && dist > PLATEAU_RADIUS * 1.1
-                            && dist > DOME_BASE_RADIUS) {
-                        h_body -= (erosion - 0.62) * 55.0;
-                    }
-
-                    if (dist > PLATEAU_RADIUS * 1.15 && dist > DOME_BASE_RADIUS) {
-                        double spike = fbm2D(seed + 631L, wx * 0.090, wz * 0.090, 2);
-                        if (spike > 0.85) {
-                            h_body += (spike - 0.85) * 30.0;
-                        }
-                    }
+                    h_body += bigNoise  * 15.0;
+                    h_body += midNoise  * 7.0;
+                    h_body += fineNoise * 2.5;
 
                     if (dist < PLATEAU_RADIUS) {
                         double dipT = dist / PLATEAU_RADIUS;
@@ -115,8 +110,10 @@ public class OlympusMonsFeature extends Feature<NoneFeatureConfiguration> {
                             dipAmount = DIP_DEPTH * (1.0 - k * k * (3.0 - 2.0 * k));
                         }
                         h_body -= dipAmount;
-                        double pitNoise = fbm2D(seed + 733L, wx * 0.150, wz * 0.150, 2) * 2 - 1;
-                        h_body += pitNoise * 1.2;
+
+                        // 平台表面相对平整
+                        double pitNoise = fbm2D(seed + 733L, wx * 0.100, wz * 0.100, 2) * 2 - 1;
+                        h_body += pitNoise * 0.8;
                     }
                 }
 
@@ -124,13 +121,25 @@ public class OlympusMonsFeature extends Feature<NoneFeatureConfiguration> {
                 double h_peak_bottom = Double.NEGATIVE_INFINITY;
                 double h_peak_top = Double.NEGATIVE_INFINITY;
 
-                if (dist < DOME_BASE_RADIUS) {
-                    double k = dist / DOME_BASE_RADIUS;
+                // 穹顶本身不进行坐标扭曲，确保中心战斗场地的平整
+                double realRelX = wx - CENTER_X;
+                double realRelZ = wz - CENTER_Z;
+                double realDist = Math.sqrt(realRelX * realRelX + realRelZ * realRelZ);
+
+                if (realDist < DOME_BASE_RADIUS) {
+                    double k = realDist / DOME_BASE_RADIUS;
                     h_peak_bottom = MAX_HEIGHT + DOME_BOTTOM_CLEARANCE * (1.0 - k);
 
                     double peakAdd = DOME_PEAK_HEIGHT * Math.exp(-DOME_SHARPNESS * k * k);
-                    double surfNoise = fbm2D(seed + 811L, wx * 0.07, wz * 0.07, 3) * 2 - 1;
-                    peakAdd += surfNoise * DOME_NOISE_AMP * k;
+
+                    double ridgeNoise = 1.0 - Math.abs(fbm2D(seed + 811L, wx * 0.04, wz * 0.04, 3) * 2 - 1);
+                    double noiseFade = Math.sin(k * Math.PI);
+
+                    peakAdd += (ridgeNoise - 0.5) * DOME_NOISE_AMP * noiseFade;
+
+                    double fineNoise = fbm2D(seed + 919L, wx * 0.15, wz * 0.15, 2) * 2 - 1;
+                    peakAdd += fineNoise * 1.5 * noiseFade;
+
                     if (peakAdd < 0) peakAdd = 0;
                     h_peak_top = h_peak_bottom + peakAdd;
                 }
@@ -138,7 +147,7 @@ public class OlympusMonsFeature extends Feature<NoneFeatureConfiguration> {
                 if (h_body == Double.NEGATIVE_INFINITY
                         && h_peak_top == Double.NEGATIVE_INFINITY) continue;
 
-                int groundY = level.getHeight(Heightmap.Types.OCEAN_FLOOR, wx, wz);
+                int groundY = level.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, wx, wz);
 
                 if (h_body != Double.NEGATIVE_INFINITY) {
                     int topY = groundY + (int) Math.round(h_body);
@@ -160,7 +169,6 @@ public class OlympusMonsFeature extends Feature<NoneFeatureConfiguration> {
                             placeStone(level, wx, y, wz);
                         }
 
-                        // 穹顶底部（下表面）点缀荧石
                         double glow = fbm2D(seed + 917L,
                                 wx * DOME_GLOW_FREQ, wz * DOME_GLOW_FREQ, 2);
                         if (glow > DOME_GLOW_THRESHOLD) {
@@ -176,7 +184,7 @@ public class OlympusMonsFeature extends Feature<NoneFeatureConfiguration> {
                     if (bodyTopY > SEA_LEVEL && bodyTopY < BUILD_LIMIT) {
                         BlockPos topPos = new BlockPos(wx, bodyTopY, wz);
 
-                        if (dist < GRASS_RADIUS) {
+                        if (realDist < GRASS_RADIUS) {
                             setBlock(level, topPos, Blocks.GRASS_BLOCK.defaultBlockState());
                             for (int d = 1; d <= 4; d++) {
                                 setBlock(level, topPos.below(d), Blocks.DIRT.defaultBlockState());
@@ -185,7 +193,7 @@ public class OlympusMonsFeature extends Feature<NoneFeatureConfiguration> {
                             setBlock(level, topPos, Blocks.STONE.defaultBlockState());
                         }
 
-                        if (dist < DOME_BASE_RADIUS) {
+                        if (realDist < DOME_BASE_RADIUS) {
                             BlockPos lightPos = topPos.above();
                             BlockState existing = level.getBlockState(lightPos);
                             if (existing.isAir() || existing.canBeReplaced()) {

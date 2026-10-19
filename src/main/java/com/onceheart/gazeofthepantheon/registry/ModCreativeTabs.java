@@ -64,9 +64,8 @@ public class ModCreativeTabs {
     public static final RegistryObject<CreativeModeTab> DEV_TEST_TAB = CREATIVE_MODE_TABS.register("dev_test",
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.gazeofthepantheon.dev_test"))
-                    .icon(() -> new ItemStack(ModItems.TEST_TP_UNFIXED_HEAVEN.get()))
+                    .icon(() -> new ItemStack(ModItems.TEST_TP_PRIMORDIAL_HUMAN_REALM.get()))
                     .displayItems((parameters, output) -> {
-                        output.accept(ModItems.TEST_TP_UNFIXED_HEAVEN.get());
                         output.accept(ModItems.TEST_TP_PRIMORDIAL_HUMAN_REALM.get());
                     })
                     .build());

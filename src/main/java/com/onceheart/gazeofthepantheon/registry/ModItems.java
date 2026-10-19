@@ -24,7 +24,6 @@ import com.onceheart.gazeofthepantheon.item.SoulContractItem;
 import com.onceheart.gazeofthepantheon.item.StopItem;
 import com.onceheart.gazeofthepantheon.item.StyxInfusionItem;
 import com.onceheart.gazeofthepantheon.item.TestTpPrimordialHumanRealmItem;
-import com.onceheart.gazeofthepantheon.item.TestTpUnfixedHeavenItem;
 import com.onceheart.gazeofthepantheon.item.ThanatosItem;
 import com.onceheart.gazeofthepantheon.item.WarGodsRecognitionItem;
 import com.onceheart.gazeofthepantheon.item.XiheItem;
@@ -126,9 +125,6 @@ public class ModItems {
             () -> new StopItem(new Item.Properties().stacksTo(1).rarity(Rarity.EPIC).fireResistant()));
 
     // ============ 开发测试 ============
-
-    public static final RegistryObject<Item> TEST_TP_UNFIXED_HEAVEN = ITEMS.register("test_tp_unfixed_heaven",
-            () -> new TestTpUnfixedHeavenItem(new Item.Properties().stacksTo(1)));
 
     public static final RegistryObject<Item> TEST_TP_PRIMORDIAL_HUMAN_REALM = ITEMS.register("test_tp_primordial_human_realm",
             () -> new TestTpPrimordialHumanRealmItem(new Item.Properties().stacksTo(1)));
